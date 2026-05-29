@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://4ytddy57ntbj"]
+[gd_scene format=3 uid="uid://4ytddy57ntbj"]
 
 [ext_resource type="Script" path="res://game/reward/AmberStar.gd" id="1_2dqo4"]
 [ext_resource type="Texture2D" uid="uid://ckc0ifu03wnnj" path="res://Sprites/All_Icons/Amber Star Crystal.png" id="2_3xgmm"]

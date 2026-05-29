@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbv66dce2ivcf"]
+[gd_scene format=3 uid="uid://bbv66dce2ivcf"]
 
 [ext_resource type="Script" path="res://ui/widgets/DeathBoard.gd" id="1_8mbf8"]
 [ext_resource type="Texture2D" uid="uid://bgommu3oa6qj2" path="res://Sprites/top.png" id="2_end64"]

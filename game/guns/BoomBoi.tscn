@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b5766vf0e5ckg"]
+[gd_scene format=3 uid="uid://b5766vf0e5ckg"]
 
 [ext_resource type="Script" path="res://game/guns/BoomBoi.gd" id="1_5fns6"]
 [ext_resource type="Texture2D" uid="uid://bsxk02hl7i4a6" path="res://Sprites/The Tiny Alchemist - Guns/gun5.png" id="2_7wcnc"]

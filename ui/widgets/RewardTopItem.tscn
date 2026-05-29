@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0fmrt6yufqow"]
+[gd_scene format=3 uid="uid://c0fmrt6yufqow"]
 
 [ext_resource type="Texture2D" uid="uid://clffkyywl07hu" path="res://Sprites/All_Icons/Blue Circuit.png" id="1_voo0w"]
 [ext_resource type="Script" path="res://ui/widgets/RewardTopItem.gd" id="2_dfkvk"]

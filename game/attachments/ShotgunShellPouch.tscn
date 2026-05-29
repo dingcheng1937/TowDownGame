@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0pyqarnrdu2x"]
+[gd_scene format=3 uid="uid://d0pyqarnrdu2x"]
 
 [ext_resource type="Script" path="res://game/attachments/ShotgunShellPouch.gd" id="1_5ymjp"]
 [ext_resource type="Texture2D" uid="uid://c3ucw6cvmxy2c" path="res://Sprites/icon/Icon5.png" id="2_kw8vx"]

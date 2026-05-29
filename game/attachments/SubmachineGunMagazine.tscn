@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4b0p6hgqj8po"]
+[gd_scene format=3 uid="uid://b4b0p6hgqj8po"]
 
 [ext_resource type="Script" path="res://game/attachments/SubmachineGunMagazine.gd" id="1_j5yya"]
 [ext_resource type="Texture2D" uid="uid://bseo1nxjdo0xx" path="res://Sprites/icon/Icon7.png" id="2_dy84t"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d05ce2okxp00o"]
+[gd_scene format=3 uid="uid://d05ce2okxp00o"]
 
 [ext_resource type="Script" path="res://game/guns/AlienMachine.gd" id="1_4ntsq"]
 [ext_resource type="Texture2D" uid="uid://diisnhqtfoian" path="res://Sprites/The Tiny Alchemist - Guns/gun8.png" id="2_a7fs4"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0g64opfu04tw"]
+[gd_scene format=3 uid="uid://c0g64opfu04tw"]
 
 [ext_resource type="Script" path="res://game/reward/GoldReward.gd" id="1_1snu5"]
 [ext_resource type="Texture2D" uid="uid://b61jdmfhju8ch" path="res://Sprites/All_Icons/Orange Chip.png" id="2_4k4dg"]

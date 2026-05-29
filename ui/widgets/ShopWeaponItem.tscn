@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://lnd438x2nlcf"]
+[gd_scene format=3 uid="uid://lnd438x2nlcf"]
 
 [ext_resource type="Texture2D" uid="uid://ckbwm7ehx8r5s" path="res://Sprites/item_box_no_shader.png" id="1_ssqco"]
 [ext_resource type="Script" path="res://ui/widgets/ShopWeaponItem.gd" id="2_t27ds"]

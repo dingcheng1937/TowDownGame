@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcu53i4v3dvv"]
+[gd_scene format=3 uid="uid://dcu53i4v3dvv"]
 
 [ext_resource type="Script" path="res://game/attachments/GrenadeLauncher.gd" id="1_4cecu"]
 [ext_resource type="Texture2D" uid="uid://drjhbnit71al8" path="res://Sprites/icon/Icon8.png" id="2_uuw0x"]

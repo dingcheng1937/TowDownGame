@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkwnhbv5hbr4m"]
+[gd_scene format=3 uid="uid://bkwnhbv5hbr4m"]
 
 [ext_resource type="Script" path="res://game/attachments/UniversalExtendedMagazines.gd" id="1_g2ew7"]
 [ext_resource type="Texture2D" uid="uid://csf68i2a12xlj" path="res://Sprites/icon/Icon1.png" id="2_c3wfv"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://de3jth52dynib"]
+[gd_scene format=3 uid="uid://de3jth52dynib"]
 
 [ext_resource type="Script" path="res://game/guns/RebalShotgun.gd" id="1_d7s20"]
 [ext_resource type="Texture2D" uid="uid://b0t4hl1td2sih" path="res://Sprites/The Tiny Alchemist - Guns/gun19.png" id="2_lerme"]

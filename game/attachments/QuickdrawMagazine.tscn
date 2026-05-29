@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cydjximj6cqs4"]
+[gd_scene format=3 uid="uid://cydjximj6cqs4"]
 
 [ext_resource type="Script" path="res://game/attachments/QuickdrawMagazine.gd" id="1_e418f"]
 [ext_resource type="Texture2D" uid="uid://dc8v0de1acv8o" path="res://Sprites/icon/Icon4.png" id="2_dbkto"]

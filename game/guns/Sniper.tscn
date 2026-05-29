@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dk6y6b7rnk5gi"]
+[gd_scene format=3 uid="uid://dk6y6b7rnk5gi"]
 
 [ext_resource type="Script" path="res://game/guns/Sniper.gd" id="1_6o8qy"]
 [ext_resource type="Texture2D" uid="uid://cfpfj57q4vtrj" path="res://Sprites/The Tiny Alchemist - Guns/gun4.png" id="2_g5sf4"]

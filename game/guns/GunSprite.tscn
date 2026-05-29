@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cc68iu3txq1go"]
+[gd_scene format=3 uid="uid://cc68iu3txq1go"]
 
 [ext_resource type="Script" path="res://game/guns/GunSprite.gd" id="2_r70tb"]
 [ext_resource type="PackedScene" uid="uid://dcdejklfqy5wk" path="res://game/bullets/SmpBullet.tscn" id="3_1a5xv"]

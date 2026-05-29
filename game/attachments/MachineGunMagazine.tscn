@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dv4q17vuswrmv"]
+[gd_scene format=3 uid="uid://dv4q17vuswrmv"]
 
 [ext_resource type="Script" path="res://game/attachments/MachineGunMagazine.gd" id="1_ccqfe"]
 [ext_resource type="Texture2D" uid="uid://c37uypngvijk3" path="res://Sprites/icon/Icon6.png" id="2_muycv"]

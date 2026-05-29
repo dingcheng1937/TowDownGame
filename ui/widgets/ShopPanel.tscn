@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dixoc75yqle3x"]
+[gd_scene format=3 uid="uid://dixoc75yqle3x"]
 
 [ext_resource type="Theme" uid="uid://d264vgetmywyw" path="res://ui/theme.tres" id="1_7krkc"]
 [ext_resource type="Texture2D" uid="uid://mqew24rgmer" path="res://Sprites/ui/Assets-1-恢复的_03.png" id="1_14ndp"]

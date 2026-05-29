@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c72j43fpjis5h"]
+[gd_scene format=3 uid="uid://c72j43fpjis5h"]
 
 [ext_resource type="FontFile" uid="uid://dhh0t8er20kt8" path="res://fonts/fusion-pixel.otf" id="1_oh6lh"]
 [ext_resource type="Script" path="res://ui/widgets/WeaponChoose.gd" id="1_qsqy6"]

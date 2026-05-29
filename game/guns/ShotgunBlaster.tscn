@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ccvrpwx3tbxa5"]
+[gd_scene format=3 uid="uid://ccvrpwx3tbxa5"]
 
 [ext_resource type="Script" path="res://game/guns/ShotgunBlaster.gd" id="1_msend"]
 [ext_resource type="Texture2D" uid="uid://cjn8x1hoi3imf" path="res://Sprites/The Tiny Alchemist - Guns/gun1.png" id="2_tws2b"]

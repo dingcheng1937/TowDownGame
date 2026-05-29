@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dx7hf08cs3x5t"]
+[gd_scene format=3 uid="uid://dx7hf08cs3x5t"]
 
 [ext_resource type="Script" path="res://game/reward/HpReward.gd" id="1_gf2fe"]
 [ext_resource type="Texture2D" uid="uid://ddaqqmhnpddyn" path="res://Sprites/All_Icons/Medkit.png" id="2_rxjqd"]

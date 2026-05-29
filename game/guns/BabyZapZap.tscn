@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckphrf0ytu8c5"]
+[gd_scene format=3 uid="uid://ckphrf0ytu8c5"]
 
 [ext_resource type="Script" path="res://game/guns/BabyZapZap.gd" id="1_taix2"]
 [ext_resource type="Texture2D" uid="uid://dvj87mlcwsq0d" path="res://Sprites/The Tiny Alchemist - Guns/gun3.png" id="2_5ow14"]
