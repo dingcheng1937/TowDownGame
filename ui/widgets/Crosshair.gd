@@ -5,7 +5,7 @@ var rotation_speed = PI
 
 func _ready() -> void:
 	set_process(false)
-	Utils.onGameStart.connect(self.onGameStart)
+	Utils.onGameStart.connect(onGameStart)
 
 func onGameStart():
 	set_process(true)
