@@ -21,7 +21,7 @@ func _ready() -> void:
 		var ins = item_pre.instantiate()
 		$Panel/HBoxContainer.add_child(ins)
 		ins.setData(gun)
-		ins.onWeaponClick.connect(self.weaponClick)
+		ins.onWeaponClick.connect(weaponClick)
 
 func weaponClick(id):
 	PlayerData.add_weapon(Utils.weapon_list[id].instantiate())

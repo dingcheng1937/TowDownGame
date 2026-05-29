@@ -22,7 +22,7 @@ func _ready():
 	set_process(false)
 	get_tree().create_tween().set_ease(Tween.EASE_OUT_IN).tween_property(self,"scale",Vector2(1.2,1.2),0.1).from(Vector2(0.5,1.5))
 	add_child(timer)
-	timer.timeout.connect(self._on_timer_timeout)
+	timer.timeout.connect(_on_timer_timeout)
 	timer.start(0.05)
 	z_index = 0
 

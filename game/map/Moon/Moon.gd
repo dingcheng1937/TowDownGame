@@ -3,7 +3,7 @@ extends Node2D
 const monster = preload("res://game/monster/Ghoul/Ghoul.tscn")
 
 func _init() -> void:
-	Utils.onGameStart.connect(self.onGameStart)
+	Utils.onGameStart.connect(onGameStart)
 
 func _ready() -> void:
 	PlayerServer.addPlayerToScene($TileMap/PlayerRoot)

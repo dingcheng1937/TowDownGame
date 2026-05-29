@@ -59,11 +59,11 @@ var audio_reload_ammo = AudioStreamPlayer.new()
 
 func _init():
 	change_timer.one_shot = true
-	change_timer.timeout.connect(self.reload_over)
+	change_timer.timeout.connect(reload_over)
 	
 func _ready() -> void:
 	add_to_group("guns")
-	PlayerData.onPlayerFireRateChange.connect(self.onPlayerFireRateChange)
+	PlayerData.onPlayerFireRateChange.connect(onPlayerFireRateChange)
 	add_child(attachments_node)
 	bullets_count = bullets_max_count
 	add_child(change_timer)

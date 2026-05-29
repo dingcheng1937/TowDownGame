@@ -10,8 +10,8 @@ var is_open = true
 
 func _ready():
 	add_to_group("Portal")
-	$Area2D.body_entered.connect(self._on_area_2d_body_entered)
-	$Area2D.body_exited.connect(self._on_area_2d_body_exited)
+	$Area2D.body_entered.connect(_on_area_2d_body_entered)
+	$Area2D.body_exited.connect(_on_area_2d_body_exited)
 
 func _on_area_2d_body_entered(body):
 	if body is Player && next_area && next_area.is_open && is_open:
@@ -35,8 +35,8 @@ func reset():
 		$Area2D.body_entered.disconnect(self._on_area_2d_body_entered)
 	if $Area2D.body_exited.is_connected(self._on_area_2d_body_exited):
 		$Area2D.body_exited.disconnect(self._on_area_2d_body_exited)
-	$Area2D.body_entered.connect(self._on_area_2d_body_entered)
-	$Area2D.body_exited.connect(self._on_area_2d_body_exited)
+	$Area2D.body_entered.connect(_on_area_2d_body_entered)
+	$Area2D.body_exited.connect(_on_area_2d_body_exited)
 
 func close():
 	if $Area2D.body_entered.is_connected(self._on_area_2d_body_entered):

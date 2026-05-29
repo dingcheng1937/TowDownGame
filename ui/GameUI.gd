@@ -26,16 +26,16 @@ const rw_top = preload("res://ui/widgets/RewardTopItem.tscn")
 var inv_ui
 
 func _ready() -> void:
-	Utils.onGameStart.connect(self.onGameStart)
-	RewardServer.onRewardAdd.connect(self.onRewardAdd)
-	PlayerData.onRewardChange.connect(self.onRewardChange)
-	PlayerData.onGoldChange.connect(self.onGoldChange)
-	PlayerData.onAmmoChange.connect(self.onAmmoChange)
-	PlayerData.onPlayerLevelChange.connect(self.onPlayerLevelChange)
-	PlayerData.onPlayerExpChange.connect(self.onPlayerExpChange)
-	PlayerData.playerWeaponListChange.connect(self.playerWeaponListChange) #武器列表化监听
-	PlayerData.onWeaponChangeAnim.connect(self.onWeaponChangeAnim) #武器化监听
-	PlayerData.onWeaponBulletsChange.connect(self.onWeaponBulletsChange) #武器化监听
+	Utils.onGameStart.connect(onGameStart)
+	RewardServer.onRewardAdd.connect(onRewardAdd)
+	PlayerData.onRewardChange.connect(onRewardChange)
+	PlayerData.onGoldChange.connect(onGoldChange)
+	PlayerData.onAmmoChange.connect(onAmmoChange)
+	PlayerData.onPlayerLevelChange.connect(onPlayerLevelChange)
+	PlayerData.onPlayerExpChange.connect(onPlayerExpChange)
+	PlayerData.playerWeaponListChange.connect(playerWeaponListChange) #武器列表化监听
+	PlayerData.onWeaponChangeAnim.connect(onWeaponChangeAnim) #武器化监听
+	PlayerData.onWeaponBulletsChange.connect(onWeaponBulletsChange) #武器化监听
 	PlayerData.onHpChange.connect(func hpChange(hp,max_hp): #血量变化监听
 		hp_bar.max_value = max_hp;hp_bar.value = hp)
 

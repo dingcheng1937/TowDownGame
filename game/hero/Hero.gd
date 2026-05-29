@@ -21,15 +21,15 @@ var is_dash = false
 var look_dir = null
 
 func _init() -> void:
-	PlayerData.onHpChange.connect(self.onHpChange)
-	PlayerData.onPlayerResurrect.connect(self.onPlayerResurrect)
-	Utils.onGameStart.connect(self.onGameStart)
+	PlayerData.onHpChange.connect(onHpChange)
+	PlayerData.onPlayerResurrect.connect(onPlayerResurrect)
+	Utils.onGameStart.connect(onGameStart)
 
 func _ready():
 	set_physics_process(false)
 	set_process(false)
-	PlayerData.onPlayerLevelChange.connect(self.onPlayerLevelChange)
-	PlayerData.playerWeaponListChange.connect(self.playerWeaponListChange)
+	PlayerData.onPlayerLevelChange.connect(onPlayerLevelChange)
+	PlayerData.playerWeaponListChange.connect(playerWeaponListChange)
 	Utils.player = self
 	#PlayerData.add_attachment(preload("res://game/attachments/UniversalExtendedMagazines.tscn").instantiate())
 	#PlayerData.add_attachment(preload("res://game/attachments/ExtendedRifleMagazine.tscn").instantiate())

@@ -4,12 +4,12 @@ extends Node2D
 @onready var land = $Land
 
 func _init() -> void:
-	Utils.onGameStart.connect(self.onGameStart)
+	Utils.onGameStart.connect(onGameStart)
 
 func _ready() -> void:
 	$MonsterBuilder.land = land
 	$MonsterBuilder.monsterRoot = $MonsterRoot
-	$CanvasLayer.onMonsterJoin.connect(self.onMonsterJoin)
+	$CanvasLayer.onMonsterJoin.connect(onMonsterJoin)
 	PlayerServer.addPlayerToScene($PlayerRoot)
 	PlayerServer.setPlayerPosition($CreatePosition.global_position)
 	Utils.gameStart()

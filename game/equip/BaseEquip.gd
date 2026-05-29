@@ -17,7 +17,7 @@ var equip_texture_ins #状态UI
 
 func _ready():
 	timer.wait_time = 0.1
-	timer.timeout.connect(self.on_timeout)
+	timer.timeout.connect(on_timeout)
 	add_child(timer)
 
 func _input(event):

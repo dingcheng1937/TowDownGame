@@ -7,7 +7,7 @@ var local_id = 0
 var pressed_name = ""
 
 func _ready() -> void:
-	PlayerData.onWeaponChanged.connect(self.onWeaponChanged)
+	PlayerData.onWeaponChanged.connect(onWeaponChanged)
 	var pressed_index = get_index() + 1
 	press_label.text = str(pressed_index)
 	pressed_name = "pressed_%s" %pressed_index

@@ -6,7 +6,7 @@ const pre = preload("res://ui/widgets/RewardShopItem.tscn")
 @onready var info_label = $NinePatchRect/Label3
 
 func _ready() -> void:
-	PlayerData.onRewardChange.connect(self.onRewardChange)
+	PlayerData.onRewardChange.connect(onRewardChange)
 	loadList(false)
 	onRewardChange(PlayerData.reward_point)
 
@@ -20,8 +20,8 @@ func loadList(reload):
 		var ins = pre.instantiate()
 		list.add_child(ins)
 		ins.setData(item)
-		ins.onClick.connect(self.onClick)
-		ins.onMouseIn.connect(self.onMouseIn)
+		ins.onClick.connect(onClick)
+		ins.onMouseIn.connect(onMouseIn)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):

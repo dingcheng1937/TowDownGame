@@ -5,11 +5,11 @@ extends Control
 const pre = preload("res://ui/ModeSelect.tscn")
 
 func _ready() -> void:
-	Utils.onGameStart.connect(self.onGameStart)
+	Utils.onGameStart.connect(onGameStart)
 
 func _on_start_pressed() -> void:
 	var ins = pre.instantiate()
-	ins.onModeChoose.connect(self.onModeChoose)
+	ins.onModeChoose.connect(onModeChoose)
 	add_child(ins)
 
 func onModeChoose(mode):

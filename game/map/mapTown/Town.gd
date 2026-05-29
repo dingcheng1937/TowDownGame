@@ -25,14 +25,14 @@ const monster_pre = preload("res://game/monster/Monster 2/Monster2.tscn")
 const death_borad = preload("res://ui/widgets/DeathBoard.tscn")
 
 func _ready():
-	LevelServer.monsterCreate.connect(self.monsterCreate)
-	LevelServer.roundVictory.connect(self.roundVictory)
-	LevelServer.onTimeTick.connect(self.onTimeTick)
-	LevelServer.onRoundStart.connect(self.onRoundStart)
-	LevelServer.onRoundEnd.connect(self.onRoundEnd)
-	LevelServer.onNextLevel.connect(self.onNextLevel)
-	Utils.onGameStart.connect(self.onGameStart)
-	PlayerData.onPlayerDeath.connect(self.onPlayerDeath)
+	LevelServer.monsterCreate.connect(monsterCreate)
+	LevelServer.roundVictory.connect(roundVictory)
+	LevelServer.onTimeTick.connect(onTimeTick)
+	LevelServer.onRoundStart.connect(onRoundStart)
+	LevelServer.onRoundEnd.connect(onRoundEnd)
+	LevelServer.onNextLevel.connect(onNextLevel)
+	Utils.onGameStart.connect(onGameStart)
+	PlayerData.onPlayerDeath.connect(onPlayerDeath)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if $CanvasLayer/openShop.visible && Input.is_action_just_pressed("e"):

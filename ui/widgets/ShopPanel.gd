@@ -24,7 +24,7 @@ func _ready() -> void:
 		var ins = wi_pre.instantiate()
 		shop_weapon_list.add_child(ins)
 		ins.setData(id)
-		ins.onWeaponClick.connect(self.onWeaponClick)
+		ins.onWeaponClick.connect(onWeaponClick)
 	loadAmList()
 
 func loadAmList():
@@ -34,8 +34,8 @@ func loadAmList():
 		var ins = wi_pre.instantiate()
 		shop_am_list.add_child(ins)
 		ins.setAmData(item)
-		ins.mouseEvent.connect(self.mouseEvent)
-		ins.onAmClick.connect(self.onAmClick)
+		ins.mouseEvent.connect(mouseEvent)
+		ins.onAmClick.connect(onAmClick)
 
 func onWeaponClick(id,gun:BaseGun):
 	choose_id = id

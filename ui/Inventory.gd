@@ -29,13 +29,13 @@ func _exit_tree() -> void:
 
 func _ready() -> void:
 	for node in weapon_am_nodes:
-		node.mouseEvent.connect(self.mouseEvent)
-		node.checkTouchDown.connect(self.checkTouchDown)
+		node.mouseEvent.connect(mouseEvent)
+		node.checkTouchDown.connect(checkTouchDown)
 
 	for item in PlayerData.player_weapon_list:
 		if !weapon_lsit_node.has_node(str(item)):
 			var ins = weapon_item_pre.instantiate()
-			ins.weapon_click.connect(self.weapon_click)
+			ins.weapon_click.connect(weapon_click)
 			ins.name = str(item)
 			ins.local_id = item
 			weapon_lsit_node.add_child(ins)
@@ -52,9 +52,9 @@ func loadBag():
 	for item in PlayerData.player_am_list:
 		if !am_list_node.has_node(str(item)) && PlayerData.player_am_list[item].gun == null:
 			var ins = attachmont_item_pre.instantiate()
-			ins.mouseEvent.connect(self.mouseEvent)
-			ins.onTouchDown.connect(self.onTouchDown)
-			ins.onTouchUp.connect(self.onTouchUp)
+			ins.mouseEvent.connect(mouseEvent)
+			ins.onTouchDown.connect(onTouchDown)
+			ins.onTouchUp.connect(onTouchUp)
 			ins.name = str(item)
 			ins.local_id = item
 			am_list_node.add_child(ins)

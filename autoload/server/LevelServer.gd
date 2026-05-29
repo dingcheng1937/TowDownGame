@@ -92,7 +92,7 @@ signal onNextLevel(level) #下一关
 
 func _ready() -> void:
 	timer.wait_time = 0.1
-	timer.timeout.connect(self._timeout)
+	timer.timeout.connect(_timeout)
 	add_child(timer)
 
 func roundStart():
