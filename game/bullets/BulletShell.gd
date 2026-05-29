@@ -5,8 +5,8 @@ var spin_speed = 100
 func _ready() -> void:
 	spin_speed = randi_range(-15,15)
 
-func start(start):
-	apply_impulse(-(start + Vector2(0,200)) )
+func start(start_pos):
+	apply_impulse(-(start_pos + Vector2(0,200)) )
 
 func _physics_process(delta: float) -> void:
 	rotation += spin_speed * delta

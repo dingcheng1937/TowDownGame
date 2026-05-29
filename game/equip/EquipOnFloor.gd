@@ -7,7 +7,7 @@ func _ready():
 	if equip:
 		$TextureRect.texture = equip.equip_image
 
-func _unhandled_input(event):
+func _unhandled_input(_event):
 	if Input.is_action_pressed("e") && $Label.visible && !is_pick:
 		get_viewport().set_input_as_handled()
 		is_pick = true

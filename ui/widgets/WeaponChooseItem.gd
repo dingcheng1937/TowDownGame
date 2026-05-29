@@ -7,9 +7,9 @@ signal onWeaponClick(gun)
 func _ready() -> void:
 	pass # Replace with function body.
 
-func setData(id):
-	self.id = id
-	self.gun = Utils.weapon_list[id].instantiate()
+func setData(_id):
+	self.id = _id
+	self.gun = Utils.weapon_list[_id].instantiate()
 	$TextureRect.texture = gun.image
 	$Label.text = tr(gun.weapon_name)
 

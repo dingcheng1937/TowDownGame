@@ -17,8 +17,8 @@ var am = null
 func _ready() -> void:
 	item_name.text = tr(am_type)
 
-func setData(am:BaseAttachment):
-	self.am = am
+func setData(_am:BaseAttachment):
+	self.am = _am
 	if am != null:
 		$Button.visible = true
 		item_image.texture = am.am_image
@@ -26,8 +26,8 @@ func setData(am:BaseAttachment):
 		$Button.visible = false
 		item_image.texture = null
 
-func setState(state):
-	self.state = state
+func setState(_state):
+	self.state = _state
 	if !state:
 		modulate = Color("#474747")
 	else:

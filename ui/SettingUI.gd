@@ -39,7 +39,7 @@ func _on_volume_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"),(value - 50) / 5)
 	ConfigUtils.setConfig("setting","volume",value)
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel") && !Utils.is_inv_show:
 		if Utils.is_game_start && !visible:
 			show()

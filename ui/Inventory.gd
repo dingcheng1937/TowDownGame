@@ -59,8 +59,8 @@ func loadBag():
 			ins.local_id = item
 			am_list_node.add_child(ins)
 
-func mouseEvent(show,am):
-	tip.visible = show
+func mouseEvent(_show,am):
+	tip.visible = _show
 	tip.setData(am)
 
 func loadWeaponAm():
@@ -117,12 +117,12 @@ func checkTouchDown(am:BaseAttachment):
 	loadBag()
 	Utils.showToast("INVENTORY_AM_DOWN")
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		Utils.crosshairChange(true)
 		queue_free()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if touch_texture.visible:
 		var mouse_position = get_global_mouse_position() - Vector2(12,12)
 		touch_texture.global_position = mouse_position

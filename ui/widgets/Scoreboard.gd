@@ -21,11 +21,11 @@ func _ready() -> void:
 	kill.text = "%s: %s" %[tr("DEFEAT ENEMIES"),data["kill"]]
 	gold.text = "%s: %s" %[tr("OBTAIN GOLD"),data["gold"]]
 
-func setData(data):
-	self.data = data
+func setData(_data):
+	self.data = _data
 
-func setCallBack(callback:Callable):
-	self.callback = callback
+func setCallBack(_callback:Callable):
+	self.callback = _callback
 
 func _on_button_pressed() -> void:
 	if callback:

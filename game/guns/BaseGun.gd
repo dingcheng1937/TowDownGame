@@ -109,12 +109,12 @@ func reload_over():
 	is_reloading = false
 
 #设置枪械所属
-func setOwner(player):
-	self.player = player
+func setOwner(_player):
+	self.player = _player
 
-func _process(delta):
+func _process(_delta):
 	if Utils.freeze_frame:
-		delta = 0.0
+		_delta = 0.0
 	var mouse_pos = get_global_mouse_position()
 	direction = (mouse_pos - gun_tip.global_position).normalized()
 	
@@ -182,9 +182,9 @@ func reload_ammo():
 func playReload():
 	anim_player.play("reload")
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Utils.freeze_frame:
-		delta = 0.0
+		_delta = 0.0
 	#if Utils.freeze_frame:
 		#if Engine.get_physics_frames() % freeze_frame == 0:
 			# 暂停一帧

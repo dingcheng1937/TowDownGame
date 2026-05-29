@@ -6,8 +6,8 @@ extends Panel
 
 var am :BaseAttachment= null
 
-func setData(am:BaseAttachment):
-	self.am = am
+func setData(_am:BaseAttachment):
+	self.am = _am
 	if am != null:
 		am._checkTypeList()
 		type.text = tr("TOOLTIP_TYPE") + tr(am.am_type)

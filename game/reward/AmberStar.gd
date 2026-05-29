@@ -3,7 +3,7 @@ extends BaseReward
 var mark_dict = { #怪物标记
 }
 
-func afterAtk(monster:BaseMonster,hit_num):#怪物收到伤害后触发
+func afterAtk(monster:BaseMonster,_hit_num):#怪物收到伤害后触发
 	if mark_dict.has(monster.name):
 		mark_dict[monster.name] += 1
 	else:

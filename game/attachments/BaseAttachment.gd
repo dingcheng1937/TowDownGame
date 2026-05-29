@@ -41,8 +41,8 @@ func _checkTypeList():
 	if LASER_WEAPONS:use_type.append("LASER_WEAPONS")
 
 #装备上武器
-func onWeaponUp(gun):
-	self.gun = gun
+func onWeaponUp(_gun):
+	self.gun = _gun
 	onStart()
 	gunUpdate()
 

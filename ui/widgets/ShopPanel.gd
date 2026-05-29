@@ -71,8 +71,8 @@ func _on_button_2_pressed() -> void:
 	choose_id = null
 	choose_am = null
 
-func mouseEvent(show,am):
-	tip.visible = show
+func mouseEvent(_show,am):
+	tip.visible = _show
 	tip.setData(am)
 
 #关闭
@@ -97,7 +97,7 @@ func _on_health_pressed() -> void:
 		PlayerData.player_hp = PlayerData.player_hp_max
 		player.play()
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		queue_free()

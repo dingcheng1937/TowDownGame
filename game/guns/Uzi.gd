@@ -7,8 +7,8 @@ func _process(delta):
 func _shoot():
 	super._shoot()
 	var mouse_pos = get_global_mouse_position()
-	var direction = (mouse_pos - gun_tip.global_position).normalized()
-	gun_tip.rotation = direction.angle()
+	var gun_direction = (mouse_pos - gun_tip.global_position).normalized()
+	gun_tip.rotation = gun_direction.angle()
 	var b = bullet_scene.instantiate()
 	b.setOnwer(player)
 	get_tree().root.add_child(b)
@@ -18,9 +18,9 @@ func _shoot():
 
 func _shootAnim():
 	super._shootAnim()
-	var tween = get_tree().create_tween().set_parallel(true)
-	tween.tween_property(self, "position", position, timer.wait_time).from(position + Vector2(-1, -1))
-	tween.tween_property($Sprite2D, "scale", Vector2(1,1), timer.wait_time).from(Vector2(0.5, 1.1))
+	var gun_tween = get_tree().create_tween().set_parallel(true)
+	gun_tween.tween_property(self, "position", position, timer.wait_time).from(position + Vector2(-1, -1))
+	gun_tween.tween_property($Sprite2D, "scale", Vector2(1,1), timer.wait_time).from(Vector2(0.5, 1.1))
 
 func _on_timer_timeout():
 	can_shoot = true

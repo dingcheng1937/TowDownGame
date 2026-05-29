@@ -11,9 +11,9 @@ signal onClick(id)
 func _ready() -> void:
 	create_tween().tween_property(self,"scale",Vector2(1,1),0.2).from(Vector2(0,0))
 
-func setData(id):
-	self.id = id
-	ins = RewardServer.reward_list[id].instantiate()
+func setData(_id):
+	self.id = _id
+	ins = RewardServer.reward_list[_id].instantiate()
 	image.texture = ins.reward_image
 	rw_name.text = ins.reward_name
 

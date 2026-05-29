@@ -123,7 +123,7 @@ func onPlayerExpChange(exp,max_exp):
 	level_bar.max_value = max_exp
 	level_bar.value = exp
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("inv") && Utils.is_game_start && !is_instance_valid(inv_ui):
 		if Utils.player.gun == null:
 			Utils.showToast("PLEASE PURCHASE A WEAPON FIRST")

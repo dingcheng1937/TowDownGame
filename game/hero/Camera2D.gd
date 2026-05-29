@@ -10,7 +10,7 @@ var center_vertical_pos:int
 
 func _process(_delta:float)->void :
 	if Engine.get_process_frames() % 5 == 0:
-		var target_pos = Utils.player.global_position
+		var _target_pos = Utils.player.global_position
 		var camera_pos = get_global_transform().origin
 		var distance = get_global_mouse_position().distance_to(camera_pos)
 		var max_distance = 10  # 最大距离

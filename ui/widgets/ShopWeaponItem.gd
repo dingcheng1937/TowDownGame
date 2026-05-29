@@ -9,16 +9,16 @@ signal onAmClick(am)
 
 signal mouseEvent(is_show)
 
-func setData(id):
-	self.id = id
-	self.gun = Utils.weapon_list[id].instantiate()
+func setData(_id):
+	self.id = _id
+	self.gun = Utils.weapon_list[_id].instantiate()
 	$TextureRect.texture = gun.image
 	$Label.text = str(Utils.weapon_money_list[id])
 	tooltip_text = gun.weapon_name
 
-func setAmData(id):
-	self.id = id
-	self.am = Utils.am_dict[id].instantiate()
+func setAmData(_id):
+	self.id = _id
+	self.am = Utils.am_dict[_id].instantiate()
 	texture = null
 	$TextureRect.texture = am.am_image
 	#$Label.text = str(Utils.weapon_money_list[id])

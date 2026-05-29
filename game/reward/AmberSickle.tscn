@@ -8,7 +8,7 @@ script/source = "extends BaseReward
 var fire = preload(\"res://game/other/FireEffect.tscn\").instantiate()
 var kill_count = 0
 
-func onKill(monster:BaseMonster):
+func onKill(_monster:BaseMonster):
 	kill_count += 1
 	if kill_count == 3:
 		doBuff()

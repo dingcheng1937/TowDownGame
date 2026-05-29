@@ -63,13 +63,13 @@ var player_level = 1:
 
 var player_exp = 0:
 	set(value):
-		var max = getMaxExp()
-		if player_exp >= max:
+		var max_exp = getMaxExp()
+		if player_exp >= max_exp:
 			player_exp = 0
 			player_level += 1
 		else:
 			player_exp = value
-		emit_signal("onPlayerExpChange",player_exp,max)
+		emit_signal("onPlayerExpChange",player_exp,max_exp)
 
 #设置血量
 func resurrectPlayer(hp, ammo_percentage):
@@ -102,7 +102,7 @@ func add_weapon(weapon:BaseGun):
 
 #添加一堆武器
 func add_weapons(weapons :Array):
-	var is_change = false
+	var _is_change = false
 	for item in weapons:
 		add_weapon(item)
 	emit_signal("playerWeaponListChange")
@@ -120,7 +120,7 @@ func changeWeapon(weapon_id:int):
 		Utils.player.changeWeapon(weapon_id)
 		#Engine.time_scale = 0.1
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if is_change_weapon && Engine.get_physics_frames() % 90 == 0:
 		Engine.time_scale = 1
 		is_change_weapon = false

@@ -32,19 +32,19 @@ func onRewardStart():
 func onRewardRemove():
 	pass
 
-func afterAtk(monster:BaseMonster,hit_num):#怪物收到伤害后触发
+func afterAtk(_monster:BaseMonster,_hit_num):#怪物收到伤害后触发
 	pass
 
-func beforeAtk(monster:BaseMonster,hit_num):#怪物收到伤害前触发
+func beforeAtk(_monster:BaseMonster,_hit_num):#怪物收到伤害前触发
 	return 0
 
-func beforePlayerHit(hit_num):#玩家收到伤害前触发
+func beforePlayerHit(_hit_num):#玩家收到伤害前触发
 	return 0
 
-func afterPlayerHit(hit_num): #玩家收到伤害后触发
+func afterPlayerHit(_hit_num): #玩家收到伤害后触发
 	return 0
 
-func onKill(monster:BaseMonster): #击杀后触发
+func onKill(_monster:BaseMonster): #击杀后触发
 	pass
 
 func onCountChange():

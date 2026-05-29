@@ -26,8 +26,8 @@ func _ready():
 	timer.start(0.05)
 	z_index = 0
 
-func setOnwer(player):
-	self.player = player
+func setOnwer(_player):
+	self.player = _player
 
 func start(local:Vector2,pos:Vector2):
 	global_position = local

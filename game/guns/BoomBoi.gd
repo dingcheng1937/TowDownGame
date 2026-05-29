@@ -14,15 +14,15 @@ var one_bullet_array = []
 func _shoot():
 	super._shoot()
 	var mouse_pos = get_global_mouse_position()
-	var direction = (mouse_pos - gun_tip.global_position).normalized()
-	gun_tip.rotation = direction.angle()
+	var gun_direction = (mouse_pos - gun_tip.global_position).normalized()
+	gun_tip.rotation = gun_direction.angle()
 	openFire()
 
 func _shootAnim():
 	super._shootAnim()
-	var tween = get_tree().create_tween().set_parallel(true)
-	tween.tween_property(self, "position", position, timer.wait_time).from(position + Vector2(-1, -1))
-	tween.tween_property($Sprite2D, "scale", Vector2(1,1), timer.wait_time).from(Vector2(0.5, 1.1))
+	var gun_tween = get_tree().create_tween().set_parallel(true)
+	gun_tween.tween_property(self, "position", position, timer.wait_time).from(position + Vector2(-1, -1))
+	gun_tween.tween_property($Sprite2D, "scale", Vector2(1,1), timer.wait_time).from(Vector2(0.5, 1.1))
 	add_child(particles_pre.instantiate())
 
 func _on_timer_timeout():
@@ -69,16 +69,16 @@ func openLaser():
 	tick.start()
 	particles_end.emitting = true
 	particles_box.emitting = true
-	var tween = get_tree().create_tween().set_ease(Tween.EASE_OUT)
-	tween.tween_property(line_2d,"width",6.0,0.2)
+	var gun_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT)
+	gun_tween.tween_property(line_2d,"width",6.0,0.2)
 
 func stopLaser():
 	tick.stop()
 	is_cast = false
 	particles_end.emitting = false
 	particles_box.emitting = false
-	var tween = get_tree().create_tween().set_ease(Tween.EASE_OUT)
-	tween.tween_property(line_2d,"width",0.0,0.2)
+	var gun_tween = get_tree().create_tween().set_ease(Tween.EASE_OUT)
+	gun_tween.tween_property(line_2d,"width",0.0,0.2)
 
 
 func _on_tick_timeout() -> void:

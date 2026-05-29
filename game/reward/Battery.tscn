@@ -7,7 +7,7 @@ script/source = "extends BaseReward
 
 var is_time_out = false
 
-func beforeAtk(monster:BaseMonster,hit_num):#怪物收到伤害前触发
+func beforeAtk(_monster:BaseMonster,hit_num):#怪物收到伤害前触发
 	if is_time_out:
 		is_time_out = false
 		return (count * 0.5) * hit_num

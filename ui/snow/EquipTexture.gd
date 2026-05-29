@@ -14,5 +14,5 @@ func _ready():
 			"mouse_right":equip_key.texture = load("res://Sprites/ui/key/tile_0112.png")
 			"space":equip_key.texture = load("res://Sprites/ui/key/tile_0235.png")
 
-func setEquip(equip):
-	self.equip = equip
+func setEquip(_equip):
+	self.equip = _equip

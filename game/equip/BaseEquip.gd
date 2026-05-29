@@ -20,7 +20,7 @@ func _ready():
 	timer.timeout.connect(on_timeout)
 	add_child(timer)
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_pressed(equip_quick_key) && temp_cd <= 0:
 		temp_cd = cd_time
 		timer.start()
