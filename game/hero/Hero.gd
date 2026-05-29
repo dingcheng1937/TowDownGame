@@ -41,7 +41,7 @@ func _ready():
 func updateHero():
 	SPEED = 100 * PlayerData.player_speed
 
-func onPlayerLevelChange(level):
+func onPlayerLevelChange(_level):
 	var ins = level_up_effect.instantiate()
 	add_child(ins)
 
@@ -69,7 +69,7 @@ func playerWeaponListChange():
 				gun = local_gun
 				gun.set_use(true)
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("dash") && !is_dash:
 		is_dash = true
 		dash_part.emitting = true
@@ -100,11 +100,12 @@ func _physics_process(delta):
 		gun.look_at(get_global_mouse_position())
 		setGunLookat(get_global_mouse_position())
 
-func set_knockback(knockback_speed):
-	self.knockback_speed = knockback_speed
-	is_knockback = true
-	await get_tree().create_timer(0.05).timeout.connect(func timeout():
-		is_knockback = false;self.knockback_speed = 0)
+func set_knockback(knockback_speed_value):
+	self.knockback_speed = knockback_speed_value
+	if not is_knockback:
+		is_knockback = true
+		get_tree().create_timer(0.05).timeout.connect(func timeout():
+			is_knockback = false;self.knockback_speed = 0)
 
 func setGunLookat(dir):
 	if dir != null:
@@ -164,7 +165,7 @@ func onHit(hurt):
 		if node.connect_afterPlayerHit:
 			node.call("afterPlayerHit",hurt)
 
-func onHpChange(hp,max_hp):
+func onHpChange(hp,_max_hp):
 	if hp <= 0:
 		is_dead = true
 		anim.play("die")

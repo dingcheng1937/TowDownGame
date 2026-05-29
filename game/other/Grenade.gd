@@ -14,7 +14,6 @@ func _process(delta):
 	velocity.y += GRAVITY * delta
 	var collision = move_and_collide(velocity * delta * 1.2)
 	if collision:
-		var target = collision.get_collider()
 		set_process(false)
 		$AudioStreamPlayer2D.play()
 		$AnimatedSprite2D.visible = true

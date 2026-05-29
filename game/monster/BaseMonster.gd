@@ -35,7 +35,7 @@ func setData(data):
 	HP = data['hp']
 	knockback_def = 5
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if idle_frame_num > 0:
 		Utils.showHitLabel(idle_frame_num,self)
 		idle_frame_num = 0
@@ -74,7 +74,7 @@ func flip_h(flip:bool):
 	var x_axis = sprite_body.global_transform.x
 	sprite_body.global_transform.x.x = (-1 if flip else 1) * abs(x_axis.x)
 
-func hitFlash(collisionResult,bullet:Bullet):
+func hitFlash(_collisionResult,bullet:Bullet):
 	if is_die:
 		return
 	Utils.freezeFrame(bullet.gun.time_scale)
@@ -83,12 +83,13 @@ func hitFlash(collisionResult,bullet:Bullet):
 	var speed = bullet.knockback_speed - knockback_def
 	if speed > 0:
 		velocity = -(global_position.direction_to(Utils.player.global_position)) * speed
-		hit = true
+		if not hit:
+			hit = true
+			get_tree().create_timer(bullet.knockback_time).timeout.connect(func timeout():
+				hit = false )
 	#var materialFlash = ShaderMaterial.new()
 	#materialFlash.shader = load("res://shader/Monster1.gdshader")
 	#sprite_body.get_node("AnimatedSprite2D").material = materialFlash
-	await get_tree().create_timer(bullet.knockback_time).timeout.connect(func timeout():
-		sprite_body.get_node("AnimatedSprite2D").material = null; hit = false )
 
 var idle_frame_num = 0
 func onHit(hit_num,is_show_label = true,is_death_effect = true):
@@ -132,8 +133,8 @@ func onDie(is_death_effect = true):
 	await anim.animation_finished
 	queue_free()
 	
-func setDeathCallBack(death_callback:Callable):
-	self.death_callback = death_callback
+func setDeathCallBack(_death_callback:Callable):
+	self.death_callback = _death_callback
 
 func addEffect(node):
 	get_node("EffectRoot").add_child(node)
