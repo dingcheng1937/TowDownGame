@@ -11,7 +11,7 @@ func _ready() -> void:
 	ExtractionServer.extraction_available.connect(_on_extraction_available)
 	ExtractionServer.extraction_started.connect(_on_extraction_started)
 	ExtractionServer.extraction_completed.connect(_on_extraction_completed)
-	ExtractionServer.extraction_countdown.connect(_on_countdown)
+	ExtractionServer.countdown_tick.connect(_on_countdown)
 
 	_update_initial_state()
 

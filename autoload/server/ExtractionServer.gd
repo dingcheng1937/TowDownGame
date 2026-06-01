@@ -6,7 +6,7 @@ signal extraction_available()
 signal extraction_started()
 signal extraction_completed()
 signal extraction_failed(reason: String)
-signal extraction_countdown(time_remaining: float)
+signal countdown_tick(time_remaining: float)
 
 ## 撤离条件类型
 enum ExtractionCondition {
@@ -35,7 +35,7 @@ var conditions: Dictionary = {
 }
 
 ## 撤离倒计时
-var extraction_countdown: float = 5.0
+var countdown_time: float = 5.0
 var countdown_timer: Timer
 
 ## 时间统计
@@ -115,7 +115,7 @@ func cancel_extraction() -> void:
 	if current_state == ExtractionState.IN_PROGRESS:
 		countdown_timer.stop()
 		current_state = ExtractionState.AVAILABLE
-		extraction_countdown = 5.0
+		countdown_time = 5.0
 
 
 ## 完成撤离
@@ -138,10 +138,10 @@ func fail_extraction(reason: String) -> void:
 
 ## 倒计时tick
 func _on_countdown_tick() -> void:
-	extraction_countdown -= 0.1
-	emit_signal("extraction_countdown", extraction_countdown)
+	countdown_time -= 0.1
+	emit_signal("countdown_tick", countdown_time)
 
-	if extraction_countdown <= 0:
+	if countdown_time <= 0:
 		complete_extraction()
 
 
@@ -175,7 +175,7 @@ func reset() -> void:
 	current_state = ExtractionState.UNAVAILABLE
 	time_in_zone = 0.0
 	kill_count = 0
-	extraction_countdown = 5.0
+	countdown_time = 5.0
 	countdown_timer.stop()
 	extraction_points.clear()
 

@@ -2,8 +2,8 @@ extends Area2D
 class_name ExtractionPoint
 ## 撤离点 - 玩家达成条件后可以从此处撤离
 
-signal extraction_activated()
-signal extraction_deactivated()
+signal activated()
+signal deactivated()
 
 ## 撤离点是否激活
 var is_active: bool = false:
@@ -15,7 +15,7 @@ var is_active: bool = false:
 			_deactivate()
 
 ## 撤离倒计时（秒）
-@export var countdown_time: float = 5.0
+@export var countdown_duration: float = 5.0
 
 var _countdown_remaining: float = 0.0
 var _player_in_zone: bool = false
@@ -81,14 +81,14 @@ func _deactivate() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player and is_active:
 		_player_in_zone = true
-		_countdown_remaining = countdown_time
+		_countdown_remaining = countdown_duration
 		ExtractionServer.start_extraction()
 
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is Player:
 		_player_in_zone = false
-		_countdown_remaining = countdown_time
+		_countdown_remaining = countdown_duration
 		if _label:
 			_label.text = "可撤离"
 		ExtractionServer.cancel_extraction()
