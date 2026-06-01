@@ -2,12 +2,12 @@ extends Node2D
 ## GYM_11_WeirdLoot - 诡异搜打撤系统验证
 ## 验证：理智系统、战利品系统、撤离系统、诡异怪物
 
-const ShadePre = preload("res://game/monster/weird/Shade.gd")
-const WhispererPre = preload("res://game/monster/weird/Whisperer.gd")
-const AberrationPre = preload("res://game/monster/weird/Aberration.gd")
+const ShadePre = preload("res://game/monster/weird/Shade.tscn")
+const WhispererPre = preload("res://game/monster/weird/Whisperer.tscn")
+const AberrationPre = preload("res://game/monster/weird/Aberration.tscn")
 const ExtractionPointPre = preload("res://game/extraction/ExtractionPoint.tscn")
-const SanityPotionPre = preload("res://game/loot/SanityPotion.gd")
-const MysteriousArtifactPre = preload("res://game/loot/MysteriousArtifact.gd")
+const SanityPotionPre = preload("res://game/loot/SanityPotion.tscn")
+const MysteriousArtifactPre = preload("res://game/loot/MysteriousArtifact.tscn")
 const SanityBarPre = preload("res://ui/weird/SanityBar.tscn")
 const ExtractionStatusPre = preload("res://ui/weird/ExtractionStatus.tscn")
 const LootInventoryUIPre = preload("res://ui/weird/LootInventoryUI.tscn")

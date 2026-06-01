@@ -7,7 +7,7 @@ func _ready() -> void:
 	super._ready()
 	item_name = "污浊精华"
 	description = "充满力量的精华，但似乎会影响心智"
-	rarity = Rarity.LEGENDARY
+	rarity = LootServer.Rarity.LEGENDARY
 	value = 500
 	can_extract = true
 

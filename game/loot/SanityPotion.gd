@@ -7,7 +7,7 @@ func _ready() -> void:
 	super._ready()
 	item_name = "理智药剂"
 	description = "可以恢复理智的神秘药剂"
-	rarity = Rarity.UNCOMMON
+	rarity = LootServer.Rarity.UNCOMMON
 	value = 50
 	can_extract = false  # 单次使用
 

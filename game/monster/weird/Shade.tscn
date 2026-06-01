@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://shade_monster"]
+
+[ext_resource type="Script" path="res://game/monster/weird/Shade.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://die8toapequn2" path="res://game/hero/undead_shadow.png" id="2_shadow"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_shade"]
+radius = 4.0
+height = 18.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_shade"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_shadow")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_shadow")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_shadow")
+}],
+"loop": false,
+"name": &"die",
+"speed": 15.0
+}]
+
+[node name="Shade" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 1
+motion_mode = 1
+script = ExtResource("1_script")
+
+[node name="body" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="body"]
+position = Vector2(0, -10)
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_shade")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_shade")
+
+[node name="UndeadShadow" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_shadow")

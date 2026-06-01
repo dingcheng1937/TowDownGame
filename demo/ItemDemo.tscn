@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://cl3j66w0ctke8"]
+
+[ext_resource type="Script" path="res://demo/ItemDemoStarter.gd" id="1_starter"]
+[ext_resource type="PackedScene" uid="uid://8lekrqo3cykw" path="res://game/hero/Hero.tscn" id="2_hero"]
+[ext_resource type="Script" uid="uid://c7oibv06cluva" path="res://game/hero/Camera2D.gd" id="3_camera"]
+[ext_resource type="PackedScene" uid="uid://gna2k6ibcwe4" path="res://game/items/Gold.tscn" id="4_gold"]
+[ext_resource type="PackedScene" uid="uid://blki8yncg1wpv" path="res://game/items/HpPack.tscn" id="5_hppack"]
+[ext_resource type="PackedScene" uid="uid://ba5j614tj2nty" path="res://ui/widgets/InfoPanel.tscn" id="6_infopanel"]
+
+[sub_resource type="GDScript" id="GDScript_anchor"]
+script/source = "extends Node2D
+
+func _physics_process(_delta: float) -> void:
+	if Utils.player:
+		var target = Utils.player.global_position
+		var x = int(lerp(global_position.x, target.x, 0.2))
+		var y = int(lerp(global_position.y, target.y, 0.2))
+		global_position = Vector2(x, y)
+"
+
+[node name="ItemDemo" type="Node2D" unique_id=1246470404]
+script = ExtResource("1_starter")
+
+[node name="PlayerRoot" type="Node2D" parent="." unique_id=493332732]
+y_sort_enabled = true
+
+[node name="Hero" parent="PlayerRoot" unique_id=1231729657 instance=ExtResource("2_hero")]
+position = Vector2(400, 300)
+
+[node name="Anchor" type="Node2D" parent="PlayerRoot" unique_id=146357700]
+script = SubResource("GDScript_anchor")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerRoot/Anchor" unique_id=1981956997]
+zoom = Vector2(0.9, 0.9)
+position_smoothing_enabled = true
+script = ExtResource("3_camera")
+
+[node name="ItemsRoot" type="Node2D" parent="." unique_id=1090123805]
+
+[node name="Gold1" parent="ItemsRoot" unique_id=1310157259 instance=ExtResource("4_gold")]
+position = Vector2(300, 250)
+
+[node name="Gold2" parent="ItemsRoot" unique_id=1844506332 instance=ExtResource("4_gold")]
+position = Vector2(350, 250)
+
+[node name="Gold3" parent="ItemsRoot" unique_id=202387666 instance=ExtResource("4_gold")]
+position = Vector2(400, 250)
+
+[node name="Gold4" parent="ItemsRoot" unique_id=271622108 instance=ExtResource("4_gold")]
+position = Vector2(450, 250)
+
+[node name="Gold5" parent="ItemsRoot" unique_id=1727433815 instance=ExtResource("4_gold")]
+position = Vector2(500, 250)
+
+[node name="HpPack" parent="ItemsRoot" unique_id=500889109 instance=ExtResource("5_hppack")]
+position = Vector2(400, 350)
+
+[node name="Background" type="ColorRect" parent="." unique_id=1743993618]
+z_index = -1
+offset_right = 800.0
+offset_bottom = 600.0
+color = Color(0.15, 0.15, 0.2, 1)
+
+[node name="InfoPanel" parent="." unique_id=579219232 instance=ExtResource("6_infopanel")]
+title = "物品系统"
+content = "测试内容:
+- 金币拾取
+- 血包拾取恢复HP
+
+控制: WASD | Space冲刺"
