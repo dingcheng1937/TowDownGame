@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://demo_ui_crosshair"]
+
+[ext_resource type="Script" path="res://demo/GYM_07_CrosshairStarter.gd" id="1_starter"]
+[ext_resource type="PackedScene" uid="uid://8lekrqo3cykw" path="res://game/hero/Hero.tscn" id="2_hero"]
+[ext_resource type="Script" path="res://game/hero/Camera2D.gd" id="3_camera"]
+[ext_resource type="PackedScene" uid="uid://cjqkfg0gdxyar" path="res://ui/widgets/Crosshair.tscn" id="4_crosshair"]
+[ext_resource type="PackedScene" uid="uid://infopanel_widget" path="res://ui/widgets/InfoPanel.tscn" id="5_infopanel"]
+
+[sub_resource type="GDScript" id="GDScript_anchor"]
+script/source = "extends Node2D
+
+func _physics_process(_delta: float) -> void:
+	if Utils.player:
+		var target = Utils.player.global_position
+		var x = int(lerp(global_position.x, target.x, 0.2))
+		var y = int(lerp(global_position.y, target.y, 0.2))
+		global_position = Vector2(x, y)
+"
+
+[node name="UICrosshairDemo" type="Node2D"]
+script = ExtResource("1_starter")
+
+[node name="PlayerRoot" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Hero" parent="PlayerRoot" instance=ExtResource("2_hero")]
+position = Vector2(400, 300)
+
+[node name="Anchor" type="Node2D" parent="PlayerRoot"]
+script = SubResource("GDScript_anchor")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerRoot/Anchor"]
+zoom = Vector2(0.9, 0.9)
+position_smoothing_enabled = true
+script = ExtResource("3_camera")
+
+[node name="Crosshair" parent="." instance=ExtResource("4_crosshair")]
+
+[node name="Background" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 800.0
+offset_bottom = 600.0
+color = Color(0.15, 0.15, 0.2, 1)
+
+[node name="InfoPanel" parent="." instance=ExtResource("5_infopanel")]
+title = "准星UI"
+content = "测试内容:
+- 准星跟随鼠标
+- 旋转动画
+
+移动鼠标查看效果"

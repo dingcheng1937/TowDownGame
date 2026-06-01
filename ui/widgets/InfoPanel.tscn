@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://ba5j614tj2nty"]
+
+[ext_resource type="Script" uid="uid://cv8wd4x70aa52" path="res://ui/widgets/InfoPanel.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.1, 0.1, 0.15, 0.5)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.4, 0.5, 0.6)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_title"]
+bg_color = Color(0.2, 0.25, 0.35, 0.4)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[node name="InfoPanel" type="CanvasLayer" unique_id=916590305]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="Panel" type="Panel" parent="." unique_id=777677511]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 160.0
+offset_bottom = 110.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=320139157]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Panel/VBox" unique_id=559400426]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_title")
+text = "信息面板"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Panel/VBox" unique_id=244771168]
+layout_mode = 2
+
+[node name="Content" type="Label" parent="Panel/VBox" unique_id=1503039328]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.95, 0.95, 0.9, 1)
+theme_override_font_sizes/font_size = 6
+text = "说明内容"
+autowrap_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/VBox" unique_id=1180840594]
+layout_mode = 2
+
+[node name="Hint" type="Label" parent="Panel/VBox" unique_id=136121045]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.65, 0.8)
+theme_override_font_sizes/font_size = 8
+text = "[H] 切换显示"
+horizontal_alignment = 2
+vertical_alignment = 1

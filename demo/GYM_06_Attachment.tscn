@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://xj0x12bj5kr"]
+
+[ext_resource type="Script" uid="uid://c2xxb4bgcw1uk" path="res://demo/GYM_06_AttachmentStarter.gd" id="1_starter"]
+[ext_resource type="PackedScene" uid="uid://8lekrqo3cykw" path="res://game/hero/Hero.tscn" id="2_hero"]
+[ext_resource type="Script" uid="uid://c7oibv06cluva" path="res://game/hero/Camera2D.gd" id="3_camera"]
+[ext_resource type="PackedScene" uid="uid://bkwnhbv5hbr4m" path="res://game/attachments/UniversalExtendedMagazines.tscn" id="5_attachment"]
+[ext_resource type="PackedScene" uid="uid://infopanel_widget" path="res://ui/widgets/InfoPanel.tscn" id="6_infopanel"]
+
+[sub_resource type="GDScript" id="GDScript_anchor"]
+script/source = "extends Node2D
+
+func _physics_process(_delta: float) -> void:
+	if Utils.player:
+		var target = Utils.player.global_position
+		var x = int(lerp(global_position.x, target.x, 0.2))
+		var y = int(lerp(global_position.y, target.y, 0.2))
+		global_position = Vector2(x, y)
+"
+
+[node name="AttachmentDemo" type="Node2D" unique_id=1104227365]
+script = ExtResource("1_starter")
+
+[node name="PlayerRoot" type="Node2D" parent="." unique_id=912292423]
+y_sort_enabled = true
+
+[node name="Hero" parent="PlayerRoot" unique_id=936257706 instance=ExtResource("2_hero")]
+position = Vector2(400, 300)
+
+[node name="Anchor" type="Node2D" parent="PlayerRoot" unique_id=1227309921]
+script = SubResource("GDScript_anchor")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerRoot/Anchor" unique_id=181427982]
+zoom = Vector2(0.9, 0.9)
+position_smoothing_enabled = true
+script = ExtResource("3_camera")
+
+[node name="InfoPanel" parent="." instance=ExtResource("6_infopanel")]
+title = "附件系统"
+content = "测试内容:
+- 附件拾取
+- 附件安装
+- 弹夹扩容效果
+
+控制: WASD | 鼠标射击
+走近附件自动拾取"
+
+[node name="AttachmentsRoot" type="Node2D" parent="." unique_id=625282217]
+
+[node name="UniversalExtendedMagazines" parent="AttachmentsRoot" unique_id=120202151 instance=ExtResource("5_attachment")]
+position = Vector2(300, 250)
+
+[node name="UniversalExtendedMagazines2" parent="AttachmentsRoot" unique_id=671141637 instance=ExtResource("5_attachment")]
+position = Vector2(500, 250)
+
+[node name="Background" type="ColorRect" parent="." unique_id=1142087783]
+z_index = -1
+offset_right = 800.0
+offset_bottom = 600.0
+color = Color(0.15, 0.15, 0.2, 1)

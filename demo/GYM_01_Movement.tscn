@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://demo_correct"]
+[gd_scene load_steps=7 format=3 uid="uid://demo_correct"]
 
-[ext_resource type="Script" path="res://demo/DemoStarter.gd" id="1_starter"]
+[ext_resource type="Script" path="res://demo/GYM_01_MovementStarter.gd" id="1_starter"]
 [ext_resource type="PackedScene" uid="uid://8lekrqo3cykw" path="res://game/hero/Hero.tscn" id="2_hero"]
 [ext_resource type="Script" path="res://game/hero/Camera2D.gd" id="3_camera"]
+[ext_resource type="PackedScene" uid="uid://infopanel_widget" path="res://ui/widgets/InfoPanel.tscn" id="4_infopanel"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(800, 50)
@@ -110,16 +111,13 @@ offset_right = 800.0
 offset_bottom = 600.0
 color = Color(0.15, 0.15, 0.2, 1)
 
-[node name="InfoLabel" type="Label" parent="."]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 350.0
-offset_bottom = 120.0
-text = "正确复用原游戏相机系统的DEMO
-
-启动流程:
+[node name="InfoPanel" parent="." instance=ExtResource("4_infopanel")]
+title = "正确复用原游戏相机系统的DEMO"
+content = "启动流程:
 DemoStarter → Utils.onGameStart.emit()
 → Hero.onGameStart() → set_physics_process(true)
 
 控制:
 WASD - 移动 | Space - 冲刺"
+toggle_key = 72
+show_by_default = true
