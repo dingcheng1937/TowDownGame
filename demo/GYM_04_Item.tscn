@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://game/hero/Camera2D.gd" id="3_camera"]
 [ext_resource type="PackedScene" uid="uid://gna2k6ibcwe4" path="res://game/items/Gold.tscn" id="4_gold"]
 [ext_resource type="PackedScene" uid="uid://blki8yncg1wpv" path="res://game/items/HpPack.tscn" id="5_hppack"]
-[ext_resource type="PackedScene" uid="uid://infopanel_widget" path="res://ui/widgets/InfoPanel.tscn" id="6_infopanel"]
+[ext_resource type="PackedScene" uid="uid://ba5j614tj2nty" path="res://ui/widgets/InfoPanel.tscn" id="6_infopanel"]
 
 [sub_resource type="GDScript" id="GDScript_anchor"]
 script/source = "extends Node2D

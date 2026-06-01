@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://demo/GYM_08_HitLabelStarter.gd" id="1_starter"]
 [ext_resource type="PackedScene" uid="uid://8lekrqo3cykw" path="res://game/hero/Hero.tscn" id="2_hero"]
 [ext_resource type="Script" path="res://game/hero/Camera2D.gd" id="3_camera"]
-[ext_resource type="PackedScene" uid="uid://infopanel_widget" path="res://ui/widgets/InfoPanel.tscn" id="4_infopanel"]
+[ext_resource type="PackedScene" uid="uid://ba5j614tj2nty" path="res://ui/widgets/InfoPanel.tscn" id="4_infopanel"]
 
 [sub_resource type="GDScript" id="GDScript_anchor"]
 script/source = "extends Node2D
