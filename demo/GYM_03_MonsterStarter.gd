@@ -1,6 +1,8 @@
 extends Node2D
 ## 怪物系统DEMO启动器
 
+const ControlUIPre = preload("res://ui/ControlUI.tscn")
+
 func _ready():
 	await get_tree().process_frame
 
@@ -14,4 +16,14 @@ func _ready():
 	# 设置玩家引用
 	Utils.player = $PlayerRoot/Hero
 
+	# 添加游戏UI
+	_setup_ui()
+
 	# 怪物会自动追踪 Utils.player
+
+
+func _setup_ui():
+	var control_ui = ControlUIPre.instantiate()
+	$UIRoot.add_child(control_ui)
+	control_ui.get_node("GameUI").show()
+	control_ui.get_node("MainUI").hide()

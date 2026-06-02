@@ -1,6 +1,8 @@
 extends Node2D
 ## 武器列表UI DEMO启动器
 
+const ControlUIPre = preload("res://ui/ControlUI.tscn")
+
 func _ready():
 	await get_tree().process_frame
 
@@ -20,3 +22,13 @@ func _ready():
 		preload("res://game/guns/BoomBoi.tscn").instantiate()
 	]
 	PlayerData.add_weapons(weapons)
+
+	# 添加游戏UI
+	_setup_ui()
+
+
+func _setup_ui():
+	var control_ui = ControlUIPre.instantiate()
+	$UIRoot.add_child(control_ui)
+	control_ui.get_node("GameUI").show()
+	control_ui.get_node("MainUI").hide()

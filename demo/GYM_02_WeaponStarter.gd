@@ -28,3 +28,16 @@ func _ready():
 			'hurt': 1,
 			'hp': 10
 		})
+
+	# 添加游戏UI（准星、弹药、血量等）
+	_setup_ui()
+
+
+func _setup_ui():
+	# 场景中已有ControlUI实例，直接使用
+	var control_ui = $ControlUI
+
+	# ControlUI会自动设置Utils.canvasLayer并监听信号
+	# 显示游戏内UI（隐藏主菜单）
+	control_ui.get_node("GameUI").show()
+	control_ui.get_node("MainUI").hide()

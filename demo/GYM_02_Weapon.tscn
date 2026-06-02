@@ -1,11 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://demo_weapon"]
+[gd_scene format=3 uid="uid://ctlg3ciask78h"]
 
-[ext_resource type="Script" path="res://demo/GYM_02_WeaponStarter.gd" id="1_starter"]
+[ext_resource type="Script" uid="uid://clrcfdnsg8sov" path="res://demo/GYM_02_WeaponStarter.gd" id="1_starter"]
 [ext_resource type="PackedScene" uid="uid://8lekrqo3cykw" path="res://game/hero/Hero.tscn" id="2_hero"]
-[ext_resource type="Script" path="res://game/hero/Camera2D.gd" id="3_camera"]
+[ext_resource type="Script" uid="uid://c7oibv06cluva" path="res://game/hero/Camera2D.gd" id="3_camera"]
 [ext_resource type="PackedScene" uid="uid://cuugva8rpxfk2" path="res://game/monster/Ghoul/Ghoul.tscn" id="4_ghoul"]
-[ext_resource type="PackedScene" uid="uid://dlld5y8qrwkvw" path="res://game/guns/Uzi.tscn" id="5_uzi"]
 [ext_resource type="PackedScene" uid="uid://ba5j614tj2nty" path="res://ui/widgets/InfoPanel.tscn" id="6_infopanel"]
+[ext_resource type="PackedScene" uid="uid://b8fluhc5dx881" path="res://ui/ControlUI.tscn" id="7_controlui"]
 
 [sub_resource type="GDScript" id="GDScript_anchor"]
 script/source = "extends Node2D
@@ -18,41 +18,41 @@ func _physics_process(_delta: float) -> void:
 		global_position = Vector2(x, y)
 "
 
-[node name="WeaponDemo" type="Node2D"]
+[node name="WeaponDemo" type="Node2D" unique_id=993496520]
 script = ExtResource("1_starter")
 
-[node name="PlayerRoot" type="Node2D" parent="."]
+[node name="PlayerRoot" type="Node2D" parent="." unique_id=217088179]
 y_sort_enabled = true
 
-[node name="Hero" parent="PlayerRoot" instance=ExtResource("2_hero")]
+[node name="Hero" parent="PlayerRoot" unique_id=1881723615 instance=ExtResource("2_hero")]
 position = Vector2(400, 300)
 
-[node name="Anchor" type="Node2D" parent="PlayerRoot"]
+[node name="Anchor" type="Node2D" parent="PlayerRoot" unique_id=30348303]
 script = SubResource("GDScript_anchor")
 
-[node name="Camera2D" type="Camera2D" parent="PlayerRoot/Anchor"]
+[node name="Camera2D" type="Camera2D" parent="PlayerRoot/Anchor" unique_id=949108991]
 zoom = Vector2(0.9, 0.9)
 position_smoothing_enabled = true
 script = ExtResource("3_camera")
 
-[node name="MonstersRoot" type="Node2D" parent="."]
+[node name="MonstersRoot" type="Node2D" parent="." unique_id=1214392784]
 
-[node name="Ghoul1" parent="MonstersRoot" instance=ExtResource("4_ghoul")]
+[node name="Ghoul1" parent="MonstersRoot" unique_id=457761363 instance=ExtResource("4_ghoul")]
 position = Vector2(200, 200)
 
-[node name="Ghoul2" parent="MonstersRoot" instance=ExtResource("4_ghoul")]
+[node name="Ghoul2" parent="MonstersRoot" unique_id=1298528758 instance=ExtResource("4_ghoul")]
 position = Vector2(600, 200)
 
-[node name="Ghoul3" parent="MonstersRoot" instance=ExtResource("4_ghoul")]
+[node name="Ghoul3" parent="MonstersRoot" unique_id=2090526138 instance=ExtResource("4_ghoul")]
 position = Vector2(200, 400)
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1912321782]
 z_index = -1
 offset_right = 800.0
 offset_bottom = 600.0
 color = Color(0.15, 0.15, 0.2, 1)
 
-[node name="InfoPanel" parent="." instance=ExtResource("6_infopanel")]
+[node name="InfoPanel" parent="." unique_id=949206316 instance=ExtResource("6_infopanel")]
 title = "武器系统"
 content = "测试内容:
 - Uzi自动射击
@@ -60,3 +60,5 @@ content = "测试内容:
 - 怪物受击死亡
 
 控制: WASD | 鼠标射击 | R换弹"
+
+[node name="ControlUI" parent="." instance=ExtResource("7_controlui")]
