@@ -20,7 +20,6 @@ var is_active: bool = false:
 var _countdown_remaining: float = 0.0
 var _player_in_zone: bool = false
 
-@onready var _collision: CollisionShape2D = $CollisionShape2D
 @onready var _sprite: Sprite2D = $Sprite2D
 @onready var _label: Label = $Label
 
@@ -65,7 +64,7 @@ func _activate() -> void:
 	if _label:
 		_label.text = "可撤离"
 
-	emit_signal("extraction_activated")
+	emit_signal("activated")
 
 
 func _deactivate() -> void:
@@ -74,8 +73,8 @@ func _deactivate() -> void:
 	if _label:
 		_label.text = "条件未满足"
 
-	_countdown_remaining = countdown_time
-	emit_signal("extraction_deactivated")
+	_countdown_remaining = countdown_duration
+	emit_signal("deactivated")
 
 
 func _on_body_entered(body: Node2D) -> void:

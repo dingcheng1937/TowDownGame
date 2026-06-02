@@ -36,6 +36,7 @@ var conditions: Dictionary = {
 
 ## 撤离倒计时
 var countdown_time: float = 5.0
+var initial_countdown_time: float = 5.0  # 存储初始倒计时时间
 var countdown_timer: Timer
 
 ## 时间统计
@@ -59,7 +60,7 @@ func _setup_timer() -> void:
 
 
 func _process(delta: float) -> void:
-	if Utils.is_game_started() and current_state != ExtractionState.COMPLETED:
+	if Utils.is_game_start and current_state != ExtractionState.COMPLETED:
 		time_in_zone += delta
 
 
@@ -115,7 +116,7 @@ func cancel_extraction() -> void:
 	if current_state == ExtractionState.IN_PROGRESS:
 		countdown_timer.stop()
 		current_state = ExtractionState.AVAILABLE
-		countdown_time = 5.0
+		countdown_time = initial_countdown_time
 
 
 ## 完成撤离
@@ -175,15 +176,17 @@ func reset() -> void:
 	current_state = ExtractionState.UNAVAILABLE
 	time_in_zone = 0.0
 	kill_count = 0
-	countdown_time = 5.0
+	countdown_time = initial_countdown_time
 	countdown_timer.stop()
 	extraction_points.clear()
 
 
 ## 设置撤离条件
-func set_conditions(min_time: float = 30.0, required_items: Array = [], required_kills: int = 0) -> void:
+func set_conditions(min_time: float = 30.0, required_items: Array = [], required_kills: int = 0, countdown: float = 5.0) -> void:
 	conditions = {
 		"min_time": min_time,
 		"required_items": required_items,
 		"required_kills": required_kills,
 	}
+	initial_countdown_time = countdown
+	countdown_time = countdown

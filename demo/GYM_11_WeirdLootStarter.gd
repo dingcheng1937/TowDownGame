@@ -50,27 +50,27 @@ func _ready():
 
 func _spawn_weird_monsters():
 	# 创建残影
-	var shade1 = ShadePre.new()
+	var shade1 = ShadePre.instantiate()
 	shade1.global_position = Vector2(200, 200)
 	shade1.HP = 2
 	shade1.SPEED = 120
 	add_child(shade1)
 
-	var shade2 = ShadePre.new()
+	var shade2 = ShadePre.instantiate()
 	shade2.global_position = Vector2(300, 400)
 	shade2.HP = 2
 	shade2.SPEED = 120
 	add_child(shade2)
 
 	# 创建低语者
-	var whisperer = WhispererPre.new()
+	var whisperer = WhispererPre.instantiate()
 	whisperer.global_position = Vector2(500, 150)
 	whisperer.HP = 4
 	whisperer.SPEED = 50
 	add_child(whisperer)
 
 	# 创建畸变体
-	var aberration = AberrationPre.new()
+	var aberration = AberrationPre.instantiate()
 	aberration.global_position = Vector2(150, 350)
 	aberration.HP = 15
 	aberration.SPEED = 30
@@ -79,33 +79,38 @@ func _spawn_weird_monsters():
 
 func _spawn_loot_items():
 	# 创建理智药剂
-	var potion1 = SanityPotionPre.new()
+	var potion1 = SanityPotionPre.instantiate()
 	potion1.global_position = Vector2(350, 300)
 	add_child(potion1)
 
-	var potion2 = SanityPotionPre.new()
+	var potion2 = SanityPotionPre.instantiate()
 	potion2.global_position = Vector2(450, 400)
 	add_child(potion2)
 
 	# 创建神秘神器
-	var artifact = MysteriousArtifactPre.new()
+	var artifact = MysteriousArtifactPre.instantiate()
 	artifact.global_position = Vector2(250, 250)
 	add_child(artifact)
 
 
 func _setup_ui():
+	var ui_root = get_node_or_null("UIRoot")
+	if not ui_root:
+		push_error("GYM_11: UIRoot node not found!")
+		return
+
 	# 理智条
 	var sanity_bar = SanityBarPre.instantiate()
 	sanity_bar.position = Vector2(10, 10)
-	$UIRoot.add_child(sanity_bar)
+	ui_root.add_child(sanity_bar)
 
 	# 撤离状态
 	var extraction_status = ExtractionStatusPre.instantiate()
-	$UIRoot.add_child(extraction_status)
+	ui_root.add_child(extraction_status)
 
 	# 战利品背包
 	var loot_inventory = LootInventoryUIPre.instantiate()
-	$UIRoot.add_child(loot_inventory)
+	ui_root.add_child(loot_inventory)
 
 
 func _process(_delta):

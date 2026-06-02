@@ -33,7 +33,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if is_draining and Utils.is_game_started():
+	if is_draining and Utils.is_game_start:
 		change_sanity(-passive_drain_rate * delta)
 
 

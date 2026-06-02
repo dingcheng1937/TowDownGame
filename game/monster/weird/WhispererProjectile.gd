@@ -8,6 +8,7 @@ class_name WhispererProjectile
 
 var direction: Vector2 = Vector2.RIGHT
 var lifetime: float = 3.0
+var _has_hit: bool = false  # 防止多次命中
 
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -29,7 +30,10 @@ func _process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	if _has_hit:
+		return
 	if body is Player:
+		_has_hit = true
 		body.onHit(damage)
 		SanityServer.change_sanity(-sanity_damage)
 		queue_free()
