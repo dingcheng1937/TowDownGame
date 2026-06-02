@@ -5,6 +5,9 @@ var rotation_speed = PI
 
 func _ready() -> void:
 	set_process(false)
+	# 在编辑器模式下不连接信号
+	if Engine.is_editor_hint():
+		return
 	Utils.onGameStart.connect(onGameStart)
 
 func onGameStart():
