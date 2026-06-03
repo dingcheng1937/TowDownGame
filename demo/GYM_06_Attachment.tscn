@@ -1,10 +1,11 @@
-[gd_scene format=3 uid="uid://xj0x12bj5kr"]
+[gd_scene load_steps=9 format=3 uid="uid://xj0x12bj5kr"]
 
 [ext_resource type="Script" uid="uid://c2xxb4bgcw1uk" path="res://demo/GYM_06_AttachmentStarter.gd" id="1_starter"]
 [ext_resource type="PackedScene" uid="uid://8lekrqo3cykw" path="res://game/hero/Hero.tscn" id="2_hero"]
 [ext_resource type="Script" uid="uid://c7oibv06cluva" path="res://game/hero/Camera2D.gd" id="3_camera"]
-[ext_resource type="PackedScene" uid="uid://bkwnhbv5hbr4m" path="res://game/attachments/UniversalExtendedMagazines.tscn" id="5_attachment"]
 [ext_resource type="PackedScene" uid="uid://ba5j614tj2nty" path="res://ui/widgets/InfoPanel.tscn" id="6_infopanel"]
+[ext_resource type="PackedScene" uid="uid://b8fluhc5dx881" path="res://ui/ControlUI.tscn" id="7_controlui"]
+[ext_resource type="PackedScene" path="res://game/attachments/AttachmentOnFloor.tscn" id="8_attachment_floor"]
 
 [sub_resource type="GDScript" id="GDScript_anchor"]
 script/source = "extends Node2D
@@ -17,19 +18,19 @@ func _physics_process(_delta: float) -> void:
 		global_position = Vector2(x, y)
 "
 
-[node name="AttachmentDemo" type="Node2D" unique_id=1104227365]
+[node name="AttachmentDemo" type="Node2D"]
 script = ExtResource("1_starter")
 
-[node name="PlayerRoot" type="Node2D" parent="." unique_id=912292423]
+[node name="PlayerRoot" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Hero" parent="PlayerRoot" unique_id=936257706 instance=ExtResource("2_hero")]
+[node name="Hero" parent="PlayerRoot" instance=ExtResource("2_hero")]
 position = Vector2(400, 300)
 
-[node name="Anchor" type="Node2D" parent="PlayerRoot" unique_id=1227309921]
+[node name="Anchor" type="Node2D" parent="PlayerRoot"]
 script = SubResource("GDScript_anchor")
 
-[node name="Camera2D" type="Camera2D" parent="PlayerRoot/Anchor" unique_id=181427982]
+[node name="Camera2D" type="Camera2D" parent="PlayerRoot/Anchor"]
 zoom = Vector2(0.9, 0.9)
 position_smoothing_enabled = true
 script = ExtResource("3_camera")
@@ -37,22 +38,23 @@ script = ExtResource("3_camera")
 [node name="InfoPanel" parent="." instance=ExtResource("6_infopanel")]
 title = "附件系统"
 content = "测试内容:
-- 附件拾取
-- 附件安装
-- 弹夹扩容效果
+- 走近附件按 [E] 拾取
+- 自动安装到当前武器
+- 弹夹容量 +10
 
-控制: WASD | 鼠标射击
-走近附件自动拾取"
+控制: WASD移动 | 鼠标射击"
 
-[node name="AttachmentsRoot" type="Node2D" parent="." unique_id=625282217]
+[node name="ControlUI" parent="." instance=ExtResource("7_controlui")]
 
-[node name="UniversalExtendedMagazines" parent="AttachmentsRoot" unique_id=120202151 instance=ExtResource("5_attachment")]
-position = Vector2(300, 250)
+[node name="AttachmentsRoot" type="Node2D" parent="."]
 
-[node name="UniversalExtendedMagazines2" parent="AttachmentsRoot" unique_id=671141637 instance=ExtResource("5_attachment")]
-position = Vector2(500, 250)
+[node name="AttachmentOnFloor" parent="AttachmentsRoot" instance=ExtResource("8_attachment_floor")]
+position = Vector2(408, 300)
 
-[node name="Background" type="ColorRect" parent="." unique_id=1142087783]
+[node name="AttachmentOnFloor2" parent="AttachmentsRoot" instance=ExtResource("8_attachment_floor")]
+position = Vector2(392, 300)
+
+[node name="Background" type="ColorRect" parent="."]
 z_index = -1
 offset_right = 800.0
 offset_bottom = 600.0
