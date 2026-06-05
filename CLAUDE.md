@@ -53,6 +53,30 @@
 
 ---
 
+## 鼠标模式规范
+
+**项目使用 `MOUSE_MODE_HIDDEN` 而非 `MOUSE_MODE_CONFINED_HIDDEN`**
+
+游戏运行时仅隐藏鼠标光标，不将鼠标限制在窗口内。玩家可以将鼠标移出游戏窗口。
+
+### 原因
+- 允许玩家在多显示器环境下自由切换
+- 避免窗口焦点问题导致的意外点击
+- 更符合现代游戏的用户体验
+
+### 使用规范
+| 场景 | 鼠标模式 |
+|------|----------|
+| 游戏运行中 | `MOUSE_MODE_HIDDEN` |
+| UI界面（背包、商店等） | `MOUSE_MODE_VISIBLE` |
+
+### 注意事项
+- `Crosshair.gd` 在 `onGameStart()` 中设置 `MOUSE_MODE_HIDDEN`
+- UI组件在显示时设置 `MOUSE_MODE_VISIBLE`，关闭时恢复 `MOUSE_MODE_HIDDEN`
+- **不要使用 `MOUSE_MODE_CONFINED_HIDDEN`**（会限制鼠标在窗口内）
+
+---
+
 ## DEMO场景 (GYM)
 
 位于 `demo/` 目录，命名格式：`GYM_[ID]_[NAME].tscn`

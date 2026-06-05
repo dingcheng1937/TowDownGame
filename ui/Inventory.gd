@@ -22,7 +22,7 @@ func _enter_tree() -> void:
 
 func _exit_tree() -> void:
 	if !Utils.pause_state:
-		Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 		get_tree().paused = false
 	Utils.is_inv_show = false
 	

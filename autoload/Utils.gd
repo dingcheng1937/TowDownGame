@@ -155,10 +155,16 @@ func freezeFrame(scale):
 		#Engine.time_scale = scale
 
 func showToast(msg,time = 1):
-	canvasLayer.showToast(msg,time)
+	if canvasLayer:
+		canvasLayer.showToast(msg,time)
+	else:
+		push_warning("Utils.showToast() called but canvasLayer is not set")
 
 func crosshairChange(is_change):
-	canvasLayer.crosshairChange(is_change)
+	if canvasLayer:
+		canvasLayer.crosshairChange(is_change)
+	else:
+		push_warning("Utils.crosshairChange() called but canvasLayer is not set")
 
 func getShader(quality):
 	match quality:

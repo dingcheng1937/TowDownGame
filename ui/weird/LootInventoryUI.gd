@@ -2,7 +2,7 @@ extends Control
 class_name LootInventoryUI
 ## 战利品背包 UI - 显示当前收集的战利品
 
-@onready var _grid: GridContainer = $Panel/VBox/ScrollContainer/GridContainer
+@onready var _grid: GridContainer = $Panel/VBox/ScrollContainer/Grid
 @onready var _count_label: Label = $Panel/VBox/CountLabel
 @onready var _value_label: Label = $Panel/VBox/ValueLabel
 

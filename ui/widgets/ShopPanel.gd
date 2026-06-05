@@ -16,7 +16,7 @@ func _enter_tree():
 	Utils.crosshairChange(false)
 
 func _exit_tree():
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	Utils.crosshairChange(true)
 
 func _ready() -> void:

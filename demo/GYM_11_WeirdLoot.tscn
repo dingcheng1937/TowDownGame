@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cyec004es34np" path="res://demo/GYM_11_WeirdLootStarter.gd" id="2_starter"]
 [ext_resource type="Script" uid="uid://c7oibv06cluva" path="res://game/hero/Camera2D.gd" id="3_camera"]
 [ext_resource type="PackedScene" uid="uid://ba5j614tj2nty" path="res://ui/widgets/InfoPanel.tscn" id="4_infopanel"]
+[ext_resource type="Script" path="res://demo/GYM_UIRoot.gd" id="4_qwsba"]
 
 [sub_resource type="GDScript" id="GDScript_anchor"]
 script/source = "extends Node2D
@@ -43,6 +44,38 @@ shadow_enabled = true
 
 [node name="UIRoot" type="CanvasLayer" parent="." unique_id=44833726]
 layer = 10
+script = ExtResource("4_qwsba")
+
+[node name="ToastUI" type="Control" parent="UIRoot" unique_id=517012798]
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UIRoot/ToastUI" unique_id=86008727]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -10.0
+offset_right = 150.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "toast"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="UIRoot/ToastUI" unique_id=47464305]
+one_shot = true
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=1924261]
 position = Vector2(400, 500)

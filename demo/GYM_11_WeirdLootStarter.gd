@@ -99,6 +99,9 @@ func _setup_ui():
 		push_error("GYM_11: UIRoot node not found!")
 		return
 
+	# 初始化 Utils.canvasLayer（用于 toast 等功能）
+	Utils.canvasLayer = ui_root
+
 	# 理智条
 	var sanity_bar = SanityBarPre.instantiate()
 	sanity_bar.position = Vector2(10, 10)
@@ -111,6 +114,12 @@ func _setup_ui():
 	# 战利品背包
 	var loot_inventory = LootInventoryUIPre.instantiate()
 	ui_root.add_child(loot_inventory)
+
+
+func _exit_tree():
+	# 清理 Utils.canvasLayer 引用（我们设置的，需要清除）
+	if Utils.canvasLayer == get_node_or_null("UIRoot"):
+		Utils.canvasLayer = null
 
 
 func _process(_delta):

@@ -18,12 +18,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("e") && $Button.visible && !is_add:
 		var ins = reward_shop_pre.instantiate()
 		ins.tree_exited.connect(func tree_exited():
-			Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 			Utils.crosshairChange(true)
 			is_add = false)
 		ins.tree_entered.connect(func tree_entered():
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			Utils.crosshairChange(false)
 			is_add = true)
-		Utils.canvasLayer.add_child(ins)
+		if Utils.canvasLayer:
+			Utils.canvasLayer.add_child(ins)
+		else:
+			push_warning("RewardNpc: Utils.canvasLayer is not set, cannot show reward shop")
 		
