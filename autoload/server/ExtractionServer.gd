@@ -113,10 +113,11 @@ func start_extraction() -> void:
 
 ## 取消撤离
 func cancel_extraction() -> void:
-	if current_state == ExtractionState.IN_PROGRESS:
-		countdown_timer.stop()
-		current_state = ExtractionState.AVAILABLE
-		countdown_time = initial_countdown_time
+	if current_state != ExtractionState.IN_PROGRESS:
+		return
+	countdown_timer.stop()
+	current_state = ExtractionState.AVAILABLE
+	countdown_time = initial_countdown_time
 
 
 ## 完成撤离
@@ -139,6 +140,9 @@ func fail_extraction(reason: String) -> void:
 
 ## 倒计时tick
 func _on_countdown_tick() -> void:
+	# 防止重置后的陈旧回调
+	if current_state != ExtractionState.IN_PROGRESS:
+		return
 	countdown_time -= 0.1
 	emit_signal("countdown_tick", countdown_time)
 
@@ -155,6 +159,11 @@ func register_kill() -> void:
 ## 注册撤离点
 func register_extraction_point(point: Node) -> void:
 	extraction_points.append(point)
+
+
+## 注销撤离点
+func unregister_extraction_point(point: Node) -> void:
+	extraction_points.erase(point)
 
 
 ## 激活撤离点

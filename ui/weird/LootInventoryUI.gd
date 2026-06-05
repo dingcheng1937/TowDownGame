@@ -17,6 +17,19 @@ func _ready() -> void:
 	_update_display()
 
 
+func _exit_tree() -> void:
+	# 断开信号连接，避免内存泄漏
+	# 检查autoload是否仍然有效（场景切换时可能已被清理）
+	if not is_instance_valid(LootServer):
+		return
+	if LootServer.loot_added.is_connected(_on_loot_added):
+		LootServer.loot_added.disconnect(_on_loot_added)
+	if LootServer.loot_removed.is_connected(_on_loot_removed):
+		LootServer.loot_removed.disconnect(_on_loot_removed)
+	if LootServer.loot_extracted.is_connected(_on_loot_extracted):
+		LootServer.loot_extracted.disconnect(_on_loot_extracted)
+
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("inv"):
 		visible = not visible

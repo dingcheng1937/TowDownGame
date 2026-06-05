@@ -17,9 +17,10 @@ func _ready() -> void:
 	# 连接碰撞信号
 	body_entered.connect(_on_body_entered)
 
-	# 设置超时销毁
+	# 设置超时销毁（检查是否已被销毁）
 	await get_tree().create_timer(lifetime).timeout
-	queue_free()
+	if is_instance_valid(self):
+		queue_free()
 
 
 func _process(delta: float) -> void:

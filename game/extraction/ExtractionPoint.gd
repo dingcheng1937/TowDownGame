@@ -31,22 +31,45 @@ func _ready() -> void:
 	# 注册到撤离服务器
 	ExtractionServer.register_extraction_point(self)
 
+	# 监听服务器倒计时信号
+	ExtractionServer.countdown_tick.connect(_on_countdown_tick)
+	ExtractionServer.extraction_completed.connect(_on_extraction_completed)
+
 	# 初始状态
 	_deactivate()
 
 
-func _process(delta: float) -> void:
+func _exit_tree() -> void:
+	# 断开信号连接，避免内存泄漏
+	# 检查autoload是否仍然有效（场景切换时可能已被清理）
+	if not is_instance_valid(ExtractionServer):
+		return
+	if ExtractionServer.countdown_tick.is_connected(_on_countdown_tick):
+		ExtractionServer.countdown_tick.disconnect(_on_countdown_tick)
+	if ExtractionServer.extraction_completed.is_connected(_on_extraction_completed):
+		ExtractionServer.extraction_completed.disconnect(_on_extraction_completed)
+	# 从服务器注销
+	ExtractionServer.unregister_extraction_point(self)
+
+
+func _process(_delta: float) -> void:
+	# 倒计时由 ExtractionServer 统一管理
+	# 这里只处理视觉效果更新
+	pass
+
+
+func _on_countdown_tick(time_remaining: float) -> void:
 	if not is_active or not _player_in_zone:
 		return
 
-	# 更新倒计时
-	_countdown_remaining -= delta
-
 	if _label:
-		_label.text = "撤离中: %.1f" % _countdown_remaining
+		_label.text = "撤离中: %.1f" % time_remaining
 
-	if _countdown_remaining <= 0:
-		_complete_extraction()
+
+func _on_extraction_completed() -> void:
+	_player_in_zone = false
+	if _label:
+		_label.text = "撤离成功!"
 
 
 func activate() -> void:
@@ -80,18 +103,12 @@ func _deactivate() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player and is_active:
 		_player_in_zone = true
-		_countdown_remaining = countdown_duration
 		ExtractionServer.start_extraction()
 
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is Player:
 		_player_in_zone = false
-		_countdown_remaining = countdown_duration
 		if _label:
 			_label.text = "可撤离"
 		ExtractionServer.cancel_extraction()
-
-
-func _complete_extraction() -> void:
-	ExtractionServer.complete_extraction()

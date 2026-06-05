@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://game/melee/Taser.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Sprites/2 - Power & Electricity.png" id="2"]
+
+[node name="Taser" type="Node2D"]
+script = ExtResource("1")
+weapon_name = "电击棒"
+weapon_id = 1004
+damage = 35.0
+max_durability = 120.0
+attack_range = 65.0
+attack_rate = 0.5
+attack_duration = 0.25
+weapon_rarity = "RARE"
+weapon_info = "非医疗器械。但使用频率远高于医疗器械。"
+shock_duration = 0.5
+image = ExtResource("2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2")
+scale = Vector2(0.6, 0.6)
+centered = false
+offset = Vector2(0, -25)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

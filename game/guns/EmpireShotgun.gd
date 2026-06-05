@@ -2,11 +2,15 @@ extends "res://game/guns/BaseGun.gd"
 
 func _shoot():
 	super._shoot()
-	gun_tip.rotation = direction.angle()
-	
+	_apply_recoil()
+	var shoot_angle = get_shoot_angle()
+	gun_tip.rotation = shoot_angle
+
 	call_deferred("createBullet")
 
 func createBullet():
+	# 捕获当前bloom值，避免await期间恢复导致不一致
+	var captured_bloom = bloom_current
 	for index in 2:
 		for i in 2:
 			var b = bullet_scene.instantiate()
@@ -14,7 +18,9 @@ func createBullet():
 			b.knockback_speed = knockback_speed
 			get_tree().root.add_child(b)
 			b.position = gun_tip.global_position
-			b.rotation = gun_tip.rotation + deg_to_rad(-15 + i * 15)
+			# 霰弹枪：基础散布 + bloom叠加（使用捕获的bloom值）
+			var pellet_spread = deg_to_rad(-15 + i * 15)
+			b.rotation = gun_tip.rotation + pellet_spread + deg_to_rad(randf_range(-captured_bloom * 0.3, captured_bloom * 0.3))
 			fire(b)
 		await get_tree().create_timer(0.2).timeout
 

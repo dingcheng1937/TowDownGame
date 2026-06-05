@@ -10,6 +10,12 @@ func _ready() -> void:
 	PlayerServer.setPlayerPosition($CreatePosition.global_position)
 	Utils.gameStart()
 
+
+func _exit_tree() -> void:
+	# 断开信号连接，避免内存泄漏
+	if Utils.onGameStart.is_connected(onGameStart):
+		Utils.onGameStart.disconnect(onGameStart)
+
 func onGameStart():
 	PlayerData.player_ammo = 9999999
 	var gun = Utils.weapon_list['1']

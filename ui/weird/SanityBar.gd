@@ -21,6 +21,17 @@ func _ready() -> void:
 	_update_display(100.0, 100.0)
 
 
+func _exit_tree() -> void:
+	# 断开信号连接，避免内存泄漏
+	# 检查autoload是否仍然有效（场景切换时可能已被清理）
+	if not is_instance_valid(SanityServer):
+		return
+	if SanityServer.sanity_changed.is_connected(_on_sanity_changed):
+		SanityServer.sanity_changed.disconnect(_on_sanity_changed)
+	if SanityServer.sanity_threshold_crossed.is_connected(_on_threshold_crossed):
+		SanityServer.sanity_threshold_crossed.disconnect(_on_threshold_crossed)
+
+
 func _on_sanity_changed(current: float, max_val: float) -> void:
 	_update_display(current, max_val)
 

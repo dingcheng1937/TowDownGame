@@ -9,6 +9,7 @@ const dash_obj = preload("res://game/hero/DashObj.tscn")
 const level_up_effect = preload("res://game/hero/effect/LevelUpEffect.tscn")
 
 var gun = null
+var melee_weapon = null
 
 var SPEED = 100.0
 var is_run = false
@@ -31,6 +32,20 @@ func _ready():
 	PlayerData.onPlayerLevelChange.connect(onPlayerLevelChange)
 	PlayerData.playerWeaponListChange.connect(playerWeaponListChange)
 	Utils.player = self
+
+
+func _exit_tree() -> void:
+	# 断开信号连接，避免内存泄漏
+	if PlayerData.onHpChange.is_connected(onHpChange):
+		PlayerData.onHpChange.disconnect(onHpChange)
+	if PlayerData.onPlayerResurrect.is_connected(onPlayerResurrect):
+		PlayerData.onPlayerResurrect.disconnect(onPlayerResurrect)
+	if Utils.onGameStart.is_connected(onGameStart):
+		Utils.onGameStart.disconnect(onGameStart)
+	if PlayerData.onPlayerLevelChange.is_connected(onPlayerLevelChange):
+		PlayerData.onPlayerLevelChange.disconnect(onPlayerLevelChange)
+	if PlayerData.playerWeaponListChange.is_connected(playerWeaponListChange):
+		PlayerData.playerWeaponListChange.disconnect(playerWeaponListChange)
 	#PlayerData.add_attachment(preload("res://game/attachments/UniversalExtendedMagazines.tscn").instantiate())
 	#PlayerData.add_attachment(preload("res://game/attachments/ExtendedRifleMagazine.tscn").instantiate())
 	#PlayerData.add_attachment(preload("res://game/attachments/QuickExpansionMagazine.tscn").instantiate())
@@ -97,21 +112,28 @@ func _physics_process(delta):
 	changeAnim(direction)
 	$PointLight2D2.look_at(get_global_mouse_position())
 	if gun:
-		gun.look_at(get_global_mouse_position())
-		setGunLookat(get_global_mouse_position())
+		gun.look_at(gun.global_position + gun.direction * 1000)
+		setGunLookat(gun.direction)
 
 func set_knockback(knockback_speed):
 	self.knockback_speed = knockback_speed
 	is_knockback = true
-	await get_tree().create_timer(0.05).timeout.connect(func timeout():
-		is_knockback = false;self.knockback_speed = 0)
+	await get_tree().create_timer(0.05).timeout
+	# 检查玩家是否仍然有效（可能在等待期间死亡）
+	if is_instance_valid(self):
+		is_knockback = false
+		self.knockback_speed = 0
 
 func setGunLookat(dir):
+	# 设置枪口朝向（用于视觉和动画）
+	# dir是gun.direction，包含drift偏移后的实际瞄准方向
 	if dir != null:
 		look_dir = gun.global_position + (dir * 1000)
-		if dir.x > position.x && body.scale.x != 1:
+		# 身体翻转：根据枪的瞄准方向翻转（双摇杆射击游戏标准行为）
+		# 玩家可以横向移动（strafe），身体始终朝向瞄准方向
+		if dir.x > 0 && body.scale.x != 1:
 			body.scale.x = 1
-		elif dir.x < position.x && body.scale.x != -1:
+		elif dir.x < 0 && body.scale.x != -1:
 			body.scale.x = -1
 	else:
 		look_dir = null

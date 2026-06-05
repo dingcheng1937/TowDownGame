@@ -50,8 +50,10 @@ func clear_current_loot() -> void:
 ## 成功撤离，将战利品转移到永久背包
 func extract_all_loot() -> void:
 	for item in current_loot:
-		extracted_loot.append(item)
-		emit_signal("loot_extracted", item)
+		# 只带出可带出的物品（消耗品不带出）
+		if item.get("can_extract", true):
+			extracted_loot.append(item)
+			emit_signal("loot_extracted", item)
 	current_loot.clear()
 
 

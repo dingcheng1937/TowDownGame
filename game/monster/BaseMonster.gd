@@ -87,8 +87,11 @@ func hitFlash(collisionResult,bullet:Bullet):
 	#var materialFlash = ShaderMaterial.new()
 	#materialFlash.shader = load("res://shader/Monster1.gdshader")
 	#sprite_body.get_node("AnimatedSprite2D").material = materialFlash
-	await get_tree().create_timer(bullet.knockback_time).timeout.connect(func timeout():
-		sprite_body.get_node("AnimatedSprite2D").material = null; hit = false )
+	await get_tree().create_timer(bullet.knockback_time).timeout
+	# 检查怪物是否仍然有效（可能在等待期间死亡）
+	if is_instance_valid(self) and not is_die:
+		sprite_body.get_node("AnimatedSprite2D").material = null
+		hit = false
 
 var idle_frame_num = 0
 func onHit(hit_num,is_show_label = true,is_death_effect = true):

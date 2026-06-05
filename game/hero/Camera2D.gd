@@ -9,19 +9,14 @@ var center_vertical_pos:int
 
 
 func _process(_delta:float)->void :
-	if Engine.get_process_frames() % 5 == 0:
-		var target_pos = Utils.player.global_position
-		var camera_pos = get_global_transform().origin
-		var distance = get_global_mouse_position().distance_to(camera_pos)
-		var max_distance = 10  # 最大距离
-		var max_offset = 5  # 最大偏移量
-		var t = distance / max_distance  # 计算插值系数
-		var new_offset = (get_global_mouse_position() - camera_pos).normalized() * max_offset * t  # 计算相机的偏移量
-		
-		var x = int(lerp(position.x,new_offset.x,0.1))
-		var y = int(lerp(position.y,new_offset.y,0.1))
-		position = Vector2(x,y)
-		#Utils.player.light2d.offset = new_offset
+	if Utils.player:
+		# 相机是Anchor的子节点，position应为局部偏移
+		# 平滑跟随：lerp当前偏移到零偏移（即跟随Anchor/玩家）
+		# 使用固定的平滑因子，每帧向零偏移靠近10%
+		position = position.lerp(Vector2.ZERO, 0.1)
+		# 像素对齐，避免亚像素抖动
+		position = Vector2(int(position.x), int(position.y))
+
 	if center_horizontal:
 		global_position.x = center_horizontal_pos
 	if center_vertical:
@@ -36,9 +31,9 @@ func shootShake(_step):
 	if is_shake:
 		return
 	is_shake = true
-	_step *= Utils.shake
+	_step *= Utils.shake * 0.3  # 幅度降至30%
 	var tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
-	tween.tween_property(self,"offset",_step,0.1)
-	tween.tween_property(self,"offset",Vector2.ZERO,0.1)
+	tween.tween_property(self,"offset",_step,0.05)  # 时长缩短
+	tween.tween_property(self,"offset",Vector2.ZERO,0.05)
 	tween.tween_callback(func end():
 		is_shake = false)

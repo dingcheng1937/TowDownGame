@@ -17,6 +17,15 @@ class_name BaseAttachment
 @export var SHOTGUNS = false
 @export var LASER_WEAPONS = false
 
+@export_group("瞄准修正")
+@export var drift_accumulation_mod: float = 0.0 #漂移累积百分比修正
+@export var drift_max_mod: float = 0.0 #最大漂移百分比修正
+@export var drift_recovery_mod: float = 0.0 #漂移恢复百分比修正
+@export var bloom_per_shot_mod: float = 0.0 #散布增加百分比修正
+@export var bloom_max_mod: float = 0.0 #最大散布百分比修正
+@export var bloom_base_mod: float = 0.0 #基础散布百分比修正
+@export var bloom_recovery_mod: float = 0.0 #散布恢复百分比修正
+
 var use_type = []#可用类型
 var id = Time.get_ticks_usec() #配件在背包中的ID
 
@@ -59,4 +68,5 @@ func onDestroy():
 	pass
 
 func gunUpdate():
-	gun.updateGun()
+	if gun and is_instance_valid(gun):
+		gun.updateGun()

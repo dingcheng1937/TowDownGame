@@ -16,6 +16,12 @@ func _ready() -> void:
 	Utils.crosshairChange(false)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
+
+func _exit_tree() -> void:
+	# 断开信号连接，避免内存泄漏
+	if Utils.onGameStart.is_connected(onGameStart):
+		Utils.onGameStart.disconnect(onGameStart)
+
 func onGameStart():
 	$ControlUI.visible = true
 	$CanvasLayer/Panel.visible = true

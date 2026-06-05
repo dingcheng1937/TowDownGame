@@ -11,9 +11,6 @@ func _ready():
 	# 触发游戏启动（使用原游戏方式）
 	Utils.gameStart()
 
-	# 设置鼠标模式（射击需要，参考 SnowWorld.gd）
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
-
 	# 设置玩家引用
 	Utils.player = $PlayerRoot/Hero
 

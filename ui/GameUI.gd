@@ -36,8 +36,40 @@ func _ready() -> void:
 	PlayerData.playerWeaponListChange.connect(playerWeaponListChange) #武器列表化监听
 	PlayerData.onWeaponChangeAnim.connect(onWeaponChangeAnim) #武器化监听
 	PlayerData.onWeaponBulletsChange.connect(onWeaponBulletsChange) #武器化监听
-	PlayerData.onHpChange.connect(func hpChange(hp,max_hp): #血量变化监听
-		hp_bar.max_value = max_hp;hp_bar.value = hp)
+	PlayerData.onHpChange.connect(_on_hp_change_internal) #血量变化监听
+
+
+func _exit_tree() -> void:
+	# 断开信号连接，避免内存泄漏
+	# 检查autoload是否仍然有效（场景切换时可能已被清理）
+	if is_instance_valid(Utils) and Utils.onGameStart.is_connected(onGameStart):
+		Utils.onGameStart.disconnect(onGameStart)
+	if is_instance_valid(RewardServer) and RewardServer.onRewardAdd.is_connected(onRewardAdd):
+		RewardServer.onRewardAdd.disconnect(onRewardAdd)
+	if is_instance_valid(PlayerData):
+		if PlayerData.onRewardChange.is_connected(onRewardChange):
+			PlayerData.onRewardChange.disconnect(onRewardChange)
+		if PlayerData.onGoldChange.is_connected(onGoldChange):
+			PlayerData.onGoldChange.disconnect(onGoldChange)
+		if PlayerData.onAmmoChange.is_connected(onAmmoChange):
+			PlayerData.onAmmoChange.disconnect(onAmmoChange)
+		if PlayerData.onPlayerLevelChange.is_connected(onPlayerLevelChange):
+			PlayerData.onPlayerLevelChange.disconnect(onPlayerLevelChange)
+		if PlayerData.onPlayerExpChange.is_connected(onPlayerExpChange):
+			PlayerData.onPlayerExpChange.disconnect(onPlayerExpChange)
+		if PlayerData.playerWeaponListChange.is_connected(playerWeaponListChange):
+			PlayerData.playerWeaponListChange.disconnect(playerWeaponListChange)
+		if PlayerData.onWeaponChangeAnim.is_connected(onWeaponChangeAnim):
+			PlayerData.onWeaponChangeAnim.disconnect(onWeaponChangeAnim)
+		if PlayerData.onWeaponBulletsChange.is_connected(onWeaponBulletsChange):
+			PlayerData.onWeaponBulletsChange.disconnect(onWeaponBulletsChange)
+		if PlayerData.onHpChange.is_connected(_on_hp_change_internal):
+			PlayerData.onHpChange.disconnect(_on_hp_change_internal)
+
+
+func _on_hp_change_internal(hp: int, max_hp: int) -> void:
+	hp_bar.max_value = max_hp
+	hp_bar.value = hp
 
 func onGameStart():
 	onGoldChange(PlayerData.gold)

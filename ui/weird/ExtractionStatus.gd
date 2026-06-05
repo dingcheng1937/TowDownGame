@@ -16,6 +16,21 @@ func _ready() -> void:
 	_update_initial_state()
 
 
+func _exit_tree() -> void:
+	# 断开信号连接，避免内存泄漏
+	# 检查autoload是否仍然有效（场景切换时可能已被清理）
+	if not is_instance_valid(ExtractionServer):
+		return
+	if ExtractionServer.extraction_available.is_connected(_on_extraction_available):
+		ExtractionServer.extraction_available.disconnect(_on_extraction_available)
+	if ExtractionServer.extraction_started.is_connected(_on_extraction_started):
+		ExtractionServer.extraction_started.disconnect(_on_extraction_started)
+	if ExtractionServer.extraction_completed.is_connected(_on_extraction_completed):
+		ExtractionServer.extraction_completed.disconnect(_on_extraction_completed)
+	if ExtractionServer.countdown_tick.is_connected(_on_countdown):
+		ExtractionServer.countdown_tick.disconnect(_on_countdown)
+
+
 func _update_initial_state() -> void:
 	if _condition_label:
 		_condition_label.text = "待够30秒后可撤离"

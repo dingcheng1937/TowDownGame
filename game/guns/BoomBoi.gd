@@ -13,9 +13,11 @@ var one_bullet_array = []
 
 func _shoot():
 	super._shoot()
-	var mouse_pos = get_global_mouse_position()
-	var direction = (mouse_pos - gun_tip.global_position).normalized()
-	gun_tip.rotation = direction.angle()
+	_apply_recoil()
+	var shoot_angle = get_shoot_angle()
+	gun_tip.rotation = shoot_angle
+	# 激光武器：drift影响射线方向
+	cast.target_position = Vector2.RIGHT.rotated(shoot_angle - global_rotation) * 1000
 	openFire()
 
 func _shootAnim():
@@ -65,7 +67,7 @@ func openFire():
 
 func openLaser():
 	audio.play()
-	player.set_knockback(recoil)
+	player.set_knockback(recoil * 0.3)
 	tick.start()
 	particles_end.emitting = true
 	particles_box.emitting = true

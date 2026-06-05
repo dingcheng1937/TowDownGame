@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bp3b7girhv58y"]
+
+[ext_resource type="Script" path="res://game/melee/BaseMeleeWeapon.gd" id="1"]
+
+[sub_resource type="AudioStreamWav" id="2"]
+data = {
+"channels": 1,
+"mix_rate": 44100,
+"sample_count": 0,
+"data": PackedByteArray()
+}
+
+[node name="BaseMeleeWeapon" type="Node2D"]
+script = ExtResource("1")
+weapon_name = "Melee Weapon"
+weapon_id = 0
+damage = 10.0
+max_durability = 100.0
+attack_range = 60.0
+attack_rate = 1.0
+attack_duration = 0.2
+weapon_rarity = "NORMAL"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+centered = false
+offset = Vector2(0, -30)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("2")

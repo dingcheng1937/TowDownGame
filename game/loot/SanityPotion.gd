@@ -13,7 +13,14 @@ func _ready() -> void:
 
 
 func pickup() -> void:
+	# 消耗品：直接使用，不添加到背包
+	if is_picked:
+		return
+	is_picked = true
+
 	# 直接恢复理智
 	SanityServer.change_sanity(30.0)
 	Utils.showToast("使用理智药剂，理智+30")
-	super.pickup()
+	emit_signal("picked_up")
+	_on_pickup_effect()
+	queue_free()

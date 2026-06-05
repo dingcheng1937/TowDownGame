@@ -8,6 +8,7 @@ signal onWeaponBulletsChange(bullet,max_bullet) #武器子弹数量变化
 signal onAmmoChange(ammo) #备用子弹数量变化
 signal onPlayerDeath() #玩家死亡信号
 signal onPlayerResurrect() #玩家复活信号
+signal onMeleeDurabilityChange(current,max) #近战武器耐久变化
 
 signal onRewardChange(reward)#血量变化
 signal onHpChange(hp,max_hp)#血量变化

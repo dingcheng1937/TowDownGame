@@ -2,18 +2,22 @@ extends "res://game/guns/BaseGun.gd"
 
 func _shoot():
 	super._shoot()
-	var mouse_pos = get_global_mouse_position()
-	var direction = (mouse_pos - gun_tip.global_position).normalized()
-	gun_tip.rotation = direction.angle()
+	_apply_recoil()
+	var shoot_angle = get_shoot_angle()
+	gun_tip.rotation = shoot_angle
 	createBullet()
 
 func createBullet():
 	for i in 3:
+		# 每发都累积drift（第一发已在_shoot中累积）
+		if i > 0:
+			_apply_recoil()
 		var b = bullet_scene.instantiate()
 		b.setOnwer(player)
 		get_tree().root.add_child(b)
 		b.position = gun_tip.global_position
-		b.rotation = gun_tip.rotation
+		# 直接使用get_shoot_angle()，它会读取当前的drift/bloom值
+		b.rotation = get_shoot_angle()
 		fire(b)
 		call_deferred("_shootAnim")
 		await get_tree().create_timer(0.15).timeout

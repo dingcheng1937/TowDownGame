@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://e2f3g4h5i6j7k8l9"]
+
+[ext_resource type="Script" path="res://game/effects/StunEffect.gd" id="1"]
+
+[node name="StunEffect" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+modulate = Color(1, 1, 0, 1)

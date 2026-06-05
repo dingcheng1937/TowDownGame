@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://xoudenvt1ru5"]
+
+[ext_resource type="Script" uid="uid://38riglj84eul" path="res://demo/GYM_12_MeleeStarter.gd" id="1_starter"]
+[ext_resource type="PackedScene" uid="uid://8lekrqo3cykw" path="res://game/hero/Hero.tscn" id="2_hero"]
+[ext_resource type="Script" uid="uid://c7oibv06cluva" path="res://game/hero/Camera2D.gd" id="3_camera"]
+[ext_resource type="PackedScene" uid="uid://cuugva8rpxfk2" path="res://game/monster/Ghoul/Ghoul.tscn" id="4_ghoul"]
+[ext_resource type="PackedScene" uid="uid://ba5j614tj2nty" path="res://ui/widgets/InfoPanel.tscn" id="5_infopanel"]
+[ext_resource type="PackedScene" uid="uid://b8fluhc5dx881" path="res://ui/ControlUI.tscn" id="6_controlui"]
+
+[sub_resource type="GDScript" id="GDScript_anchor"]
+script/source = "extends Node2D
+
+func _physics_process(_delta: float) -> void:
+	if Utils.player:
+		var target = Utils.player.global_position
+		var x = int(lerp(global_position.x, target.x, 0.2))
+		var y = int(lerp(global_position.y, target.y, 0.2))
+		global_position = Vector2(x, y)
+"
+
+[node name="MeleeDemo" type="Node2D" unique_id=991590735]
+script = ExtResource("1_starter")
+
+[node name="PlayerRoot" type="Node2D" parent="." unique_id=233156620]
+y_sort_enabled = true
+
+[node name="Hero" parent="PlayerRoot" unique_id=1353232408 instance=ExtResource("2_hero")]
+position = Vector2(400, 300)
+
+[node name="Anchor" type="Node2D" parent="PlayerRoot" unique_id=377803885]
+script = SubResource("GDScript_anchor")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerRoot/Anchor" unique_id=1841880813]
+zoom = Vector2(0.9, 0.9)
+position_smoothing_enabled = true
+script = ExtResource("3_camera")
+
+[node name="MonstersRoot" type="Node2D" parent="." unique_id=116512073]
+
+[node name="Ghoul1" parent="MonstersRoot" unique_id=916992248 instance=ExtResource("4_ghoul")]
+position = Vector2(150, 150)
+
+[node name="Ghoul2" parent="MonstersRoot" unique_id=246710357 instance=ExtResource("4_ghoul")]
+position = Vector2(650, 150)
+
+[node name="Ghoul3" parent="MonstersRoot" unique_id=1043558749 instance=ExtResource("4_ghoul")]
+position = Vector2(150, 450)
+
+[node name="Ghoul4" parent="MonstersRoot" unique_id=483730303 instance=ExtResource("4_ghoul")]
+position = Vector2(650, 450)
+
+[node name="Ghoul5" parent="MonstersRoot" unique_id=564022924 instance=ExtResource("4_ghoul")]
+position = Vector2(400, 500)
+
+[node name="Background" type="ColorRect" parent="." unique_id=1119341304]
+z_index = -1
+offset_right = 800.0
+offset_bottom = 600.0
+color = Color(0.1, 0.1, 0.15, 1)
+
+[node name="InfoPanel" parent="." unique_id=490456023 instance=ExtResource("5_infopanel")]
+title = "近战武器系统"
+content = "当前武器: 输液架
+低伤害 | 高耐久 | 大攻击范围
+
+测试内容:
+- V键: 近战攻击
+- Tab键: 切换近战武器
+- 1-4键: 选择特定武器
+- 观察耐久消耗
+- 武器损坏后变废品
+
+控制: WASD移动 | 鼠标瞄准"
+
+[node name="ControlUI" parent="." unique_id=1421418918 instance=ExtResource("6_controlui")]

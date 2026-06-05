@@ -1,19 +1,16 @@
 extends "res://game/guns/BaseGun.gd"
 
 func _shoot():
-	var mouse_pos = get_global_mouse_position()
-	var direction = (mouse_pos - gun_tip.global_position).normalized()
-	gun_tip.rotation = direction.angle()
+	super._shoot()
+	_apply_recoil()
+	var shoot_angle = get_shoot_angle()
+	gun_tip.rotation = shoot_angle
 	var b = bullet_scene.instantiate()
 	b.setOnwer(player)
 	get_tree().root.add_child(b)
 	b.position = gun_tip.global_position
-	b.rotation = gun_tip.rotation
+	b.rotation = shoot_angle
 	fire(b)
-	
-	call_deferred("_shootAnim")
-	can_shoot = false
-	timer.start()
 
 func _shootAnim():
 	super._shootAnim()

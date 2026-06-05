@@ -24,6 +24,18 @@ const particles_pre = preload("res://game/hero/gpu_particles_2d.tscn")
 @export var shake_vector = Vector2.ZERO #屏幕晃动大小
 @export var reload_stream :AudioStream = load("res://audio/bullet/GUNMech_Insert Clip_01.wav")
 
+@export_group("Aim Drift")
+@export var drift_accumulation: float = 1.5 #每发增加的漂移（度/发）
+@export var drift_max: float = 10.0 #最大漂移量（度）
+@export var drift_recovery: float = 25.0 #恢复速度（度/秒）
+@export var drift_recovery_delay: float = 0.15 #停止射击后多久开始恢复（秒）
+
+@export_group("Bloom")
+@export var bloom_per_shot: float = 1.0 #每发增加的散布（度/发）
+@export var bloom_max: float = 8.0 #最大散布半径（度）
+@export var bloom_base: float = 0.5 #基础散布（首发也有微小散布）
+@export var bloom_recovery: float = 20.0 #恢复速度（度/秒）
+
 var attachments = {
 	"Optics" = null,
 	"Muzzle" = null,
@@ -57,6 +69,14 @@ var is_reloading = false #是否正在换子弹
 var change_timer = Timer.new()
 var audio_reload_ammo = AudioStreamPlayer.new()
 
+# Aim Drift + Bloom 运行时变量
+var drift_current: float = 0.0 #当前漂移量（度）
+var bloom_current: float = 0.0 #当前散布半径（度）
+var _time_since_last_shot: float = 999.0 #距离上次射击的时间
+var _is_firing: bool = false #当前帧是否在射击
+
+@export var debug_aim_visualization: bool = false #调试可视化开关
+
 func _init():
 	change_timer.one_shot = true
 	change_timer.timeout.connect(reload_over)
@@ -72,6 +92,11 @@ func _ready() -> void:
 	gun_image.texture = image
 	set_use(false)
 	timer.wait_time = 1.0 / fire_rate
+
+func _exit_tree() -> void:
+	# 断开信号连接，避免内存泄漏
+	if PlayerData.onPlayerFireRateChange.is_connected(onPlayerFireRateChange):
+		PlayerData.onPlayerFireRateChange.disconnect(onPlayerFireRateChange)
 
 func onPlayerFireRateChange(rate):
 	timer.wait_time = 1.0 / (fire_rate * rate)
@@ -115,17 +140,44 @@ func setOwner(player):
 func _process(delta):
 	if Utils.freeze_frame:
 		delta = 0.0
+
+	_time_since_last_shot += delta
+
+	# === 偏移系统暂时禁用 ===
+	# 恢复逻辑：停止射击后逐渐恢复
+	# if !_is_firing && _time_since_last_shot > drift_recovery_delay:
+	#	drift_current = move_toward(drift_current, 0.0, _get_effective_drift_recovery() * delta)
+	#	bloom_current = move_toward(bloom_current, _get_effective_bloom_base(), _get_effective_bloom_recovery() * delta)
+
+	_is_firing = false
+
+	# 调试可视化刷新
+	if debug_aim_visualization:
+		queue_redraw()
+
+	# 计算实际瞄准方向 = 鼠标方向 + drift偏移
 	var mouse_pos = get_global_mouse_position()
-	direction = (mouse_pos - gun_tip.global_position).normalized()
-	
-	if Input.mouse_mode == Input.MOUSE_MODE_CONFINED_HIDDEN && Input.is_action_pressed("shoot") and can_shoot and !is_reloading:
+	var base_direction = (mouse_pos - gun_tip.global_position).normalized()
+	var base_angle = base_direction.angle()
+
+	# drift 沿射击方向向外偏移（模拟后坐力把枪口推偏）
+	# === 偏移系统暂时禁用 ===
+	# var drift_angle = base_angle + deg_to_rad(drift_current)
+	# direction = Vector2.from_angle(drift_angle)
+	# gun_tip.rotation = drift_angle
+
+	# 精确瞄准：方向直接指向鼠标
+	direction = base_direction
+	gun_tip.rotation = base_angle
+
+	if Input.is_action_pressed("shoot") and can_shoot and !is_reloading:
 		can_shoot = false
 		timer.start()
 		if bullets_count > 0:
 			_shoot()
 		else:
 			reload_ammo()
-	
+
 	if is_use && Input.is_action_pressed("reload"):
 		reload_ammo()
 
@@ -137,6 +189,11 @@ func set_use(use:bool):
 	set_physics_process(is_use)
 	set_process(is_use)
 	visible = is_use
+	# 切换武器时重置drift/bloom
+	drift_current = 0.0
+	bloom_current = _get_effective_bloom_base()
+	_time_since_last_shot = 999.0
+	_is_firing = false
 	if player && is_use:
 		player.gun = self
 		PlayerData.emit_signal("onWeaponChangeAnim",weapon_id)
@@ -161,7 +218,7 @@ func fire(bullet:Bullet,is_bullet = true,is_play = true):
 	if is_bullet:
 		bullet.fire()
 	if recoil > 0 && is_bullet:
-		player.set_knockback(recoil)
+		player.set_knockback(recoil * 0.3)
 	if is_play:
 		audio.play()
 
@@ -196,8 +253,89 @@ func _physics_process(delta):
 func _shoot() -> void:
 	call_deferred("_shootAnim")
 
+# 累积drift和bloom，射击时调用
+func _apply_recoil():
+	drift_current = minf(drift_current + _get_effective_drift_accumulation(), _get_effective_drift_max())
+	bloom_current = minf(bloom_current + _get_effective_bloom_per_shot(), _get_effective_bloom_max())
+	_time_since_last_shot = 0.0
+	_is_firing = true
+
+# 获取实际射击角度（含drift + bloom随机偏移）
+# === 偏移系统暂时禁用：子弹精确飞向鼠标 ===
+func get_shoot_angle() -> float:
+	var mouse_pos = get_global_mouse_position()
+	var base_angle = (mouse_pos - gun_tip.global_position).normalized().angle()
+	# drift + bloom 偏移已禁用
+	# var drift_angle = base_angle + deg_to_rad(drift_current)
+	# var bloom_offset = deg_to_rad(randf_range(-bloom_current, bloom_current))
+	# return drift_angle + bloom_offset
+	return base_angle
+
+# 获取配件修正后的drift累积值
+func _get_effective_drift_accumulation() -> float:
+	var mod = 0.0
+	for am in attachments_dict.values():
+		mod += am.drift_accumulation_mod
+	return drift_accumulation * (1.0 + mod)
+
+# 获取配件修正后的bloom每发增加值
+func _get_effective_bloom_per_shot() -> float:
+	var mod = 0.0
+	for am in attachments_dict.values():
+		mod += am.bloom_per_shot_mod
+	return bloom_per_shot * (1.0 + mod)
+
+# 获取配件修正后的drift最大值
+func _get_effective_drift_max() -> float:
+	var mod = 0.0
+	for am in attachments_dict.values():
+		mod += am.drift_max_mod
+	return drift_max * (1.0 + mod)
+
+# 获取配件修正后的drift恢复速度
+func _get_effective_drift_recovery() -> float:
+	var mod = 0.0
+	for am in attachments_dict.values():
+		mod += am.drift_recovery_mod
+	return drift_recovery * (1.0 + mod)
+
+# 获取配件修正后的bloom最大值
+func _get_effective_bloom_max() -> float:
+	var mod = 0.0
+	for am in attachments_dict.values():
+		mod += am.bloom_max_mod
+	return bloom_max * (1.0 + mod)
+
+# 获取配件修正后的bloom基础值
+func _get_effective_bloom_base() -> float:
+	var mod = 0.0
+	for am in attachments_dict.values():
+		mod += am.bloom_base_mod
+	return bloom_base * (1.0 + mod)
+
+# 获取配件修正后的bloom恢复速度
+func _get_effective_bloom_recovery() -> float:
+	var mod = 0.0
+	for am in attachments_dict.values():
+		mod += am.bloom_recovery_mod
+	return bloom_recovery * (1.0 + mod)
+
 func _shootAnim():
 	player.cameraSnake(shake_vector * direction)
 	var ins = particles_pre.instantiate()
 	ins.position = gun_tip.position
 	add_child(ins)
+
+func _draw():
+	if !debug_aim_visualization || !is_use:
+		return
+	var tip_pos = gun_tip.position
+	var mouse_pos = to_local(get_global_mouse_position())
+	# 白线：鼠标方向（期望瞄准方向）
+	draw_line(tip_pos, mouse_pos, Color.WHITE, 1)
+	# 红线：实际射击方向（含drift）
+	var drift_end = tip_pos + direction * 200
+	draw_line(tip_pos, drift_end, Color.RED, 1)
+	# 绿圈：当前bloom范围
+	var bloom_radius = deg_to_rad(bloom_current) * 200
+	draw_arc(tip_pos + direction * 100, bloom_radius, 0, TAU, 32, Color.GREEN, 1)

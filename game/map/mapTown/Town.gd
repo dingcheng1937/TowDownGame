@@ -34,6 +34,26 @@ func _ready():
 	Utils.onGameStart.connect(onGameStart)
 	PlayerData.onPlayerDeath.connect(onPlayerDeath)
 
+
+func _exit_tree() -> void:
+	# 断开信号连接，避免内存泄漏
+	if LevelServer.monsterCreate.is_connected(monsterCreate):
+		LevelServer.monsterCreate.disconnect(monsterCreate)
+	if LevelServer.roundVictory.is_connected(roundVictory):
+		LevelServer.roundVictory.disconnect(roundVictory)
+	if LevelServer.onTimeTick.is_connected(onTimeTick):
+		LevelServer.onTimeTick.disconnect(onTimeTick)
+	if LevelServer.onRoundStart.is_connected(onRoundStart):
+		LevelServer.onRoundStart.disconnect(onRoundStart)
+	if LevelServer.onRoundEnd.is_connected(onRoundEnd):
+		LevelServer.onRoundEnd.disconnect(onRoundEnd)
+	if LevelServer.onNextLevel.is_connected(onNextLevel):
+		LevelServer.onNextLevel.disconnect(onNextLevel)
+	if Utils.onGameStart.is_connected(onGameStart):
+		Utils.onGameStart.disconnect(onGameStart)
+	if PlayerData.onPlayerDeath.is_connected(onPlayerDeath):
+		PlayerData.onPlayerDeath.disconnect(onPlayerDeath)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if $CanvasLayer/openShop.visible && Input.is_action_just_pressed("e"):
 		var ins = Utils.shop_pre.instantiate()
