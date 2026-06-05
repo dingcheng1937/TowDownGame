@@ -131,6 +131,32 @@
 
 ---
 
+#### GYM_11_WeirdLoot - 诡异搜打撤系统 ✅
+**文件:** `GYM_11_WeirdLoot.tscn` + `GYM_11_WeirdLootStarter.gd`
+
+**验证内容:**
+- 理智系统（SanityServer）
+- 撤离点机制（ExtractionServer）
+- 掉落物拾取（LootServer）
+- 诡异怪物（Shade、Whisperer、Aberration）
+
+**控制:** WASD移动 | 鼠标左键射击 | E交互
+
+---
+
+#### GYM_12_Melee - 近战武器系统 ✅
+**文件:** `GYM_12_Melee.tscn` + `GYM_12_MeleeStarter.gd`
+
+**验证内容:**
+- V键近战攻击
+- Tab切换武器
+- 武器耐久度
+- 武器损坏机制
+
+**控制:** WASD移动 | V近战攻击 | Tab切换武器
+
+---
+
 ## 技术架构
 
 每个GYM包含：
@@ -245,8 +271,12 @@ demo/
 ├── GYM_09_WeaponListStarter.gd
 ├── GYM_10_Inventory.tscn         # 背包UI ✅
 ├── GYM_10_InventoryStarter.gd
+├── GYM_11_WeirdLoot.tscn        # 诡异搜打撤系统 ✅
+├── GYM_11_WeirdLootStarter.gd
+├── GYM_12_Melee.tscn            # 近战武器系统 ✅
+├── GYM_12_MeleeStarter.gd
 ├── DEMO_PLAN.md                  # 规划文档
 └── README.md                     # 本文档
 ```
 
-**总计：10个独立GYM，完整覆盖游戏核心系统**
+**总计：12个独立GYM，完整覆盖游戏核心系统**

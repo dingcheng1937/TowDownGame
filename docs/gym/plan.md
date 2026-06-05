@@ -38,10 +38,15 @@
 **核心类:** `game/attachments/` 目录
 **状态:** 已完成
 
-#### 7. 生存技能 ⏳
-**计划文件:** `demo/GYM_11_Skill.tscn`
-**核心类:** `game/survival_skill/` 目录
-**状态:** 待完成
+#### 7. 诡异搜打撤系统 ✅
+**文件:** `demo/GYM_11_WeirdLoot.tscn`
+**核心类:** `autoload/server/SanityServer.gd`, `ExtractionServer.gd`, `LootServer.gd`
+**验证点:**
+- 理智系统（SanityServer）
+- 撤离点机制（ExtractionServer）
+- 掉落物拾取（LootServer）
+- 诡异怪物（Shade, Whisperer, Aberration）
+**状态:** 已完成
 
 ---
 
@@ -63,13 +68,15 @@
 - 数字飘动效果
 - 不同颜色区分伤害类型
 
-#### 10. 提示框UI ⏳
-**计划文件:** `demo/GYM_12_Tooltip.tscn`
-**核心类:** `ui/widgets/Tooltip.tscn`
+#### 10. 近战武器系统 ✅
+**文件:** `demo/GYM_12_Melee.tscn`
+**核心类:** `game/weapons/melee/` 目录
 **验证点:**
-- 鼠标悬停显示
-- 提示框内容
-- 提示框位置跟随
+- 近战攻击动画
+- 武器耐久度
+- 武器切换
+- 武器损坏机制
+**状态:** 已完成
 
 #### 11. 武器列表UI ✅
 **文件:** `demo/GYM_09_WeaponList.tscn`
@@ -140,12 +147,18 @@
 10. ✅ GYM_06_Attachment - 附件系统
 
 ### 待完成 ⏳
-11. ⏳ GYM_11_Skill - 生存技能
-12. ⏳ GYM_12_Tooltip - 提示框UI
-13. ⏳ GYM_13_Shop - 商店UI
-14. ⏳ GYM_14_Reward - 奖励选择UI
-15. ⏳ GYM_15_Scoreboard - 计分板UI
-16. ⏳ GYM_16_Death - 死亡界面UI
+11. ⏳ GYM_13_Shop - 商店UI
+12. ⏳ GYM_14_Reward - 奖励选择UI
+13. ⏳ GYM_15_Scoreboard - 计分板UI
+14. ⏳ GYM_16_Death - 死亡界面UI
+
+---
+
+## 已完成模块
+
+### 扩展功能（新增）- 已完成 ✅
+11. ✅ GYM_11_WeirdLoot - 诡异搜打撤系统
+12. ✅ GYM_12_Melee - 近战武器系统
 
 ---
 
@@ -163,8 +176,8 @@ demo/
 ├── GYM_08_HitLabel.tscn        # 伤害数字UI ✅
 ├── GYM_09_WeaponList.tscn      # 武器列表UI ✅
 ├── GYM_10_Inventory.tscn       # 背包UI ✅
-├── GYM_11_Skill.tscn           # 生存技能 ⏳
-├── GYM_12_Tooltip.tscn         # 提示框UI ⏳
+├── GYM_11_WeirdLoot.tscn       # 诡异搜打撤系统 ✅
+├── GYM_12_Melee.tscn           # 近战武器系统 ✅
 ├── GYM_13_Shop.tscn            # 商店UI ⏳
 ├── GYM_14_Reward.tscn          # 奖励选择UI ⏳
 ├── GYM_15_Scoreboard.tscn      # 计分板UI ⏳

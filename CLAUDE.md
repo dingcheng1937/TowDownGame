@@ -115,6 +115,18 @@
 | GYM_09_WeaponList | 武器切换 |
 | GYM_10_Inventory | 背包界面 |
 | GYM_11_WeirdLoot | 诡异搜打撤（MVP） |
+| GYM_12_Melee | 近战武器系统 |
+
+---
+
+## 文档位置
+
+所有项目文档统一位于 `docs/` 目录：
+
+- **架构文档**: `docs/architecture/` - 系统设计（英文）
+- **教程文档**: `docs/guides/` - 学习指南（中文）
+- **GYM文档**: `docs/gym/` - GYM验证系统说明
+- **文档索引**: `docs/README.md` - 完整文档导航
 
 ---
 
