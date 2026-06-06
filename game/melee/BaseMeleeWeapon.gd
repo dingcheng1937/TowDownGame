@@ -64,7 +64,11 @@ func set_use(use:bool):
 func _process(_delta):
 	if !is_use || is_broken:
 		return
-	
+
+	# 只在游戏鼠标模式下允许攻击（UI打开时禁止）
+	if not Utils.can_player_act():
+		return
+
 	if Input.is_action_just_pressed("melee_attack") && can_attack && !is_attacking:
 		_attack()
 
@@ -120,7 +124,8 @@ func _create_hitbox():
 		if player.look_dir:
 			attack_pos += player.look_dir * attack_range * 0.5
 	hitbox.global_position = attack_pos
-	get_tree().root.add_child(hitbox)
+	# 将hitbox添加到武器节点下，而非场景根节点，避免场景切换时成为孤儿节点
+	add_child(hitbox)
 	
 	await get_tree().create_timer(attack_duration).timeout
 	# 检查武器是否仍然有效（可能在等待期间被丢弃/切换）

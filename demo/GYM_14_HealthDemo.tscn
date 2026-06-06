@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://demo_health13"]
+
+[ext_resource type="Script" path="res://demo/GYM_14_HealthDemoStarter.gd" id="1_starter"]
+[ext_resource type="PackedScene" uid="uid://8lekrqo3cykw" path="res://game/hero/Hero.tscn" id="2_hero"]
+[ext_resource type="Script" path="res://game/hero/Camera2D.gd" id="3_camera"]
+[ext_resource type="PackedScene" uid="uid://blki8yncg1wpv" path="res://game/items/HpPack.tscn" id="5_hppack"]
+[ext_resource type="PackedScene" uid="uid://ba5j614tj2nty" path="res://ui/widgets/InfoPanel.tscn" id="6_infopanel"]
+[ext_resource type="PackedScene" path="res://demo/GroundTrap.tscn" id="7_trap"]
+
+[sub_resource type="GDScript" id="GDScript_anchor"]
+script/source = "extends Node2D
+
+func _physics_process(_delta: float) -> void:
+	if Utils.player:
+		var target = Utils.player.global_position
+		var x = int(lerp(global_position.x, target.x, 0.2))
+		var y = int(lerp(global_position.y, target.y, 0.2))
+		global_position = Vector2(x, y)
+"
+
+[node name="HealthDemo" type="Node2D"]
+script = ExtResource("1_starter")
+
+[node name="PlayerRoot" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Hero" parent="PlayerRoot" instance=ExtResource("2_hero")]
+position = Vector2(400, 250)
+
+[node name="Anchor" type="Node2D" parent="PlayerRoot"]
+script = SubResource("GDScript_anchor")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerRoot/Anchor"]
+zoom = Vector2(0.9, 0.9)
+position_smoothing_enabled = true
+script = ExtResource("3_camera")
+
+[node name="TrapsRoot" type="Node2D" parent="."]
+
+[node name="GroundTrap1" parent="TrapsRoot" instance=ExtResource("7_trap")]
+position = Vector2(200, 400)
+
+[node name="GroundTrap2" parent="TrapsRoot" instance=ExtResource("7_trap")]
+position = Vector2(400, 400)
+
+[node name="GroundTrap3" parent="TrapsRoot" instance=ExtResource("7_trap")]
+position = Vector2(600, 400)
+
+[node name="ItemsRoot" type="Node2D" parent="."]
+
+[node name="HpPack1" parent="ItemsRoot" instance=ExtResource("5_hppack")]
+position = Vector2(150, 350)
+hp = 1
+
+[node name="HpPack2" parent="ItemsRoot" instance=ExtResource("5_hppack")]
+position = Vector2(650, 350)
+hp = 2
+
+[node name="Background" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 800.0
+offset_bottom = 600.0
+color = Color(0.15, 0.15, 0.2, 1)
+
+[node name="InfoPanel" parent="." instance=ExtResource("6_infopanel")]
+title = "GYM_14 Health Demo"
+content = "测试内容:
+- 按 J 键: 扣除1点HP
+- 踏上红色方块: 受到伤害
+- 拾取绿色物品: 恢复HP
+
+控制: WASD移动 | Space冲刺"
+
+[node name="UIRoot" type="CanvasLayer" parent="."]

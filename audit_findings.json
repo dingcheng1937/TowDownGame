@@ -1,0 +1,38 @@
+[
+  {
+    "file": "D:\\projects\\TowDownGame\\game\\guns\\BaseGun.gd",
+    "line": 121,
+    "summary": "Removed mouse mode guard: shooting only checked when MOUSE_MODE_CONFINED_HIDDEN",
+    "failure_scenario": "Player can now fire weapons while in menus (inventory, shop, settings) because the Input.mouse_mode check was removed. If a player clicks 'shoot' button while a UI panel is open, the game will process the shot instead of the UI interaction, potentially causing unintended weapon discharges."
+  },
+  {
+    "file": "D:\\projects\\TowDownGame\\game\\hero\\Camera2D.gd",
+    "line": 12,
+    "summary": "Removed mouse-aimed camera offset calculation: camera no longer positions based on mouse distance",
+    "failure_scenario": "Camera no longer looks ahead in the direction the player is aiming. This removes the ability to see further in the direction you're aiming, which is a core gameplay feature for twin-stick shooters. The camera now only smooths back to center."
+  },
+  {
+    "file": "D:\\projects\\TowDownGame\\game\\hero\\Hero.gd",
+    "line": 97,
+    "summary": "Removed body flip condition based on player position: changed from 'dir.x > position.x' to 'dir.x > 0'",
+    "failure_scenario": "Character sprite flip logic changed from relative-to-player to absolute direction. If player is at position (100, 0) and aims left (dir.x = -1), the old code would check '-1 > 100' (false) vs new code '-1 > 0' (true), potentially causing sprite to face wrong direction when player moves and aims simultaneously."
+  },
+  {
+    "file": "D:\\projects\\TowDownGame\\game\\hero\\Camera2D.gd",
+    "line": 39,
+    "summary": "Reduced screen shake effect: amplitude multiplied by 0.3 and duration halved (0.1s to 0.05s)",
+    "failure_scenario": "Screen shake feedback is significantly weaker. Players may not feel the impact of shooting/heavy weapons as clearly, reducing the game feel and player feedback for high-impact weapons like shotguns or explosives."
+  },
+  {
+    "file": "D:\\projects\\TowDownGame\\game\\guns\\BaseGun.gd",
+    "line": 220,
+    "summary": "Reduced knockback force: multiplied by 0.3 (recoil * 0.3)",
+    "failure_scenario": "Weapon knockback on player is 70% weaker. This affects gameplay balance - high-recoil weapons like shotguns no longer push the player back as much, potentially making powerful weapons too easy to control without tradeoffs."
+  },
+  {
+    "file": "D:\\projects\\TowDownGame\\ui\\widgets\\Crosshair.gd",
+    "line": 49,
+    "summary": "Changed mouse mode from CONFINED_HIDDEN to HIDDEN across all UI components",
+    "failure_scenario": "Mouse is no longer confined to game window during gameplay. On multi-monitor setups, players may accidentally move mouse outside window during intense gameplay, causing loss of input focus and potential game pauses. While documented in CLAUDE.md as intentional, this changes the security boundary that prevented accidental window escapes."
+  }
+]

@@ -96,7 +96,7 @@ func _setup_detection_area() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player and not is_die and not hit:
 		# 设置击中冷却，防止重复伤害
-		hit = true
+		start_hit_cooldown(0.5)
 		# 对玩家造成物理伤害
 		body.onHit(hurt)
 		# 造成理智伤害

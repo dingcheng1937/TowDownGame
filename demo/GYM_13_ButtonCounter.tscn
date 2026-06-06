@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cbm1b4fqdlyvu"]
+
+[ext_resource type="Script" path="res://demo/GYM_13_ButtonCounterStarter.gd" id="1_fnju6"]
+[ext_resource type="PackedScene" uid="uid://ba5j614tj2nty" path="res://ui/widgets/InfoPanel.tscn" id="2_yxvg8"]
+
+[node name="GYM_13_ButtonCounter" type="CanvasLayer" unique_id=2147409500]
+script = ExtResource("1_fnju6")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1391891888]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.101960786, 0.18039216, 1)
+
+[node name="InfoPanel" parent="." unique_id=916590305 instance=ExtResource("2_yxvg8")]
+
+[node name="CounterUI" type="Control" parent="." unique_id=718538465]
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CounterUI" unique_id=509184110]
+layout_mode = 0
+theme_override_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="CounterUI/VBoxContainer" unique_id=351087920]
+layout_mode = 2
+text = "Counter Demo"
+
+[node name="Button" type="Button" parent="CounterUI/VBoxContainer" unique_id=1059998608]
+layout_mode = 2
+text = "Click Me"
+
+[node name="CountLabel" type="Label" parent="CounterUI/VBoxContainer" unique_id=1220456839]
+layout_mode = 2
+text = "Count: 0"
+
+[connection signal="pressed" from="CounterUI/VBoxContainer/Button" to="." method="_on_button_pressed"]

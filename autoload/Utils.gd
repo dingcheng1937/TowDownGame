@@ -166,6 +166,10 @@ func crosshairChange(is_change):
 	else:
 		push_warning("Utils.crosshairChange() called but canvasLayer is not set")
 
+## 检查玩家是否可以执行游戏操作（鼠标隐藏时可以操作，UI打开时禁止）
+func can_player_act() -> bool:
+	return Input.mouse_mode == Input.MOUSE_MODE_HIDDEN
+
 func getShader(quality):
 	match quality:
 		0:""

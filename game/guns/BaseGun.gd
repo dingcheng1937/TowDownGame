@@ -170,7 +170,7 @@ func _process(delta):
 	direction = base_direction
 	gun_tip.rotation = base_angle
 
-	if Input.is_action_pressed("shoot") and can_shoot and !is_reloading:
+	if Utils.can_player_act() and Input.is_action_pressed("shoot") and can_shoot and !is_reloading:
 		can_shoot = false
 		timer.start()
 		if bullets_count > 0:
@@ -275,49 +275,56 @@ func get_shoot_angle() -> float:
 func _get_effective_drift_accumulation() -> float:
 	var mod = 0.0
 	for am in attachments_dict.values():
-		mod += am.drift_accumulation_mod
+		if is_instance_valid(am):
+			mod += am.drift_accumulation_mod
 	return drift_accumulation * (1.0 + mod)
 
 # 获取配件修正后的bloom每发增加值
 func _get_effective_bloom_per_shot() -> float:
 	var mod = 0.0
 	for am in attachments_dict.values():
-		mod += am.bloom_per_shot_mod
+		if is_instance_valid(am):
+			mod += am.bloom_per_shot_mod
 	return bloom_per_shot * (1.0 + mod)
 
 # 获取配件修正后的drift最大值
 func _get_effective_drift_max() -> float:
 	var mod = 0.0
 	for am in attachments_dict.values():
-		mod += am.drift_max_mod
+		if is_instance_valid(am):
+			mod += am.drift_max_mod
 	return drift_max * (1.0 + mod)
 
 # 获取配件修正后的drift恢复速度
 func _get_effective_drift_recovery() -> float:
 	var mod = 0.0
 	for am in attachments_dict.values():
-		mod += am.drift_recovery_mod
+		if is_instance_valid(am):
+			mod += am.drift_recovery_mod
 	return drift_recovery * (1.0 + mod)
 
 # 获取配件修正后的bloom最大值
 func _get_effective_bloom_max() -> float:
 	var mod = 0.0
 	for am in attachments_dict.values():
-		mod += am.bloom_max_mod
+		if is_instance_valid(am):
+			mod += am.bloom_max_mod
 	return bloom_max * (1.0 + mod)
 
 # 获取配件修正后的bloom基础值
 func _get_effective_bloom_base() -> float:
 	var mod = 0.0
 	for am in attachments_dict.values():
-		mod += am.bloom_base_mod
+		if is_instance_valid(am):
+			mod += am.bloom_base_mod
 	return bloom_base * (1.0 + mod)
 
 # 获取配件修正后的bloom恢复速度
 func _get_effective_bloom_recovery() -> float:
 	var mod = 0.0
 	for am in attachments_dict.values():
-		mod += am.bloom_recovery_mod
+		if is_instance_valid(am):
+			mod += am.bloom_recovery_mod
 	return bloom_recovery * (1.0 + mod)
 
 func _shootAnim():

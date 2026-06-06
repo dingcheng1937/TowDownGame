@@ -67,7 +67,8 @@ func openFire():
 
 func openLaser():
 	audio.play()
-	player.set_knockback(recoil * 0.3)
+	if player:
+		player.set_knockback(recoil * 0.3)
 	tick.start()
 	particles_end.emitting = true
 	particles_box.emitting = true

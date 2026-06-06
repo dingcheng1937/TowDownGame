@@ -140,3 +140,11 @@ func setDeathCallBack(death_callback:Callable):
 
 func addEffect(node):
 	get_node("EffectRoot").add_child(node)
+
+## 开始击中冷却，duration秒后重置hit标志
+## 用于防止连续碰撞造成多次伤害
+func start_hit_cooldown(duration: float) -> void:
+	hit = true
+	await get_tree().create_timer(duration).timeout
+	if is_instance_valid(self) and not is_die:
+		hit = false

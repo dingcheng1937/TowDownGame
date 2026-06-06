@@ -41,8 +41,9 @@ func _physics_process(delta: float) -> void:
 	if is_die:
 		return
 
-	# 检查玩家是否在理智降低范围内
-	_check_sanity_drain()
+	# 优化：只在有目标玩家时检查理智降低范围
+	if target_player:
+		_check_sanity_drain(delta)
 
 	_attack_timer -= delta
 
@@ -56,13 +57,12 @@ func _physics_process(delta: float) -> void:
 			_attack_timer = attack_interval
 
 
-func _check_sanity_drain() -> void:
-	if _sanity_drain_area and target_player:
-		var bodies = _sanity_drain_area.get_overlapping_bodies()
-		for body in bodies:
-			if body is Player:
-				SanityServer.change_sanity(-sanity_drain_rate * get_physics_process_delta_time())
-				break
+func _check_sanity_drain(delta: float) -> void:
+	# 优化：使用距离计算代替get_overlapping_bodies()，避免每帧调用物理查询
+	if target_player:
+		var distance = global_position.distance_to(target_player.global_position)
+		if distance <= sanity_drain_radius:
+			SanityServer.change_sanity(-sanity_drain_rate * delta)
 
 
 func _ranged_attack() -> void:

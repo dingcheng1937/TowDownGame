@@ -18,6 +18,13 @@
 **正确做法：**
 - 需要射击功能 → 查看 `game/guns/BaseGun.gd`，复用现有枪械系统
 - 需要UI组件 → 查看 `ui/widgets/` 目录，使用已有组件
+- 需要血条/弹药UI → 使用 `ui/ControlUI.tscn`，参考 GYM_09_WeaponListStarter.gd
+
+### UI复用优先级
+
+1. **首选：`ui/ControlUI.tscn`** - 包含完整游戏UI（血条、弹药、武器列表）
+2. **次选：`ui/widgets/`** - 独立UI组件（InfoPanel、HitLabel等）
+3. **禁止：自己新建UI** - 除非项目确实没有类似功能
 
 ---
 
