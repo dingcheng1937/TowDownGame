@@ -4,6 +4,11 @@ extends Node2D
 func _ready():
 	await get_tree().process_frame
 
+	# 先添加UI（确保GameUI创建并监听信号）
+	_setup_ui()
+
+	await get_tree().process_frame
+
 	# 初始化玩家数据
 	PlayerData.player_hp = 100
 	PlayerData.player_hp_max = 100
@@ -25,9 +30,6 @@ func _ready():
 			'hurt': 1,
 			'hp': 10
 		})
-
-	# 添加游戏UI（准星、弹药、血量等）
-	_setup_ui()
 
 
 func _setup_ui():

@@ -154,7 +154,10 @@ func _on_hit_monster(monster:BaseMonster):
 
 func _on_apply_damage(monster:BaseMonster):
 	monster.onHit(damage)
-	
+
+	# 检查player是否有效（可能在攻击期间失效）
+	if not is_instance_valid(player):
+		return
 	var knockback = (monster.global_position - player.global_position).normalized() * 30
 	monster.velocity = knockback
 	monster.hit = true

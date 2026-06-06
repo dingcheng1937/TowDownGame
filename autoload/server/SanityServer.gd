@@ -26,6 +26,7 @@ var current_sanity: float = 100.0:
 var passive_drain_rate: float = 0.5  # 每秒自然流失
 var is_draining: bool = false
 var current_state: SanityState = SanityState.NORMAL
+var _is_depleted: bool = false  # 防止sanity_depleted重复触发
 
 
 func _ready() -> void:
@@ -52,6 +53,7 @@ func reset_sanity() -> void:
 	current_sanity = max_sanity
 	current_state = SanityState.NORMAL
 	is_draining = false
+	_is_depleted = false
 
 
 ## 开始理智流失
@@ -105,6 +107,9 @@ func _check_thresholds(old: float, new: float) -> void:
 		current_state = SanityState.NORMAL
 		emit_signal("sanity_threshold_crossed", "recovered_normal")
 
-	# 检查完全耗尽
-	if new <= 0:
+	# 检查完全耗尽（仅触发一次，恢复后重置）
+	if new <= 0 and not _is_depleted:
+		_is_depleted = true
 		emit_signal("sanity_depleted")
+	elif new > 0 and _is_depleted:
+		_is_depleted = false

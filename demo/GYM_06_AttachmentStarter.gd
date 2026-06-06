@@ -1,7 +1,14 @@
 extends Node2D
 ## 附件系统DEMO启动器
 
+const ControlUIPre = preload("res://ui/ControlUI.tscn")
+
 func _ready():
+	await get_tree().process_frame
+
+	# 先添加UI（确保GameUI创建并监听信号）
+	_setup_ui()
+
 	await get_tree().process_frame
 
 	# 触发游戏启动（使用原游戏方式）
@@ -18,6 +25,13 @@ func _ready():
 
 	# 设置地上的配件
 	_setup_attachments()
+
+
+func _setup_ui():
+	var control_ui = $ControlUI
+	control_ui.get_node("GameUI").show()
+	control_ui.get_node("MainUI").hide()
+
 
 ## 配置地上的配件实例
 func _setup_attachments():

@@ -116,8 +116,9 @@ func cancel_extraction() -> void:
 	if current_state != ExtractionState.IN_PROGRESS:
 		return
 	countdown_timer.stop()
-	current_state = ExtractionState.AVAILABLE
 	countdown_time = initial_countdown_time
+	# 重新检查撤离条件，而不是直接设为AVAILABLE
+	update_extraction_state()
 
 
 ## 完成撤离

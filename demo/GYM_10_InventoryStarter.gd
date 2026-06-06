@@ -8,6 +8,13 @@ var inv_ui = null
 func _ready():
 	await get_tree().process_frame
 
+	# 先显示ControlUI（确保GameUI创建并监听信号）
+	var control_ui = $ControlUI
+	control_ui.get_node("GameUI").show()
+	control_ui.get_node("MainUI").hide()
+
+	await get_tree().process_frame
+
 	Utils.gameStart()
 	Utils.player = $PlayerRoot/Hero
 

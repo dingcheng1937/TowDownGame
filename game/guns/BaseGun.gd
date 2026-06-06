@@ -217,7 +217,7 @@ func fire(bullet:Bullet,is_bullet = true,is_play = true):
 	bullet.gun = self
 	if is_bullet:
 		bullet.fire()
-	if recoil > 0 && is_bullet:
+	if recoil > 0 && is_bullet && player:
 		player.set_knockback(recoil * 0.3)
 	if is_play:
 		audio.play()

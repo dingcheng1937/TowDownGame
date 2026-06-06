@@ -7,6 +7,11 @@ var weapons = []
 func _ready():
 	await get_tree().process_frame
 
+	# 先添加UI（确保GameUI创建并监听信号）
+	_setup_ui()
+
+	await get_tree().process_frame
+
 	# 初始化玩家数据
 	PlayerData.player_hp = 100
 	PlayerData.player_hp_max = 100
@@ -39,9 +44,6 @@ func _ready():
 			'hurt': 1,
 			'hp': 15
 		})
-
-	# 添加游戏UI
-	_setup_ui()
 
 	# 连接耐久变化信号
 	PlayerData.onMeleeDurabilityChange.connect(_on_durability_change)

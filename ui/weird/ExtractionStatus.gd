@@ -11,6 +11,7 @@ func _ready() -> void:
 	ExtractionServer.extraction_available.connect(_on_extraction_available)
 	ExtractionServer.extraction_started.connect(_on_extraction_started)
 	ExtractionServer.extraction_completed.connect(_on_extraction_completed)
+	ExtractionServer.extraction_failed.connect(_on_extraction_failed)
 	ExtractionServer.countdown_tick.connect(_on_countdown)
 
 	_update_initial_state()
@@ -29,6 +30,8 @@ func _exit_tree() -> void:
 		ExtractionServer.extraction_completed.disconnect(_on_extraction_completed)
 	if ExtractionServer.countdown_tick.is_connected(_on_countdown):
 		ExtractionServer.countdown_tick.disconnect(_on_countdown)
+	if ExtractionServer.extraction_failed.is_connected(_on_extraction_failed):
+		ExtractionServer.extraction_failed.disconnect(_on_extraction_failed)
 
 
 func _update_initial_state() -> void:
@@ -57,6 +60,14 @@ func _on_extraction_completed() -> void:
 	if _status_label:
 		_status_label.text = "撤离成功！"
 		_status_label.modulate = Color.CYAN
+	if _countdown_label:
+		_countdown_label.visible = false
+
+
+func _on_extraction_failed(reason: String) -> void:
+	if _status_label:
+		_status_label.text = "撤离失败: " + reason
+		_status_label.modulate = Color.RED
 	if _countdown_label:
 		_countdown_label.visible = false
 

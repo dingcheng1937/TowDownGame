@@ -16,6 +16,7 @@ func _ready() -> void:
 	# 连接理智变化信号
 	SanityServer.sanity_changed.connect(_on_sanity_changed)
 	SanityServer.sanity_threshold_crossed.connect(_on_threshold_crossed)
+	SanityServer.sanity_depleted.connect(_on_sanity_depleted)
 
 	_setup_environment()
 
@@ -29,6 +30,8 @@ func _exit_tree() -> void:
 		SanityServer.sanity_changed.disconnect(_on_sanity_changed)
 	if SanityServer.sanity_threshold_crossed.is_connected(_on_threshold_crossed):
 		SanityServer.sanity_threshold_crossed.disconnect(_on_threshold_crossed)
+	if SanityServer.sanity_depleted.is_connected(_on_sanity_depleted):
+		SanityServer.sanity_depleted.disconnect(_on_sanity_depleted)
 
 
 func _setup_environment() -> void:
@@ -55,6 +58,10 @@ func _on_threshold_crossed(threshold: String) -> void:
 			_trigger_moderate_effects()
 		"severe":
 			_trigger_severe_effects()
+		"recovered_moderate":
+			_trigger_recovered_moderate_effects()
+		"recovered_mild":
+			_trigger_recovered_mild_effects()
 		"recovered_normal":
 			_clear_effects()
 
@@ -101,6 +108,24 @@ func _trigger_moderate_effects() -> void:
 
 func _trigger_severe_effects() -> void:
 	Utils.showToast("理智即将崩溃！")
+
+
+func _trigger_recovered_moderate_effects() -> void:
+	Utils.showToast("理智有所恢复...")
+
+
+func _trigger_recovered_mild_effects() -> void:
+	Utils.showToast("理智稳定下来")
+
+
+func _on_sanity_depleted() -> void:
+	_trigger_sanity_depleted_effects()
+
+
+func _trigger_sanity_depleted_effects() -> void:
+	Utils.showToast("理智崩溃！")
+	# 可以添加更强烈的视觉效果：黑白画面、强烈扭曲等
+	_adjust_environment(1.6, 0.5, 0.5)
 
 
 func _clear_effects() -> void:
