@@ -25,37 +25,23 @@ func _unhandled_input(event):
 		get_viewport().set_input_as_handled()
 		pickup()
 
-## 拾取配件并安装到当前武器
+## 拾取配件并添加到背包
 func pickup():
 	if is_picked:
 		return
 	is_picked = true
 
-	# 获取玩家当前武器
+	# 检查玩家是否存在
 	if Utils.player == null:
 		Utils.showToast("NO_PLAYER")
 		is_picked = false
 		return
 
-	var current_weapon = Utils.player.gun
-	if current_weapon == null:
-		Utils.showToast("NO_WEAPON_EQUIPPED")
-		is_picked = false
-		return
+	# 将配件添加到背包
+	PlayerData.add_attachment(attachment)
 
-	# 检查配件是否适用于该武器类型
-	if not attachment.canUseAm(current_weapon.weapon_type):
-		Utils.showToast("ATTACHMENT_NOT_COMPATIBLE")
-		is_picked = false
-		return
-
-	# 安装配件到武器
-	var old_mag = current_weapon.bullets_max_count
-	current_weapon.addAttachMent(attachment)
-	var new_mag = current_weapon.bullets_max_count
-
-	# 显示安装成功提示
-	Utils.showToast("%s installed!\nMag: %d -> %d" % [attachment.am_name, old_mag, new_mag])
+	# 显示拾取成功提示
+	Utils.showToast("%s added to inventory!" % attachment.am_name)
 
 	# 播放拾取效果后消失
 	_play_pickup_effect()
