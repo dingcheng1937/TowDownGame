@@ -1,0 +1,81 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://game/correction-survival/ui/SurvivalHUD.gd" id="1_hud"]
+
+[node name="SurvivalHUD" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_hud")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 430.0
+offset_bottom = 80.0
+
+[node name="HPGroup" type="VBoxContainer" parent="HBox"]
+offset_right = 100.0
+offset_bottom = 70.0
+
+[node name="HPLabel" type="Label" parent="HBox/HPGroup"]
+offset_right = 100.0
+offset_bottom = 16.0
+text = "HP: 5/5"
+
+[node name="HPBar" type="ProgressBar" parent="HBox/HPGroup"]
+offset_right = 100.0
+offset_bottom = 16.0
+max_value = 100.0
+value = 100.0
+show_percentage = false
+modulate = Color(1, 0.3, 0.3, 1)
+
+[node name="StaminaGroup" type="VBoxContainer" parent="HBox"]
+offset_left = 110.0
+offset_right = 210.0
+offset_bottom = 70.0
+
+[node name="StaminaLabel" type="Label" parent="HBox/StaminaGroup"]
+offset_right = 100.0
+offset_bottom = 16.0
+text = "体力: 100/100"
+
+[node name="StaminaBar" type="ProgressBar" parent="HBox/StaminaGroup"]
+offset_right = 100.0
+offset_bottom = 16.0
+max_value = 100.0
+value = 100.0
+show_percentage = false
+modulate = Color(0.3, 0.8, 1, 1)
+
+[node name="DurabilityGroup" type="VBoxContainer" parent="HBox"]
+offset_left = 220.0
+offset_right = 320.0
+offset_bottom = 70.0
+
+[node name="DurabilityLabel" type="Label" parent="HBox/DurabilityGroup"]
+offset_right = 100.0
+offset_bottom = 16.0
+text = "耐久: --"
+
+[node name="DurabilityBar" type="ProgressBar" parent="HBox/DurabilityGroup"]
+offset_right = 100.0
+offset_bottom = 16.0
+max_value = 100.0
+value = 100.0
+show_percentage = false
+modulate = Color(0.8, 0.8, 0.3, 1)
+
+[node name="AlertGroup" type="VBoxContainer" parent="HBox"]
+offset_left = 330.0
+offset_right = 430.0
+offset_bottom = 70.0
+
+[node name="AlertBar" type="ProgressBar" parent="HBox/AlertGroup"]
+offset_top = 16.0
+offset_right = 100.0
+offset_bottom = 32.0
+max_value = 100.0
+value = 0.0
+show_percentage = false
+modulate = Color(1, 0.6, 0, 1)

@@ -123,6 +123,9 @@
 | GYM_10_Inventory | 背包界面 |
 | GYM_11_WeirdLoot | 诡异搜打撤（MVP） |
 | GYM_12_Melee | 近战武器系统 |
+| GYM_13_ButtonCounter | 按钮计数器系统 |
+| GYM_14_HealthDemo | 生命值系统演示 |
+| GYM_15_CorrectionCenter | 精神矫正中心 MVP - 完整搜打撤循环 |
 
 ---
 

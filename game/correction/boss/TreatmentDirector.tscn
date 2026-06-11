@@ -1,0 +1,42 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/correction/boss/TreatmentDirector.gd" id="1_4u2ji"]
+
+[sub_resource type="CapsuleShape2D" id="1_cshape"]
+radius = 12.0
+height = 40.0
+
+[sub_resource type="CircleShape2D" id="2_cshape"]
+radius = 300.0
+
+[sub_resource type="CircleShape2D" id="3_cshape"]
+radius = 80.0
+
+[node name="TreatmentDirector" type="CharacterBody2D"]
+collision_layer = 3
+motion_mode = 1
+script = ExtResource("1_4u2ji")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+color = Color(1, 0.2, 0.2, 1)
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1_cshape")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+position = Vector2(0, -15)
+
+[node name="DetectionCollision" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("2_cshape")
+
+[node name="MeleeArea" type="Area2D" parent="."]
+position = Vector2(0, -10)
+
+[node name="MeleeCollision" type="CollisionShape2D" parent="MeleeArea"]
+shape = SubResource("3_cshape")
+
+[connection signal="body_entered" from="MeleeArea" to="." method="_on_melee_area_entered"]
+
+[connection signal="body_exited" from="MeleeArea" to="." method="_on_melee_area_exited"]
+

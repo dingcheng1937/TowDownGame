@@ -1,0 +1,41 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/correction/enemies/SedationEnforcer.gd" id="1_4u2ji"]
+
+[sub_resource type="CapsuleShape2D" id="1_cshape"]
+radius = 5.0
+height = 22.0
+
+[sub_resource type="CircleShape2D" id="2_cshape"]
+radius = 180.0
+
+[sub_resource type="CircleShape2D" id="3_cshape"]
+radius = 35.0
+
+[node name="SedationEnforcer" type="CharacterBody2D"]
+collision_layer = 3
+motion_mode = 1
+script = ExtResource("1_4u2ji")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+color = Color(0.9, 0.5, 0.3, 1)
+
+[node name="body" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="body"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1_cshape")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+position = Vector2(0, -10)
+
+[node name="DetectionCollision" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("2_cshape")
+
+[node name="MeleeArea" type="Area2D" parent="."]
+position = Vector2(0, -5)
+
+[node name="MeleeCollision" type="CollisionShape2D" parent="MeleeArea"]
+shape = SubResource("3_cshape")
+

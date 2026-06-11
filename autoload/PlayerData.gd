@@ -128,3 +128,10 @@ func _physics_process(delta: float) -> void:
 
 func getMaxExp():
 	return pow(player_level,2.2) + 15
+
+# — 矫正生存扩展字段 —
+var stamina: float = 100.0       # 体力当前值
+var max_stamina: float = 100.0   # 体力上限
+var alertness: float = 0.0       # 警觉度
+var key_items: Array[String] = [] # 已获得的关键道具ID列表
+var game_flags: Dictionary = {}   # 全局Flag

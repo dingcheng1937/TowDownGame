@@ -9,8 +9,8 @@ class_name BaseMonster
 var movement_delta: float
 var navigationAgent2D := NavigationAgent2D.new()
 var audio_hit = AudioStreamPlayer2D.new()
-@onready var sprite_body = get_node("body")
-@onready var anim :AnimatedSprite2D = get_node("body/AnimatedSprite2D")
+@onready var sprite_body: Node2D = get_node_or_null("body") as Node2D
+@onready var anim: AnimatedSprite2D = get_node_or_null("body/AnimatedSprite2D") as AnimatedSprite2D
 
 var target_player:Player = Utils.player
 var state_array = []
@@ -51,14 +51,17 @@ func _physics_process(delta):
 		var new_velocity: Vector2 = current_agent_position.direction_to(next_path_position) * SPEED
 		_on_velocity_computed(new_velocity)
 
-	if velocity != Vector2.ZERO:
-		anim.play("run")
-		if velocity.x > 0:
-			flip_h(false)
-		elif velocity.x < 0 && scale.x == 1:
-			flip_h(true)
-	else:
-		anim.play("idle")
+	if anim != null and anim.sprite_frames != null:
+		if velocity != Vector2.ZERO:
+			if anim.sprite_frames.has_animation("run"):
+				anim.play("run")
+			if velocity.x > 0:
+				flip_h(false)
+			elif velocity.x < 0 && scale.x == 1:
+				flip_h(true)
+		else:
+			if anim.sprite_frames.has_animation("idle"):
+				anim.play("idle")
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	if state_array.has(Utils.STATE_TYPE.STUN):
@@ -68,7 +71,7 @@ func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	move_and_slide()
 
 func flip_h(flip:bool):
-	if is_flip == flip:
+	if is_flip == flip or sprite_body == null:
 		return
 	is_flip = flip
 	var x_axis = sprite_body.global_transform.x
@@ -89,8 +92,10 @@ func hitFlash(collisionResult,bullet:Bullet):
 	#sprite_body.get_node("AnimatedSprite2D").material = materialFlash
 	await get_tree().create_timer(bullet.knockback_time).timeout
 	# 检查怪物是否仍然有效（可能在等待期间死亡）
-	if is_instance_valid(self) and not is_die:
-		sprite_body.get_node("AnimatedSprite2D").material = null
+	if is_instance_valid(self) and not is_die and sprite_body != null:
+		var anim_sprite: AnimatedSprite2D = sprite_body.get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
+		if anim_sprite != null:
+			anim_sprite.material = null
 		hit = false
 
 var idle_frame_num = 0
@@ -127,19 +132,31 @@ func onDie(is_death_effect = true):
 			if node.connect_kill:
 				node.call("onKill",self)
 	set_physics_process(false)
-	for item in get_node("EffectRoot").get_children():
-		item.queue_free()
-	get_node("CollisionShape2D").call_deferred("set_disabled",true)
-	anim.play("die")
-	get_tree().create_tween().tween_property(get_node("UndeadShadow"),"scale",Vector2.ZERO,0.3)
-	await anim.animation_finished
+	var effect_root := get_node_or_null("EffectRoot")
+	if effect_root:
+		for item in effect_root.get_children():
+			item.queue_free()
+	var collision_shape := get_node_or_null("CollisionShape2D")
+	if collision_shape:
+		collision_shape.call_deferred("set_disabled", true)
+	if anim != null and anim.sprite_frames != null and anim.sprite_frames.has_animation("die"):
+		anim.play("die")
+	var undead_shadow := get_node_or_null("UndeadShadow")
+	if undead_shadow:
+		get_tree().create_tween().tween_property(undead_shadow, "scale", Vector2.ZERO, 0.3)
+	if anim != null and anim.sprite_frames != null:
+		await anim.animation_finished
+	else:
+		await get_tree().create_timer(0.5).timeout
 	queue_free()
 	
 func setDeathCallBack(death_callback:Callable):
 	self.death_callback = death_callback
 
 func addEffect(node):
-	get_node("EffectRoot").add_child(node)
+	var effect_root := get_node_or_null("EffectRoot")
+	if effect_root:
+		effect_root.add_child(node)
 
 ## 开始击中冷却，duration秒后重置hit标志
 ## 用于防止连续碰撞造成多次伤害

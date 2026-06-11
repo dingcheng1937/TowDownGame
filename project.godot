@@ -33,6 +33,9 @@ EquipServer="*res://autoload/server/EquipServer.gd"
 SanityServer="*res://autoload/server/SanityServer.gd"
 LootServer="*res://autoload/server/LootServer.gd"
 ExtractionServer="*res://autoload/server/ExtractionServer.gd"
+AlertServer="*res://autoload/AlertServer.gd"
+EventBus="*res://autoload/EventBus.gd"
+StaminaServer="*res://autoload/StaminaServer.gd"
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 
 [display]

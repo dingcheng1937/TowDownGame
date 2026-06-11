@@ -61,4 +61,4 @@ content = "测试内容:
 
 控制: WASD | 鼠标射击 | R换弹"
 
-[node name="ControlUI" parent="." instance=ExtResource("7_controlui")]
+[node name="ControlUI" parent="." unique_id=34789776 instance=ExtResource("7_controlui")]

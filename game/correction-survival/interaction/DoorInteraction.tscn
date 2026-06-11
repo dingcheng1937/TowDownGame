@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://game/correction-survival/interaction/DoorInteraction.gd" id="1_doorgd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_room"]
+size = Vector2(300, 200)
+
+[node name="DoorInteraction" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_doorgd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 50)
+shape = SubResource("RectangleShape2D_room")
+
+[node name="Label" type="Label" parent="."]
+position = Vector2(-100, -30)
+visible = false
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "按 E 开门 / 等待则不开门"
+horizontal_alignment = 1
+
+[node name="NurseSpawn" type="Marker2D" parent="."]
+position = Vector2(0, 80)

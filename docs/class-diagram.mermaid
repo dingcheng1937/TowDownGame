@@ -1,0 +1,140 @@
+classDiagram
+    %% ========== 新增类 ==========
+    class MeleeWeaponPickup {
+        +PackedScene melee_weapon_scene
+        +String weapon_display_name
+        +Texture2D icon
+        +pickup() void
+        -_equip_to_player(Player) void
+    }
+
+    %% ========== 基类（参考） ==========
+    class BaseLoot {
+        +String item_name
+        +String description
+        +int value
+        +int rarity
+        +bool can_extract
+        +bool is_picked
+        +pickup() void
+        +_on_body_entered(Node2D) void
+        +_on_body_exited(Node2D) void
+    }
+
+    class BaseMeleeWeapon {
+        +String weapon_name
+        +float damage
+        +float max_durability
+        +float attack_range
+        +float attack_rate
+        +Player player
+        +bool is_use
+        +setOwner(Player) void
+        +set_use(bool) void
+    }
+
+    class NarrativeLootItem {
+        +String narrative_id
+        +String narrative_text
+        +pickup() void
+    }
+
+    class KeyCardPickup {
+        +pickup() void
+    }
+
+    %% ========== 修改的类 ==========
+    class ThrowablePickup {
+        +ThrowableType throwable_type
+        +String item_name
+        +pickup() void
+        -_get_storage_key() String
+        -_get_type_string() String
+    }
+
+    class CorrectionHUD {
+        +_ready() void
+        +_on_throwable_count_changed(String, int) void
+        +_on_sanity_changed(float, float) void
+        +_update_throwable_display() void
+        +show_item_hint(String, float) void
+    }
+
+    class GYM_15_CorrectionCenterStarter {
+        +Player player
+        +CorrectionHUD hud
+        +Array _spawned_thresholds
+        +_ready() void
+        +_spawn_player() void
+        +_equip_starting_weapon() void
+        +_init_state() void
+        +_place_items() void
+        +_place_melee_pickups() void
+        +_place_enemies() void
+        +_spawn_alert_enemies(AlertThreshold) void
+        +_setup_atmosphere() void
+        +_connect_signals() void
+        +_try_throw() void
+    }
+
+    class AtmosphereController {
+        +WorldEnvironment world_environment
+        +_on_sanity_changed(float, float) void
+        +_update_visual_effects() void
+    }
+
+    class EventBus {
+        <<autoload>>
+        +throwable_count_changed(type, count)
+        +alert_threshold_crossed(threshold)
+        +extraction_completed()
+    }
+
+    class AlertServer {
+        <<autoload>>
+        +current_alert float
+        +alert_changed(current, max)
+        +alert_threshold_crossed(threshold)
+        +initialize() void
+    }
+
+    class SanityServer {
+        <<autoload>>
+        +current_sanity float
+        +sanity_changed(current, max)
+        +sanity_threshold_crossed(threshold)
+        +reset_sanity() void
+        +start_drain() void
+    }
+
+    class PlayerData {
+        <<autoload>>
+        +gold int
+        +set_meta(key, value) void
+        +get_meta(key) Variant
+        +has_meta(key) bool
+    }
+
+    %% ========== 继承关系 ==========
+    BaseLoot <|-- NarrativeLootItem
+    BaseLoot <|-- KeyCardPickup
+    BaseLoot <|-- MeleeWeaponPickup : extends
+
+    %% ========== 关联关系 ==========
+    MeleeWeaponPickup ..> BaseMeleeWeapon : "melee_weapon_scene\n实例化"
+    MeleeWeaponPickup ..> Player : "装备到 gun_root"
+
+    GYM_15_CorrectionCenterStarter --> MeleeWeaponPickup : "放置实例"
+    GYM_15_CorrectionCenterStarter --> AtmosphereController : "实例化并添加"
+    GYM_15_CorrectionCenterStarter --> CorrectionHUD : "持有引用"
+    GYM_15_CorrectionCenterStarter ..> AlertServer : "连接信号"
+    GYM_15_CorrectionCenterStarter ..> SanityServer : "初始化+启动"
+
+    CorrectionHUD ..> EventBus : "监听 throwable_count_changed"
+    CorrectionHUD ..> SanityServer : "监听 sanity_changed"
+    CorrectionHUD ..> AlertServer : "监听 alert_changed"
+
+    ThrowablePickup ..> PlayerData : "读写 meta"
+    ThrowablePickup ..> EventBus : "emit throwable_count_changed"
+
+    AtmosphereController ..> SanityServer : "监听 sanity_changed"

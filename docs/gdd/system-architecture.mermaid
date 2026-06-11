@@ -1,0 +1,202 @@
+# 精神矫正中心 — 系统架构图
+
+```mermaid
+graph TB
+    subgraph "玩家输入层"
+        A1[WASD 移动]
+        A2[Shift 冲刺]
+        A3[Ctrl 蹲伏]
+        A4[E 交互/拾取]
+        A5[V 近战攻击]
+        A6[Q 投掷物]
+        A7[鼠标左键 射击]
+    end
+
+    subgraph "玩家状态层"
+        B1[Hero.gd<br/>移动/冲刺/蹲伏]
+        B2[PlayerData<br/>HP/等级/背包]
+        B3[StaminaServer<br/>体力管理]
+    end
+
+    subgraph "压力系统层 - 玩家压力三角"
+        C1[AlertServer<br/>警戒值 0-100]
+        C2[SanityServer<br/>理智值 100-0]
+        C3[HP/Stamina<br/>生存资源]
+    end
+
+    subgraph "潜行系统"
+        D1[StealthServer<br/>视觉通道]
+        D2[AlertServer<br/>听觉通道]
+        D3[ViewCone2D<br/>敌人视野锥]
+        D4[BackWallDetector<br/>靠墙检测]
+    end
+
+    subgraph "敌人AI层"
+        E1[PatrolGuard<br/>巡逻+视觉锥]
+        E2[SurveillanceDrone<br/>全向视觉]
+        E3[SedationEnforcer<br/>通道守卫]
+        E4[NurseAI<br/>破门+搜索]
+        E5[WardDirector<br/>3阶段Boss]
+        E6[FacilityDirector<br/>最终Boss]
+    end
+
+    subgraph "搜刮与经济层"
+        F1[BaseLoot<br/>拾取物基类]
+        F2[LootServer<br/>背包管理]
+        F3[ConsumablePickup<br/>消耗品]
+        F4[MeleeWeaponPickup<br/>近战武器]
+        F5[NarrativeLootItem<br/>叙事战利品]
+    end
+
+    subgraph "成长层"
+        G1[LevelUpPanel<br/>升级选择UI]
+        G2[WarehouseUpgrade<br/>仓库升级]
+        G3[PlayerData upgrades<br/>能力成长]
+    end
+
+    subgraph "关卡结构层"
+        H1[DoorInteraction<br/>开门系统]
+        H2[ConditionalGate<br/>条件门禁]
+        H3[SafeRoom<br/>安全屋]
+        H4[ExtractionPoint<br/>撤离点]
+        H5[BasePuzzle<br/>解谜基类]
+    end
+
+    subgraph "叙事层"
+        I1[AtmosphereController<br/>氛围视觉]
+        I2[EventBus<br/>叙事事件]
+        I3[DialogueSystem<br/>对话/Yarn]
+        I4[LoreCollection<br/>文件收集]
+    end
+
+    %% 连接关系
+    A1 --> B1
+    A2 --> B1
+    A3 --> B1
+    A4 --> F1
+    A5 --> B1
+    A6 --> B1
+    A7 --> B1
+
+    B1 --> C3
+    B2 --> C3
+
+    B1 --> D1
+    B1 --> D2
+    C1 --> D2
+
+    D1 --> E1
+    D1 --> E2
+    D1 --> E3
+    D1 --> E4
+    D2 --> E1
+    D2 --> E2
+    D2 --> E3
+    D2 --> E4
+    D3 --> E1
+    D3 --> E2
+    D3 --> E3
+
+    F1 --> F2
+    F3 --> F2
+    F4 --> F2
+    F5 --> F2
+
+    F2 --> G1
+    F2 --> G2
+    G1 --> G3
+
+    C1 --> H3
+    C2 --> I1
+
+    E1 --> C1
+    E2 --> C1
+    E3 --> C1
+
+    H1 --> E4
+    H2 --> E5
+    H2 --> E6
+
+    I1 --> C2
+    I2 --> I1
+    I3 --> I2
+    F5 --> I4
+
+    classDef player fill:#4a9eff,color:#fff
+    classDef pressure fill:#ff6b6b,color:#fff
+    classDef stealth fill:#51cf66,color:#fff
+    classDef enemy fill:#ff922b,color:#fff
+    classDef loot fill:#fcc419,color:#333
+    classDef growth fill:#cc5de8,color:#fff
+    classDef level fill:#20c997,color:#fff
+
+    class A1,A2,A3,A4,A5,A6,A7,B1,B2,B3 player
+    class C1,C2,C3 pressure
+    class D1,D2,D3,D4 stealth
+    class E1,E2,E3,E4,E5,E6 enemy
+    class F1,F2,F3,F4,F5 loot
+    class G1,G2,G3 growth
+    class H1,H2,H3,H4,H5 level
+```
+
+## 核心循环图
+
+```mermaid
+graph LR
+    subgraph "瞬间循环 0-30s"
+        O[观察<br/>巡逻路径/视野锥] --> D[决策<br/>路线/时机/战斗?]
+        D --> E[执行<br/>移动/蹲伏/攻击]
+        E --> F[反馈<br/>Alert变化/音效/拾取]
+        F --> O
+    end
+
+    subgraph "会话循环 5-30min"
+        S1[进入区域] --> S2[探索搜刮]
+        S2 --> S3[遭遇敌人]
+        S3 --> S4[消耗资源]
+        S4 --> S5[找到出口/撤离]
+        S2 --> S6[警戒攀升]
+        S6 --> S7[安全屋休息]
+        S7 --> S2
+    end
+
+    subgraph "长期循环"
+        L1[单局探索] --> L2{撤离?}
+        L2 -->|成功| L3[金币入账]
+        L3 --> L4[仓库升级]
+        L4 --> L1
+        L2 -->|死亡| L5[丢失背包]
+        L5 --> L1
+    end
+```
+
+## 玩家压力三角
+
+```mermaid
+graph TB
+    CENTER["🎯 玩家决策空间"]
+    
+    ALERT["🔴 警戒 Alert<br/>0→100<br/>奔跑+5/s<br/>击杀+15<br/>枪声+25<br/>安全屋-3/s"]
+    
+    SANITY["🔵 理智 Sanity<br/>100→0<br/>自然-0.5/s<br/>文件-5<br/>幻觉干扰<br/>镇静剂+25"]
+    
+    SURVIVAL["🟢 生存 HP/体力<br/>HP: 1-8<br/>体力: 0-100<br/>武器耐久: 0-80"]
+    
+    CENTER --- ALERT
+    CENTER --- SANITY
+    CENTER --- SURVIVAL
+    
+    ALERT -.->|"警戒越高<br/>敌人越多"| SURVIVAL
+    SANITY -.->|"理智越低<br/>判断越难"| ALERT
+    SURVIVAL -.->|"资源越少<br/>风险越大"| SANITY
+
+    classDef center fill:#ffd43b,color:#333,stroke:#333,stroke-width:3px
+    classDef alert fill:#ff6b6b,color:#fff
+    classDef sanity fill:#4a9eff,color:#fff
+    classDef survival fill:#51cf66,color:#fff
+
+    class CENTER center
+    class ALERT alert
+    class SANITY sanity
+    class SURVIVAL survival
+```

@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/correction/items/ConsumablePickup.gd" id="1_gdnls"]
+
+[sub_resource type="CircleShape2D" id="1_cshape"]
+radius = 8.0
+
+[node name="ConsumablePickup" type="Area2D"]
+script = ExtResource("1_gdnls")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+color = Color(0.4, 0.8, 0.4, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1_cshape")
+
+[node name="Label" type="Label" parent="."]
+position = Vector2(0, -20)
+horizontal_alignment = 1
+theme_overrides = {&"font_sizes/font_size": 10}
+
+
+

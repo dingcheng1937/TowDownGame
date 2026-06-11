@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://game/correction-survival/enemies/NurseMonster.gd" id="1_nurse"]
+[ext_resource type="Texture2D" uid="uid://die8toapequn2" path="res://game/hero/undead_shadow.png" id="2_shadow"]
+[ext_resource type="Texture2D" uid="uid://mxlhw72f364v" path="res://Sprites/light2.png" id="3_light"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_body"]
+radius = 7.0
+height = 20.0
+
+[node name="NurseMonster" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 1
+motion_mode = 1
+script = ExtResource("1_nurse")
+
+[node name="UndeadShadow" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+scale = Vector2(0.7, 0.703)
+texture = ExtResource("2_shadow")
+
+[node name="body" type="Node2D" parent="."]
+
+[node name="Placeholder" type="Sprite2D" parent="body"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_light")
+self_modulate = Color(1, 0.4, 0.4, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="body"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -9)
+shape = SubResource("CapsuleShape2D_body")
+
+[node name="WallRay" type="RayCast2D" parent="."]
+target_position = Vector2(0, -30)
+enabled = false

@@ -1,0 +1,99 @@
+sequenceDiagram
+    %% ==========================================
+    %% 1. 近战武器拾取流程 (P0-2)
+    %% ==========================================
+    actor Player as 玩家
+    participant Pickup as MeleeWeaponPickup
+    participant BML as BaseMeleeWeapon
+    participant Hero as Player/Hero
+    participant LS as LootServer
+
+    Player->>Pickup: 靠近 + 按 E
+    Pickup->>Pickup: pickup()
+    Note over Pickup: is_picked = true
+
+    Pickup->>BML: melee_weapon_scene.instantiate()
+    BML-->>Pickup: weapon 实例
+
+    Pickup->>Hero: 获取 gun_root 节点
+    Note over Pickup,Hero: "body/GunRoot" → "gun_root"
+
+    alt 已有旧近战武器
+        Pickup->>Hero: melee_weapon.queue_free()
+    end
+
+    Pickup->>Hero: gun_root.add_child(weapon)
+    Pickup->>BML: setOwner(player)
+    Pickup->>BML: set_use(true)
+
+    Pickup->>LS: add_loot({...})
+    Pickup->>Pickup: picked_up.emit() + queue_free()
+
+    %% ==========================================
+    %% 2. 警戒阈值 → 敌人生成 (P1-3)
+    %% ==========================================
+
+    participant AS as AlertServer
+    participant G15 as GYM_15 Starter
+    participant Scene as 场景树
+
+    Note over AS: 警戒值 55 → 65
+    AS->>AS: current_alert = 65
+    AS->>AS: _check_threshold_transition(55)
+    AS->>AS: emit alert_threshold_crossed(ALARM)
+
+    AS->>G15: _on_alert_threshold_crossed(ALARM)
+    G15->>G15: _spawn_alert_enemies(ALARM)
+
+    alt ALARM 阈值
+        G15->>Scene: 实例化 SurveillanceDrone
+    else LOCKDOWN 阈值
+        G15->>Scene: 实例化 2x PatrolGuard + 1x SedationEnforcer
+    end
+
+    %% ==========================================
+    %% 3. 投掷物计数 → HUD (P1-1)
+    %% ==========================================
+
+    participant TP as ThrowablePickup
+    participant Test as GYM_15._try_throw
+    participant EB as EventBus
+    participant HUD as CorrectionHUD
+    participant PD as PlayerData
+
+    Note over Player,TP: === 拾取石子 ===
+    Player->>TP: 按 E
+    TP->>PD: get_meta("stone_count") → n
+    TP->>PD: set_meta("stone_count", n+1)
+    TP->>EB: emit throwable_count_changed("stone", n+1)
+    EB->>HUD: _on_throwable_count_changed
+    HUD->>HUD: 更新 StoneCount Label
+
+    Note over Player,Test: === 投掷消耗 ===
+    Player->>Test: 按 Q
+    Test->>PD: get_meta("stone_count")
+    Test->>PD: set_meta("stone_count", n-1)
+    Test->>EB: emit throwable_count_changed("stone", n-1)
+    EB->>HUD: _on_throwable_count_changed
+    HUD->>HUD: 更新 StoneCount Label
+
+    %% ==========================================
+    %% 4. 理智 → 氛围视觉反馈 (P1-4)
+    %% ==========================================
+
+    participant SS as SanityServer
+    participant AC as AtmosphereController
+    participant Env as WorldEnvironment
+
+    Note over SS: 理智持续流失
+    SS->>SS: change_sanity(-0.5 * delta)
+    SS->>SS: 74 → emit sanity_threshold_crossed("mild")
+
+    SS->>AC: _on_threshold_crossed("mild")
+    AC->>AC: _trigger_mild_effects()
+    AC->>Env: contrast=1.1, saturation=0.95
+
+    Note over SS: 继续下降 → 48
+    SS->>SS: emit sanity_threshold_crossed("moderate")
+    SS->>AC: _on_threshold_crossed("moderate")
+    AC->>Env: contrast=1.2, saturation=0.85

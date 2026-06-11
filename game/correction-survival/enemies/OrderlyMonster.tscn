@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://game/correction-survival/enemies/OrderlyMonster.gd" id="1_orderly"]
+[ext_resource type="Script" path="res://game/correction-survival/enemies/ViewCone2D.gd" id="2_vc"]
+[ext_resource type="Texture2D" uid="uid://die8toapequn2" path="res://game/hero/undead_shadow.png" id="3_shadow"]
+[ext_resource type="Texture2D" uid="uid://mxlhw72f364v" path="res://Sprites/light2.png" id="4_light"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_body"]
+radius = 7.0
+height = 20.0
+
+[node name="OrderlyMonster" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 1
+motion_mode = 1
+script = ExtResource("1_orderly")
+
+[node name="UndeadShadow" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+scale = Vector2(0.7, 0.703)
+texture = ExtResource("3_shadow")
+
+[node name="body" type="Node2D" parent="."]
+
+[node name="Placeholder" type="Sprite2D" parent="body"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_light")
+self_modulate = Color(0.3, 0.3, 1, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="body"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -9)
+shape = SubResource("CapsuleShape2D_body")
+
+[node name="ViewCone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("2_vc")
