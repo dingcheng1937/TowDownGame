@@ -1,11 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://b8fluhc5dx881"]
+[gd_scene format=3 uid="uid://b8fluhc5dx881"]
 
-[ext_resource type="Script" path="res://ui/ControlUI.gd" id="1_hodr7"]
+[ext_resource type="Script" uid="uid://c8scqbo0mfog5" path="res://ui/ControlUI.gd" id="1_hodr7"]
 [ext_resource type="Theme" uid="uid://d264vgetmywyw" path="res://ui/theme.tres" id="2_52b7e"]
-[ext_resource type="Script" path="res://ui/GameUI.gd" id="2_cj0m0"]
-[ext_resource type="Script" path="res://ui/MainUI.gd" id="2_foget"]
+[ext_resource type="Script" uid="uid://c2wu8ey7gl2wn" path="res://ui/GameUI.gd" id="2_cj0m0"]
+[ext_resource type="Script" uid="uid://d4kye2kweeu3k" path="res://ui/MainUI.gd" id="2_foget"]
 [ext_resource type="PackedScene" uid="uid://cjqkfg0gdxyar" path="res://ui/widgets/Crosshair.tscn" id="3_88kmq"]
-[ext_resource type="Script" path="res://ui/SettingUI.gd" id="4_0nthv"]
+[ext_resource type="Script" uid="uid://66yxwlrkrrk" path="res://ui/SettingUI.gd" id="4_0nthv"]
 [ext_resource type="AudioStream" uid="uid://ik5t77ml7ave" path="res://audio/CLOTHMvmt_Clothing Rustle Arm_01.wav" id="5_m8t5a"]
 [ext_resource type="PackedScene" uid="uid://dgg8t0vevnaq2" path="res://ui/ModUI.tscn" id="8_hrt6v"]
 [ext_resource type="Texture2D" uid="uid://cck41ti3sn08g" path="res://Sprites/ui/title.png" id="8_ovypj"]
@@ -133,12 +133,12 @@ shader_parameter/direction_r = Vector2(1, 0)
 shader_parameter/direction_g = Vector2(0.4, 1)
 shader_parameter/direction_b = Vector2(-0.7, -0.3)
 
-[node name="ControlUI" type="CanvasLayer" groups=["control"]]
+[node name="ControlUI" type="CanvasLayer" unique_id=615615872 groups=["control"]]
 process_mode = 3
 layer = 2
 script = ExtResource("1_hodr7")
 
-[node name="GameUI" type="Control" parent="."]
+[node name="GameUI" type="Control" parent="." unique_id=237431306]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -150,7 +150,7 @@ mouse_filter = 2
 theme = ExtResource("2_52b7e")
 script = ExtResource("2_cj0m0")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GameUI"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GameUI" unique_id=1816611178]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -161,7 +161,7 @@ offset_right = 215.0
 offset_bottom = -4.0
 grow_vertical = 0
 
-[node name="Container" type="Control" parent="GameUI"]
+[node name="Container" type="Control" parent="GameUI" unique_id=1818339562]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -175,7 +175,7 @@ offset_bottom = -8.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="BulletHbox" type="HBoxContainer" parent="GameUI/Container"]
+[node name="BulletHbox" type="HBoxContainer" parent="GameUI/Container" unique_id=39369976]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -187,7 +187,7 @@ offset_bottom = 10.5
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="GameUI/Container"]
+[node name="Label" type="Label" parent="GameUI/Container" unique_id=1211601473]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -201,7 +201,7 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="all_ammo" type="Label" parent="GameUI/Container"]
+[node name="all_ammo" type="Label" parent="GameUI/Container" unique_id=43765203]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -215,7 +215,7 @@ text = "Ammo:50"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="WeaponChangeUI" type="Control" parent="GameUI"]
+[node name="WeaponChangeUI" type="Control" parent="GameUI" unique_id=1487277638]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -225,7 +225,7 @@ grow_horizontal = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[node name="WeaponImage" type="TextureRect" parent="GameUI/WeaponChangeUI"]
+[node name="WeaponImage" type="TextureRect" parent="GameUI/WeaponChangeUI" unique_id=1382883013]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -242,7 +242,7 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="GameUI/WeaponChangeUI/WeaponImage"]
+[node name="Label" type="Label" parent="GameUI/WeaponChangeUI/WeaponImage" unique_id=1719569422]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -259,7 +259,7 @@ theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="hpUI" type="Control" parent="GameUI"]
+[node name="hpUI" type="Control" parent="GameUI" unique_id=788514668]
 layout_mode = 1
 anchors_preset = 0
 offset_left = 8.0
@@ -267,7 +267,7 @@ offset_top = 8.0
 offset_right = 102.0
 offset_bottom = 43.0
 
-[node name="ProgressBar" type="ProgressBar" parent="GameUI/hpUI"]
+[node name="ProgressBar" type="ProgressBar" parent="GameUI/hpUI" unique_id=1362186298]
 layout_mode = 0
 offset_top = -2.0
 offset_right = 94.0
@@ -277,7 +277,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_x8ohj")
 theme_override_styles/fill = SubResource("StyleBoxFlat_i6unc")
 value = 100.0
 
-[node name="ProgressBar2" type="ProgressBar" parent="GameUI/hpUI"]
+[node name="ProgressBar2" type="ProgressBar" parent="GameUI/hpUI" unique_id=358251647]
 layout_mode = 0
 offset_left = 39.0
 offset_top = 10.0
@@ -287,7 +287,7 @@ theme_override_font_sizes/font_size = 6
 theme_override_styles/background = SubResource("StyleBoxFlat_k7p2a")
 theme_override_styles/fill = SubResource("StyleBoxFlat_2kfm2")
 
-[node name="Label" type="Label" parent="GameUI/hpUI"]
+[node name="Label" type="Label" parent="GameUI/hpUI" unique_id=1219179592]
 layout_mode = 1
 offset_top = 24.0
 offset_right = 42.0
@@ -299,7 +299,7 @@ label_settings = SubResource("LabelSettings_1rtrt")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="GameUI/hpUI"]
+[node name="Label3" type="Label" parent="GameUI/hpUI" unique_id=1888848039]
 layout_mode = 1
 offset_top = 10.0
 offset_right = 36.0
@@ -311,7 +311,7 @@ label_settings = SubResource("LabelSettings_1rtrt")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="GameUI/hpUI"]
+[node name="Label2" type="Label" parent="GameUI/hpUI" unique_id=542289964]
 layout_mode = 1
 offset_top = 40.0
 offset_right = 48.0
@@ -323,10 +323,10 @@ label_settings = SubResource("LabelSettings_1rtrt")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="GameUI"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="GameUI" unique_id=301516424]
 stream = ExtResource("5_m8t5a")
 
-[node name="RwGridContainer" type="GridContainer" parent="GameUI"]
+[node name="RwGridContainer" type="GridContainer" parent="GameUI" unique_id=804440671]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -339,7 +339,7 @@ grow_horizontal = 2
 theme_override_constants/h_separation = 2
 columns = 13
 
-[node name="LevelUpPanel" type="Panel" parent="GameUI"]
+[node name="LevelUpPanel" type="Panel" parent="GameUI" unique_id=654462805]
 visible = false
 layout_mode = 1
 anchors_preset = 4
@@ -350,7 +350,7 @@ offset_top = -20.0
 offset_bottom = 42.0
 grow_vertical = 2
 
-[node name="all_ammo" type="Label" parent="GameUI/LevelUpPanel"]
+[node name="all_ammo" type="Label" parent="GameUI/LevelUpPanel" unique_id=1064715439]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -364,7 +364,7 @@ text = "Level Up"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="all_ammo2" type="Label" parent="GameUI/LevelUpPanel"]
+[node name="all_ammo2" type="Label" parent="GameUI/LevelUpPanel" unique_id=949691162]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -379,7 +379,7 @@ text = "LEVLE_DM"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="all_ammo3" type="Label" parent="GameUI/LevelUpPanel"]
+[node name="all_ammo3" type="Label" parent="GameUI/LevelUpPanel" unique_id=1025351371]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -394,7 +394,7 @@ text = "LEVLE_HP"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="all_ammo4" type="Label" parent="GameUI/LevelUpPanel"]
+[node name="all_ammo4" type="Label" parent="GameUI/LevelUpPanel" unique_id=1864943587]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -409,7 +409,7 @@ text = "LEVEL_POINT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MainUI" type="Control" parent="."]
+[node name="MainUI" type="Control" parent="." unique_id=1893955242]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -420,7 +420,7 @@ mouse_filter = 2
 theme = ExtResource("2_52b7e")
 script = ExtResource("2_foget")
 
-[node name="TextureRect" type="TextureRect" parent="MainUI"]
+[node name="TextureRect" type="TextureRect" parent="MainUI" unique_id=2137974975]
 modulate = Color(2, 2, 2, 1)
 layout_mode = 1
 anchors_preset = 5
@@ -435,7 +435,7 @@ texture = ExtResource("8_ovypj")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainUI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainUI" unique_id=1095914569]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -446,31 +446,31 @@ offset_right = 74.0
 offset_bottom = -8.0
 grow_vertical = 0
 
-[node name="start" type="Button" parent="MainUI/VBoxContainer"]
+[node name="start" type="Button" parent="MainUI/VBoxContainer" unique_id=214012349]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_8wm7f")
 text = "MAIN_UI_START"
 
-[node name="mod" type="Button" parent="MainUI/VBoxContainer"]
+[node name="mod" type="Button" parent="MainUI/VBoxContainer" unique_id=860517675]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_8wm7f")
 text = "MAIN_UI_MOD"
 
-[node name="setting" type="Button" parent="MainUI/VBoxContainer"]
+[node name="setting" type="Button" parent="MainUI/VBoxContainer" unique_id=543683674]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_8wm7f")
 text = "MAIN_UI_SETTING"
 
-[node name="quit" type="Button" parent="MainUI/VBoxContainer"]
+[node name="quit" type="Button" parent="MainUI/VBoxContainer" unique_id=832977053]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_8wm7f")
 text = "MAIN_UI_QUIT"
 
-[node name="SettingUI" type="ColorRect" parent="MainUI"]
+[node name="SettingUI" type="ColorRect" parent="MainUI" unique_id=1588550112]
 process_mode = 3
 visible = false
 layout_mode = 1
@@ -482,7 +482,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.784314)
 script = ExtResource("4_0nthv")
 
-[node name="VBoxContainer" type="HBoxContainer" parent="MainUI/SettingUI"]
+[node name="VBoxContainer" type="HBoxContainer" parent="MainUI/SettingUI" unique_id=800036311]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -497,19 +497,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainUI/SettingUI/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainUI/SettingUI/VBoxContainer" unique_id=532100087]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
-[node name="Label" type="Label" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer" unique_id=1638297449]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "SETTING_BASIC"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="language" type="OptionButton" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer"]
+[node name="language" type="OptionButton" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer" unique_id=1707933445]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 item_count = 2
@@ -518,18 +518,18 @@ popup/item_0/id = 0
 popup/item_1/text = "LANGUAGE_ZH"
 popup/item_1/id = 1
 
-[node name="Control" type="Control" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer" unique_id=878345031]
 custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer/Control"]
+[node name="Label" type="Label" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer/Control" unique_id=321178004]
 layout_mode = 0
 theme_override_font_sizes/font_size = 8
 text = "SETTING_SHAKE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="shake" type="HSlider" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer/Control"]
+[node name="shake" type="HSlider" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer/Control" unique_id=2031545459]
 layout_mode = 0
 offset_left = 0.5
 offset_top = 12.0
@@ -542,18 +542,18 @@ max_value = 3.0
 value = 1.0
 scrollable = false
 
-[node name="Control2" type="Control" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer"]
+[node name="Control2" type="Control" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer" unique_id=1657494291]
 custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer/Control2"]
+[node name="Label" type="Label" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer/Control2" unique_id=1486839682]
 layout_mode = 0
 theme_override_font_sizes/font_size = 8
 text = "SETTING_VOLUME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="volume" type="HSlider" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer/Control2"]
+[node name="volume" type="HSlider" parent="MainUI/SettingUI/VBoxContainer/VBoxContainer/Control2" unique_id=1467735512]
 layout_mode = 0
 offset_left = 0.5
 offset_top = 12.0
@@ -565,11 +565,11 @@ theme_override_icons/tick = SubResource("ImageTexture_dixfw")
 value = 50.0
 scrollable = false
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MainUI/SettingUI/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MainUI/SettingUI/VBoxContainer" unique_id=1896102441]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="MainUI/SettingUI"]
+[node name="Button" type="Button" parent="MainUI/SettingUI" unique_id=426583102]
 layout_mode = 0
 offset_left = 304.0
 offset_top = 199.0
@@ -577,11 +577,11 @@ offset_right = 407.0
 offset_bottom = 227.0
 text = "Exit Game"
 
-[node name="ModUI" parent="MainUI" instance=ExtResource("8_hrt6v")]
+[node name="ModUI" parent="MainUI" unique_id=193022513 instance=ExtResource("8_hrt6v")]
 visible = false
 layout_mode = 1
 
-[node name="TextureRect" parent="." instance=ExtResource("3_88kmq")]
+[node name="TextureRect" parent="." unique_id=2087052733 instance=ExtResource("3_88kmq")]
 offset_left = -32.0
 offset_top = -33.0
 offset_right = 4.0
@@ -589,7 +589,7 @@ offset_bottom = 3.0
 pivot_offset = Vector2(18, 18)
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=741407367]
 process_mode = 3
 visible = false
 z_index = 2
@@ -604,7 +604,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Label" type="Label" parent="Control"]
+[node name="Label" type="Label" parent="Control" unique_id=639258578]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -624,10 +624,10 @@ label_settings = SubResource("LabelSettings_ohaid")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Timer" type="Timer" parent="Control"]
+[node name="Timer" type="Timer" parent="Control" unique_id=1143027919]
 one_shot = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=246777638]
 visible = false
 material = SubResource("ShaderMaterial_gousy")
 position = Vector2(204.469, 115.156)
