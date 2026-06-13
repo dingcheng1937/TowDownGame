@@ -46,6 +46,7 @@ docs/
 | [数据管理.md](guides/数据管理.md) | PlayerData、Utils、信号订阅 |
 | [Godot学习指南.md](guides/Godot学习指南.md) | Godot引擎学习资料 |
 | [攻击与受伤系统.md](guides/攻击与受伤系统.md) | 攻击与受伤机制详解 |
+| [游戏选择界面实现说明.md](guides/游戏选择界面实现说明.md) | 全屏滚动游戏选择菜单 — 30 条目动态生成、信号链路、场景切换 |
 
 ### 特性文档 (`features/`)
 

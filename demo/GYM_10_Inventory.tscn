@@ -1,8 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://demo_ui_inventory"]
+[gd_scene format=3 uid="uid://1lvuqs4ro26s"]
 
-[ext_resource type="Script" path="res://demo/GYM_10_InventoryStarter.gd" id="1_starter"]
+[ext_resource type="Script" uid="uid://c4xr13s7q2dyg" path="res://demo/GYM_10_InventoryStarter.gd" id="1_starter"]
 [ext_resource type="PackedScene" uid="uid://8lekrqo3cykw" path="res://game/hero/Hero.tscn" id="2_hero"]
-[ext_resource type="Script" path="res://game/hero/Camera2D.gd" id="3_camera"]
+[ext_resource type="Script" uid="uid://c7oibv06cluva" path="res://game/hero/Camera2D.gd" id="3_camera"]
 [ext_resource type="PackedScene" uid="uid://ba5j614tj2nty" path="res://ui/widgets/InfoPanel.tscn" id="4_infopanel"]
 [ext_resource type="PackedScene" uid="uid://b8fluhc5dx881" path="res://ui/ControlUI.tscn" id="5_controlui"]
 
@@ -17,32 +17,32 @@ func _physics_process(_delta: float) -> void:
 		global_position = Vector2(x, y)
 "
 
-[node name="UIInventoryDemo" type="Node2D"]
+[node name="UIInventoryDemo" type="Node2D" unique_id=1478805707]
 script = ExtResource("1_starter")
 
-[node name="PlayerRoot" type="Node2D" parent="."]
+[node name="PlayerRoot" type="Node2D" parent="." unique_id=1761287789]
 y_sort_enabled = true
 
-[node name="Hero" parent="PlayerRoot" instance=ExtResource("2_hero")]
+[node name="Hero" parent="PlayerRoot" unique_id=1635311298 instance=ExtResource("2_hero")]
 position = Vector2(400, 300)
 
-[node name="Anchor" type="Node2D" parent="PlayerRoot"]
+[node name="Anchor" type="Node2D" parent="PlayerRoot" unique_id=233656244]
 script = SubResource("GDScript_anchor")
 
-[node name="Camera2D" type="Camera2D" parent="PlayerRoot/Anchor"]
+[node name="Camera2D" type="Camera2D" parent="PlayerRoot/Anchor" unique_id=1200582250]
 zoom = Vector2(0.9, 0.9)
 position_smoothing_enabled = true
 script = ExtResource("3_camera")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1175529385]
 z_index = -1
 offset_right = 800.0
 offset_bottom = 600.0
 color = Color(0.15, 0.15, 0.2, 1)
 
-[node name="ControlUI" parent="." instance=ExtResource("5_controlui")]
+[node name="ControlUI" parent="." unique_id=1369453618 instance=ExtResource("5_controlui")]
 
-[node name="InfoPanel" parent="." instance=ExtResource("4_infopanel")]
+[node name="InfoPanel" parent="." unique_id=1359374011 instance=ExtResource("4_infopanel")]
 title = "背包UI"
 content = "测试内容:
 - Tab打开/关闭背包

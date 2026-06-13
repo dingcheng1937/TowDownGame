@@ -1,57 +1,56 @@
 [gd_scene format=3 uid="uid://c6kxvhkdj5mel"]
 
-[ext_resource type="Texture2D" uid="uid://bcy4ifspdj47q" path="res://icon.svg" id="1_7rkd5"]
+[ext_resource type="Script" uid="uid://ctqoxv2b8qgjp" path="res://game_components/main_menu/game_select_menu.gd" id="1_menu_script"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xxp0q"]
-atlas = ExtResource("1_7rkd5")
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 36
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
 
-[node name="Main" type="Node2D" unique_id=1897630764]
-
-[node name="MainMenu" type="Node2D" parent="." unique_id=1498220770]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="MainMenu" unique_id=1975507250]
-
-[node name="Control" type="Control" parent="MainMenu/CanvasLayer" unique_id=321771217]
+[node name="GameSelectMenu" type="Control" unique_id=2007806201]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 410.0
-offset_bottom = 230.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu_script")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MainMenu/CanvasLayer/Control" unique_id=1823447297]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 6.0
-offset_right = 403.0
-offset_bottom = 224.0
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=787484459]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -195.0
+offset_top = -107.0
+offset_right = 198.0
+offset_bottom = 103.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/CanvasLayer/Control/ScrollContainer" unique_id=2096107658]
+[node name="LabelTitle" type="Label" parent="VBoxContainer" unique_id=699945148]
 layout_mode = 2
+text = "🎮 游戏选择"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="GameButton" type="TextureRect" parent="MainMenu/CanvasLayer/Control" unique_id=1729386208]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 2.0
-offset_right = 398.0
-offset_bottom = 28.0
-texture = SubResource("AtlasTexture_xxp0q")
-expand_mode = 1
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=2094038989]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
 
-[node name="bg" type="ColorRect" parent="MainMenu/CanvasLayer/Control/GameButton" unique_id=359772749]
-layout_mode = 0
-offset_right = 386.0
-offset_bottom = 26.0
-color = Color(0, 0, 0, 1)
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer" unique_id=625380898]
+layout_mode = 2
+theme_override_constants/separation = 4
 
-[node name="bg2" type="ColorRect" parent="MainMenu/CanvasLayer/Control/GameButton/bg" unique_id=425172469]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 2.0
-offset_right = 383.0
-offset_bottom = 24.0
+[node name="ButtonBack" type="Button" parent="VBoxContainer" unique_id=817795332]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "← 返回主菜单"
 
-[node name="LabelNumber" type="Label" parent="MainMenu/CanvasLayer/Control/GameButton" unique_id=595181481]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 16.0
-offset_right = 66.0
-offset_bottom = 43.0
+[connection signal="pressed" from="VBoxContainer/ButtonBack" to="." method="_on_back_pressed"]
