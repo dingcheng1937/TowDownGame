@@ -1,0 +1,208 @@
+[gd_scene format=3 uid="uid://qi1fywe0o75c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ywc65"]
+outline_size = 6
+outline_color = Color(0.11119685, 0.11119684, 0.11119684, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jakv2"]
+font_size = 6
+outline_size = 3
+outline_color = Color(0.11119685, 0.11119684, 0.11119684, 1)
+
+[node name="starting_ui" type="Node2D" unique_id=912196548]
+
+[node name="inGameUI" type="CanvasLayer" parent="." unique_id=1871143613]
+
+[node name="ButtonPlay2" type="Node2D" parent="inGameUI" unique_id=90328144]
+position = Vector2(156, -116)
+
+[node name="ColorRect" type="ColorRect" parent="inGameUI/ButtonPlay2" unique_id=1566110283]
+offset_left = 188.0
+offset_top = 129.0
+offset_right = 238.0
+offset_bottom = 157.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="inGameUI/ButtonPlay2/ColorRect" unique_id=1158703468]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 48.0
+offset_bottom = 26.0
+color = Color(0, 0, 1, 1)
+
+[node name="Label" type="Label" parent="inGameUI/ButtonPlay2" unique_id=1604686865]
+offset_left = 190.0
+offset_top = 131.0
+offset_right = 236.0
+offset_bottom = 155.0
+text = "QUIT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="inGameUI/ButtonPlay2" unique_id=1324483344]
+offset_left = 189.0
+offset_top = 130.0
+offset_right = 237.0
+offset_bottom = 156.0
+
+[node name="StartScreen" type="CanvasLayer" parent="." unique_id=653135348]
+
+[node name="bg" type="ColorRect" parent="StartScreen" unique_id=981663037]
+offset_left = 130.0
+offset_top = 14.0
+offset_right = 296.0
+offset_bottom = 206.0
+color = Color(0, 0, 0, 1)
+
+[node name="bg2" type="ColorRect" parent="StartScreen/bg" unique_id=634214475]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 162.0
+offset_bottom = 189.0
+
+[node name="Title" type="Label" parent="StartScreen" unique_id=1528999584]
+offset_left = 134.0
+offset_top = 17.0
+offset_right = 292.0
+offset_bottom = 72.0
+text = "Game Title"
+label_settings = SubResource("LabelSettings_ywc65")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="dec" type="Label" parent="StartScreen" unique_id=2121996689]
+offset_left = 138.0
+offset_top = 72.0
+offset_right = 288.0
+offset_bottom = 127.0
+text = "text texttexttexttexttexttexttext texttexttexttexttexttexttext texttexttexttexttexttext"
+label_settings = SubResource("LabelSettings_jakv2")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="ButtonPlay" type="Node2D" parent="StartScreen" unique_id=1648456615]
+
+[node name="ColorRect" type="ColorRect" parent="StartScreen/ButtonPlay" unique_id=558109215]
+offset_left = 188.0
+offset_top = 129.0
+offset_right = 238.0
+offset_bottom = 157.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="StartScreen/ButtonPlay/ColorRect" unique_id=1239498100]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 48.0
+offset_bottom = 26.0
+color = Color(0, 0, 1, 1)
+
+[node name="Label" type="Label" parent="StartScreen/ButtonPlay" unique_id=293879422]
+offset_left = 190.0
+offset_top = 131.0
+offset_right = 236.0
+offset_bottom = 155.0
+text = "PLAY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="StartScreen/ButtonPlay" unique_id=969728950]
+offset_left = 189.0
+offset_top = 130.0
+offset_right = 237.0
+offset_bottom = 156.0
+
+[node name="ButtonPlay2" type="Node2D" parent="StartScreen" unique_id=1155717318]
+position = Vector2(0, 38)
+
+[node name="ColorRect" type="ColorRect" parent="StartScreen/ButtonPlay2" unique_id=489325569]
+offset_left = 188.0
+offset_top = 129.0
+offset_right = 238.0
+offset_bottom = 157.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="StartScreen/ButtonPlay2/ColorRect" unique_id=1617940822]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 48.0
+offset_bottom = 26.0
+color = Color(0, 0, 1, 1)
+
+[node name="Label" type="Label" parent="StartScreen/ButtonPlay2" unique_id=518067769]
+offset_left = 190.0
+offset_top = 131.0
+offset_right = 236.0
+offset_bottom = 155.0
+text = "QUIT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="StartScreen/ButtonPlay2" unique_id=1360058913]
+offset_left = 189.0
+offset_top = 130.0
+offset_right = 237.0
+offset_bottom = 156.0
+
+[node name="GameOverScreen" type="CanvasLayer" parent="." unique_id=656122142]
+
+[node name="bg" type="ColorRect" parent="GameOverScreen" unique_id=1387008119]
+offset_left = 130.0
+offset_top = 14.0
+offset_right = 296.0
+offset_bottom = 206.0
+color = Color(0, 0, 0, 1)
+
+[node name="bg2" type="ColorRect" parent="GameOverScreen/bg" unique_id=636389530]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 162.0
+offset_bottom = 189.0
+
+[node name="Title" type="Label" parent="GameOverScreen" unique_id=413068848]
+offset_left = 134.0
+offset_top = 17.0
+offset_right = 292.0
+offset_bottom = 72.0
+text = "Game Over"
+label_settings = SubResource("LabelSettings_ywc65")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonPlay2" type="Node2D" parent="GameOverScreen" unique_id=2052877118]
+position = Vector2(0, 4)
+
+[node name="ColorRect" type="ColorRect" parent="GameOverScreen/ButtonPlay2" unique_id=2054120067]
+offset_left = 188.0
+offset_top = 129.0
+offset_right = 238.0
+offset_bottom = 157.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="GameOverScreen/ButtonPlay2/ColorRect" unique_id=130586070]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 48.0
+offset_bottom = 26.0
+color = Color(0, 0, 1, 1)
+
+[node name="Label" type="Label" parent="GameOverScreen/ButtonPlay2" unique_id=436757727]
+offset_left = 190.0
+offset_top = 131.0
+offset_right = 236.0
+offset_bottom = 155.0
+text = "QUIT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="GameOverScreen/ButtonPlay2" unique_id=2017753285]
+offset_left = 189.0
+offset_top = 130.0
+offset_right = 237.0
+offset_bottom = 156.0
