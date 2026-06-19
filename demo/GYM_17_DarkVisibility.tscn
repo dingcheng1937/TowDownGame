@@ -1,0 +1,285 @@
+[gd_scene format=3 uid="uid://bk3m7darkvis17"]
+
+[ext_resource type="PackedScene" uid="uid://8lekrqo3cykw" path="res://game/hero/Hero.tscn" id="1_hero"]
+[ext_resource type="Script" path="res://demo/GYM_17_DarkVisibilityStarter.gd" id="2_starter"]
+[ext_resource type="Script" uid="uid://c7oibv06cluva" path="res://game/hero/Camera2D.gd" id="3_camera"]
+[ext_resource type="PackedScene" uid="uid://ba5j614tj2nty" path="res://ui/widgets/InfoPanel.tscn" id="4_infopanel"]
+[ext_resource type="Script" path="res://demo/GYM_UIRoot.gd" id="5_uiroot"]
+[ext_resource type="Texture2D" uid="uid://6dfnhmchpyb2" path="res://game/hero/Light (1).png" id="6_light"]
+
+[sub_resource type="GDScript" id="GDScript_anchor"]
+script/source = "extends Node2D
+
+func _physics_process(_delta: float) -> void:
+	if Utils.player:
+		var target = Utils.player.global_position
+		var x = int(lerp(global_position.x, target.x, 0.2))
+		var y = int(lerp(global_position.y, target.y, 0.2))
+		global_position = Vector2(x, y)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(1200, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(40, 800)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obstacle"]
+size = Vector2(120, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obstacle2"]
+size = Vector2(40, 120)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_wall_h"]
+polygon = PackedVector2Array(-600, -20, 600, -20, 600, 20, -600, 20)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_wall_v"]
+polygon = PackedVector2Array(-20, -400, 20, -400, 20, 400, -20, 400)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_obstacle"]
+polygon = PackedVector2Array(-60, -20, 60, -20, 60, 20, -60, 20)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_obstacle2"]
+polygon = PackedVector2Array(-20, -60, 20, -60, 20, 60, -20, 60)
+
+[node name="GYM_17_DarkVisibility" type="Node2D"]
+script = ExtResource("2_starter")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.02, 0.02, 0.03, 1)
+
+[node name="Background" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 1100.0
+offset_bottom = 900.0
+color = Color(0.08, 0.08, 0.1, 1)
+
+[node name="PlayerRoot" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Hero" parent="PlayerRoot" instance=ExtResource("1_hero")]
+position = Vector2(500, 400)
+
+[node name="Anchor" type="Node2D" parent="PlayerRoot"]
+script = SubResource("GDScript_anchor")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerRoot/Anchor"]
+zoom = Vector2(1.2, 1.2)
+position_smoothing_enabled = true
+script = ExtResource("3_camera")
+
+[node name="UIRoot" type="CanvasLayer" parent="."]
+layer = 10
+script = ExtResource("5_uiroot")
+
+[node name="ToastUI" type="Control" parent="UIRoot"]
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UIRoot/ToastUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -10.0
+offset_right = 150.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "toast"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="UIRoot/ToastUI"]
+one_shot = true
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="WallTop" type="StaticBody2D" parent="Walls"]
+position = Vector2(500, -80)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallTop"]
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Walls/WallTop"]
+occluder = SubResource("OccluderPolygon2D_wall_h")
+
+[node name="ColorRect" type="ColorRect" parent="Walls/WallTop"]
+offset_left = -600.0
+offset_top = -20.0
+offset_right = 600.0
+offset_bottom = 20.0
+color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="WallBottom" type="StaticBody2D" parent="Walls"]
+position = Vector2(500, 780)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallBottom"]
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Walls/WallBottom"]
+occluder = SubResource("OccluderPolygon2D_wall_h")
+
+[node name="ColorRect" type="ColorRect" parent="Walls/WallBottom"]
+offset_left = -600.0
+offset_top = -20.0
+offset_right = 600.0
+offset_bottom = 20.0
+color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="WallLeft" type="StaticBody2D" parent="Walls"]
+position = Vector2(-100, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallLeft"]
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Walls/WallLeft"]
+occluder = SubResource("OccluderPolygon2D_wall_v")
+
+[node name="ColorRect" type="ColorRect" parent="Walls/WallLeft"]
+offset_left = -20.0
+offset_top = -400.0
+offset_right = 20.0
+offset_bottom = 400.0
+color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="WallRight" type="StaticBody2D" parent="Walls"]
+position = Vector2(1100, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallRight"]
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Walls/WallRight"]
+occluder = SubResource("OccluderPolygon2D_wall_v")
+
+[node name="ColorRect" type="ColorRect" parent="Walls/WallRight"]
+offset_left = -20.0
+offset_top = -400.0
+offset_right = 20.0
+offset_bottom = 400.0
+color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="Obstacles" type="Node2D" parent="."]
+
+[node name="Pillar1" type="StaticBody2D" parent="Obstacles"]
+position = Vector2(300, 250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Pillar1"]
+shape = SubResource("RectangleShape2D_obstacle2")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Obstacles/Pillar1"]
+occluder = SubResource("OccluderPolygon2D_obstacle2")
+
+[node name="ColorRect" type="ColorRect" parent="Obstacles/Pillar1"]
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = 60.0
+color = Color(0.25, 0.22, 0.2, 1)
+
+[node name="Pillar2" type="StaticBody2D" parent="Obstacles"]
+position = Vector2(700, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Pillar2"]
+shape = SubResource("RectangleShape2D_obstacle2")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Obstacles/Pillar2"]
+occluder = SubResource("OccluderPolygon2D_obstacle2")
+
+[node name="ColorRect" type="ColorRect" parent="Obstacles/Pillar2"]
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = 60.0
+color = Color(0.25, 0.22, 0.2, 1)
+
+[node name="Wall1" type="StaticBody2D" parent="Obstacles"]
+position = Vector2(500, 550)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Wall1"]
+shape = SubResource("RectangleShape2D_obstacle")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Obstacles/Wall1"]
+occluder = SubResource("OccluderPolygon2D_obstacle")
+
+[node name="ColorRect" type="ColorRect" parent="Obstacles/Wall1"]
+offset_left = -60.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = 20.0
+color = Color(0.25, 0.22, 0.2, 1)
+
+[node name="Wall2" type="StaticBody2D" parent="Obstacles"]
+position = Vector2(200, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Wall2"]
+shape = SubResource("RectangleShape2D_obstacle")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Obstacles/Wall2"]
+occluder = SubResource("OccluderPolygon2D_obstacle")
+
+[node name="ColorRect" type="ColorRect" parent="Obstacles/Wall2"]
+offset_left = -60.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = 20.0
+color = Color(0.25, 0.22, 0.2, 1)
+
+[node name="Wall3" type="StaticBody2D" parent="Obstacles"]
+position = Vector2(800, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Wall3"]
+shape = SubResource("RectangleShape2D_obstacle")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Obstacles/Wall3"]
+occluder = SubResource("OccluderPolygon2D_obstacle")
+
+[node name="ColorRect" type="ColorRect" parent="Obstacles/Wall3"]
+offset_left = -60.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = 20.0
+color = Color(0.25, 0.22, 0.2, 1)
+
+[node name="EnvironmentLights" type="Node2D" parent="."]
+
+[node name="Torch1" type="PointLight2D" parent="EnvironmentLights"]
+position = Vector2(150, 150)
+energy = 0.8
+color = Color(1, 0.8, 0.4, 1)
+shadow_enabled = true
+texture = ExtResource("6_light")
+texture_scale = 0.4
+
+[node name="Torch2" type="PointLight2D" parent="EnvironmentLights"]
+position = Vector2(850, 150)
+energy = 0.8
+color = Color(1, 0.8, 0.4, 1)
+shadow_enabled = true
+texture = ExtResource("6_light")
+texture_scale = 0.4
+
+[node name="InfoPanel" parent="." instance=ExtResource("4_infopanel")]
+title = "黑暗视野系统验证"
+content = "验证内容:
+- PointLight2D 视野锥: 跟随鼠标方向
+- LightOccluder2D: 墙壁投射阴影
+- CanvasModulate: 全局暗化
+- 理智联动光照: 低理智→光变暗/变红/闪烁
+- 环境光源: 火炬照明
+
+控制:
+WASD - 移动 | 鼠标 - 控制光照方向
+理智会自动流失，观察光照变化"

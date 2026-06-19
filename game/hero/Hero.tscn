@@ -379,14 +379,17 @@ lifetime = 0.4
 explosiveness = 0.8
 
 [node name="PointLight2D2" type="PointLight2D" parent="."]
-visible = false
+visible = true
 position = Vector2(0, -6)
-enabled = false
-energy = 0.5
+enabled = true
+color = Color(0.95, 0.9, 0.75, 1)
+energy = 1.2
 shadow_enabled = true
+shadow_filter = 2
 texture = ExtResource("6_ky4xl")
-offset = Vector2(140, 0)
-texture_scale = 0.3
+range_layer_min = -1
+range_layer_max = 1
+texture_scale = 1.0
 
 [node name="EquipRoot" type="Node2D" parent="."]
 

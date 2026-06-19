@@ -5,8 +5,14 @@ class_name Player
 @onready var gun_root = $body/GunRoot
 @onready var reward_root = $RewardRoot
 @onready var dash_part = $body/DashParticles2D
+@onready var player_light = $PointLight2D2
 const dash_obj = preload("res://game/hero/DashObj.tscn")
 const level_up_effect = preload("res://game/hero/effect/LevelUpEffect.tscn")
+
+## 光源参数
+var light_base_energy: float = 1.2
+var light_base_scale: float = 1.0
+var light_flicker_timer: float = 0.0
 
 var gun = null
 var melee_weapon = null
@@ -32,6 +38,10 @@ func _ready():
 	PlayerData.onPlayerLevelChange.connect(onPlayerLevelChange)
 	PlayerData.playerWeaponListChange.connect(playerWeaponListChange)
 	Utils.player = self
+	# 理智联动光源
+	if SanityServer.sanity_changed.is_connected(_on_sanity_changed):
+		SanityServer.sanity_changed.disconnect(_on_sanity_changed)
+	SanityServer.sanity_changed.connect(_on_sanity_changed)
 
 
 func _exit_tree() -> void:
@@ -46,6 +56,8 @@ func _exit_tree() -> void:
 		PlayerData.onPlayerLevelChange.disconnect(onPlayerLevelChange)
 	if PlayerData.playerWeaponListChange.is_connected(playerWeaponListChange):
 		PlayerData.playerWeaponListChange.disconnect(playerWeaponListChange)
+	if SanityServer.sanity_changed.is_connected(_on_sanity_changed):
+		SanityServer.sanity_changed.disconnect(_on_sanity_changed)
 	#PlayerData.add_attachment(preload("res://game/attachments/UniversalExtendedMagazines.tscn").instantiate())
 	#PlayerData.add_attachment(preload("res://game/attachments/ExtendedRifleMagazine.tscn").instantiate())
 	#PlayerData.add_attachment(preload("res://game/attachments/QuickExpansionMagazine.tscn").instantiate())
@@ -110,7 +122,16 @@ func _physics_process(delta):
 		velocity = direction * 600
 	move_and_slide()
 	changeAnim(direction)
-	$PointLight2D2.look_at(get_global_mouse_position())
+	# 光源朝向：跟随鼠标方向（提灯/手电筒效果）
+	player_light.look_at(get_global_mouse_position())
+	# 低理智时光源闪烁
+	if SanityServer.get_sanity_percent() < 0.3:
+		light_flicker_timer += delta
+		if light_flicker_timer > 0.1:
+			light_flicker_timer = 0.0
+			player_light.energy = light_base_energy * randf_range(0.6, 1.0)
+	else:
+		player_light.energy = light_base_energy
 	if gun:
 		gun.look_at(gun.global_position + gun.direction * 1000)
 		setGunLookat(gun.direction)
@@ -207,3 +228,19 @@ func addEquip(equip):
 		$EquipRoot.remove_child(child)
 		EquipServer.addEquipOnFloor(child,global_position)
 	$EquipRoot.add_child(equip)
+
+## 理智联动光源：理智越低，光越暗越小越红
+func _on_sanity_changed(current: float, max_sanity: float) -> void:
+	var pct = current / max_sanity
+	# 光源强度：理智100%→1.2，理智0%→0.4
+	player_light.energy = lerpf(0.4, light_base_energy, pct)
+	light_base_energy = player_light.energy
+	# 光源范围：理智100%→1.0，理智0%→0.5
+	player_light.texture_scale = lerpf(0.5, light_base_scale, pct)
+	# 光源颜色：理智高→暖白，理智低→暗红
+	player_light.color = Color(
+		lerpf(0.7, 0.95, pct),
+		lerpf(0.3, 0.9, pct),
+		lerpf(0.2, 0.75, pct),
+		1.0
+	)
